@@ -17,7 +17,7 @@ import { TextAreaProperties } from 'src/shared';
     },
   ],
 })
-export class TextAreaComponent implements OnInit, ControlValueAccessor {
+export class TextAreaComponent implements  ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: TextAreaProperties;
 
@@ -30,9 +30,6 @@ export class TextAreaComponent implements OnInit, ControlValueAccessor {
       rows:5
     }
   }
-
-  ngOnInit(): void {}
-
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};
 

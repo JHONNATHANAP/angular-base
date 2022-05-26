@@ -21,7 +21,7 @@ import { SelectProperties } from 'src/shared/models';
     },
   ],
 })
-export class SelectComponent implements OnInit, ControlValueAccessor {
+export class SelectComponent implements  ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: SelectProperties;
 
@@ -35,7 +35,6 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     };
   }
 
-  ngOnInit(): void {}
 
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};

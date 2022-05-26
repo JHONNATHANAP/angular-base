@@ -17,7 +17,7 @@ import { InputProperties } from 'src/shared';
     },
   ],
 })
-export class InputComponent implements OnInit, ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: InputProperties;
 
@@ -31,7 +31,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  ngOnInit(): void {}
 
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};

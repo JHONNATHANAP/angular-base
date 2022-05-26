@@ -6,7 +6,7 @@ import { ButtonProperties } from '../../../models/buttons-model';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent {
   @Output() clickEvent = new EventEmitter<any>();
   @Input() properties: ButtonProperties;
   constructor() {
@@ -17,7 +17,6 @@ export class ButtonComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
 
   private propagateClick: any = () => {};
   emitClick(event: MouseEvent): void{

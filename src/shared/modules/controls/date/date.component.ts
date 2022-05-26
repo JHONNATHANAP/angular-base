@@ -17,7 +17,7 @@ import { DateProperties } from 'src/shared';
     },
   ],
 })
-export class DateComponent implements OnInit, ControlValueAccessor {
+export class DateComponent implements  ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: DateProperties;
 
@@ -30,8 +30,6 @@ export class DateComponent implements OnInit, ControlValueAccessor {
       class:'',
     }
   }
-
-  ngOnInit(): void {}
 
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};

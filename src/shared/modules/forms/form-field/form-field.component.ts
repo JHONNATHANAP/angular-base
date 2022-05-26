@@ -6,17 +6,14 @@ import { FormFieldProperties } from 'src/shared';
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss']
 })
-export class FormFieldComponent implements OnInit {
+export class FormFieldComponent  {
 
 
   @Input() properties!: FormFieldProperties;
 
   constructor() {
-   // this.properties.inline = true;
   }
 
-  ngOnInit(): void {
-  }
 
   hasError(): boolean {
     return this.properties.formControl && this.properties.formControl.invalid && this.properties.formControl.touched;
