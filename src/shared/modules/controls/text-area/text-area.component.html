@@ -1,0 +1,12 @@
+<div>
+  <textarea
+    type="text"
+    aria-label="textarea"
+    class="form-control {{ properties.class }} "
+    [value]="properties.value"
+    [placeholder]="properties.placeholder || ''"
+    [attr.disabled]="properties.disabled ? true : null"
+    (keyup)="onKeyup($event)"
+    (blur)="onBlur()"
+    rows="{{properties.rows}}"></textarea>
+</div>

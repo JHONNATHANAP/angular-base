@@ -1,0 +1,17 @@
+<div>
+  <select
+    class="form-select {{ properties.class }}"
+    aria-label="input"
+    [attr.disabled]="properties.disabled ? true : null"
+    (blur)="onBlur()"
+    (change)="onChange($event)"
+  >
+    <option value="" disabled selected>{{properties.placeholder?properties.placeholder:'Select an option'}}</option>
+    <option
+      *ngFor="let item of properties.items"
+      [value]="getValue(item.value)"
+    >
+      {{ item.label }}
+    </option>
+  </select>
+</div>

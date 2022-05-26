@@ -1,0 +1,18 @@
+.breadcrumb{
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background: #fafafa;
+    margin: 0px;
+}
+
+.breadcrumb-item.active {
+    background-color: transparent;
+    color: #000000;
+}
+
+.breadcrumb-item a {
+    background-color: transparent;
+    color: #000000;
+}

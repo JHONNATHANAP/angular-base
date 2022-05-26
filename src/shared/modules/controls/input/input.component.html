@@ -1,0 +1,12 @@
+<div>
+  <input
+    type="text"
+    aria-label="input"
+    class="form-control {{ properties.class }} "
+    [value]="properties.value"
+    [placeholder]="properties.placeholder || ''"
+    [attr.disabled]="properties.disabled ? true : null"
+    (keyup)="onKeyup($event)"
+    (blur)="onBlur()"
+  />
+</div>

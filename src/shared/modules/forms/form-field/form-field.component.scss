@@ -1,0 +1,57 @@
+@import "src/styles/colors";
+
+.form-field {
+  padding-bottom: 8px;
+
+  &__label {
+    display: flex;
+    margin: 0 0 6px 0;
+  }
+ 
+
+  &__control {
+    display: block;
+  }
+
+  &__error {
+    font-size: 12px;
+    color: $error !important;
+    padding: 4px 0;
+    min-height: 22px;
+    
+  }
+
+  span {
+    display: block;
+  }
+
+  &_error {
+    .form-field__error {
+      display: flex;
+    }
+    .form-control{
+      color:$error;
+    }
+   
+ 
+  }
+
+  &_inline {
+    display: flex;
+
+    > .form-field__label {
+      padding: 10px 12px 10px 0;
+      width: 30%;
+    }
+
+    > .form-field__control {
+      width: 70%;
+    }
+    > .form-field__control__full {
+      width: 100%;
+    }
+  }
+}
+.form-control_error{
+  color: $error !important;
+}

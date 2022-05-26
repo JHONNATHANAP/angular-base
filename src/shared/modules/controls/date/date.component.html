@@ -1,0 +1,12 @@
+<div>
+  <input
+    type="date"
+    aria-label="input"
+    class="form-control {{ properties.class }} "
+    [value]="properties.value"
+    [placeholder]="properties.placeholder || ''"
+    [attr.disabled]="properties.disabled ? true : null"
+    (change)="onChange($event)"
+    (blur)="onBlur()"
+  />
+</div>

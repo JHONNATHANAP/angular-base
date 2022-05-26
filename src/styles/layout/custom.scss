@@ -1,0 +1,192 @@
+@import "src/styles/colors";
+mat-sidenav-content,
+mat-sidenav,
+mat-nav-list {
+  height: 100%;
+}
+mat-sidenav-container {
+  /* height: calc(100% - 70px); */
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  //justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+
+
+
+  .up {
+    padding: 15px;
+    height: 100px;
+    display: flex;
+
+    .logo {
+      width: 100%;
+
+      img {
+        height: 100%;
+        margin-left: 10%;
+      }
+    }
+    .menu {
+      display: flex;
+      align-content: center;
+    }
+  }
+  &__title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 15px;
+    height: 60px;
+    background-color: $primary;
+    color: $on-primary;
+    .title {
+      margin: 0;
+    }
+  }
+}
+
+.icons.md-18 {
+  font-size: 18px;
+}
+.icons.md-24 {
+  font-size: 24px;
+}
+.icons.md-36 {
+  font-size: 36px;
+}
+.icons.md-48 {
+  font-size: 48px;
+}
+
+.estiloIcon {
+  cursor: pointer;
+  margin-right: 15px;
+  color: black;
+}
+
+.estiloIcon:hover {
+  color: #0277bd;
+}
+
+.app-a {
+  margin-left: 1em;
+  margin-right: 0;
+}
+.user {
+  color: $primary !important;
+  cursor: pointer;
+  .user-icon {
+    span {
+      font-size: 55px;
+    }
+  }
+  .user-info {
+    font-size: 14px;
+    min-width: 130px;
+    .name {
+      color: $primary !important;
+      font-weight: 700 !important;
+    }
+    .rol {
+      font-size: 10px;
+    }
+  }
+}
+.navegation-list-label {
+  display: inline-block;
+  padding-left: 6px;
+  color: black;
+}
+.custom-link {
+  color: black !important;
+  a {
+    color: black !important;
+    text-decoration: none;
+  }
+}
+
+.active {
+  background-color: $primary-light;
+  color: $on-primary;
+  a {
+    color: $on-primary !important;
+    text-decoration: none;
+  }
+}
+.active:hover {
+  background-color: $primary-dark;
+  color: $on-primary;
+  a {
+    color: $on-primary !important;
+  }
+}
+
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+.mat-list-item-content {
+  display: flex !important;
+}
+/*
+ * This padding sets alignment of the nested nodes.
+ */
+.example-tree .mat-nested-tree-node div[role="group"] {
+  padding-left: 40px;
+}
+
+/*
+ * Padding for leaf nodes.
+ * Leaf nodes need to have padding so as to align with other non-leaf nodes
+ * under the same parent.
+ */
+.example-tree div[role="group"] > .mat-tree-node {
+  padding-left: 40px;
+}
+mat-sidenav {
+  border-right: solid 1px lightgray;
+  box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+  border-right: solid 3px #4a4644;
+}
+
+h1{
+  font-size: 24px;
+}
+
+.center {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+}
+
+.circles{
+  width: 30px;
+}
+.form-control,.form-select{
+  border-radius: 20px !important;
+  border: 1px solid $primary;
+  background-image: none;
+ 
+}
+.form-control:focus.form-select:focus{
+  box-shadow: 0 0 0 0.25rem #1123c542;
+  background-image: none;    
+}

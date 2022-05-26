@@ -1,0 +1,12 @@
+<div class="fl-justify-center row app-list-card p-3">
+    <div *ngFor="let item of items" class=" app-list-card-item col-12 col-sm-6 col-md-4 col-lg-3 p-10" >
+        <div class="card mb-3">
+            <img *ngIf="item?.img?.url" src="{{item?.img?.url}}" class="{{item?.img?.class}} card-img-top" alt="{{item?.title?.name}}">
+            <div class="card-body">
+              <h2 class="card-title app-title" title="{{item?.title?.name}}">{{item?.title?.name}}</h2>
+              <p class="card-text app-subtitle" title="{{item?.subtitle?.name}}" >{{item?.subtitle?.name}}</p>
+              <p class="card-text"><small class="text-muted link" (click)="openEvent(item?.item)" i18n>See more</small></p>
+            </div>
+          </div>
+    </div>
+</div>

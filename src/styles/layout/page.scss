@@ -1,0 +1,66 @@
+
+.app-page {
+    max-width: 900px;
+    margin: 16px auto;
+    background: $base-light;
+    //border: 1px solid $base-dark;
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+  
+  
+    &__header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+  
+    &__content {
+        height: 100vh;
+    }
+  
+    &__footer {
+      margin-top: 32px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    &.full-page {
+      margin: 0px !important;
+      max-width: none !important;
+      border-radius: 0px !important;
+      min-height: 100% ;
+      .app-page__footer {
+        position: absolute !important;
+        bottom: 0px !important;
+        margin-top:0px !important;
+        width: 100% !important;
+        right: 0;
+        left: 0;
+        justify-content: center;
+      }
+    }
+  
+  
+  }
+  .header {  
+    &__title{
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      padding: 15px;
+      height: 60px;
+      background-color: $primary;
+      color:$on-primary;
+      .title{
+        margin: 0;
+      }
+    }
+  }
+  .fit-content{
+    min-height: fit-content !important;
+  }
+  .content{
+    display: flex;
+    padding-top: 50px;
+    height: 100%;
+  }

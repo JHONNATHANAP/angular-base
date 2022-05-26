@@ -1,0 +1,8 @@
+<p>home works!</p>
+<button
+  class="btn btn-primary"
+  *ngFor="let item of menu"
+  routerLink="{{ item.path }}"
+>
+  {{ item.name }}
+</button>

@@ -1,0 +1,80 @@
+<form
+  [formGroup]="form"
+  class="w-100 fl-al-item-center fl-col"
+  (keyup.enter)="onSubmit()"
+  #genericForm="ngForm"
+  (ngSubmit)="onSubmit()"
+  novalidate
+  autocomplete="off"
+>
+  <ng-container *ngTemplateOutlet="properties.headerTemplate"></ng-container>
+
+  <div class="{{ properties.class }} fl-col input-controls">
+    <div class="row">
+      <ng-container
+        *ngFor="let control of properties.controls"
+        [ngSwitch]="control.type"
+      >
+        <div class="{{ control.class }} app-control">
+          <app-form-field class="w-100" [properties]="formField(control)">
+            <ng-template ngSwitchCase="text">
+              <app-input
+                [properties]="control.control"
+                formControlName="{{ control.formControlName }}"
+              ></app-input>
+            </ng-template>
+            <ng-template ngSwitchCase="number">
+              <app-number
+                [properties]="control.control"
+                formControlName="{{ control.formControlName }}"
+              ></app-number>
+            </ng-template>
+            <ng-template ngSwitchCase="textarea">
+              <app-text-area
+                [properties]="control.control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-text-area>
+            </ng-template>
+            <ng-template ngSwitchCase="select">
+              <app-select
+                [properties]="control.control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-select>
+            </ng-template>
+            <ng-template ngSwitchCase="date">
+              <app-date
+                [properties]="control.control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-date>
+            </ng-template>
+          </app-form-field>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngTemplateOutlet="properties.footerTemplate"></ng-container>
+  <div
+    class="pt-20 w-100 fl-justify-center"
+    *ngIf="properties?.submit?.show || properties?.clean?.show"
+  >
+    <app-button
+      class="pr-10"
+      type="button"
+      *ngIf="properties?.clean?.show"
+      (click)="cleanControls()"
+      [properties]="properties.clean.properties"
+    >
+      {{ properties?.clean?.label }}</app-button
+    >
+    <app-button
+      class="pl-10"
+      type="submit"
+      *ngIf="properties?.submit?.show"
+      [properties]="properties.submit.properties"
+      >{{ properties?.submit?.label }}</app-button
+    >
+  </div>
+</form>
