@@ -1,5 +1,5 @@
 <div>
-  <textarea
+  <textarea *ngIf="properties?.framework==='bootstrap'"
     type="text"
     aria-label="textarea"
     class="form-control {{ properties.class }} "
@@ -8,5 +8,24 @@
     [attr.disabled]="properties.disabled ? true : null"
     (keyup)="onKeyup($event)"
     (blur)="onBlur()"
-    rows="{{properties.rows}}"></textarea>
+    rows="{{ properties.rows }}"
+  ></textarea>
+
+  <mat-form-field
+    *ngIf="properties?.framework !== 'bootstrap'"
+    [appearance]="properties.appearance ? properties.appearance : 'outline'"
+  >
+    <mat-label>{{ properties.label || "" }}</mat-label>
+    <textarea
+      [disabled]="properties.disabled"
+      matInput
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      [placeholder]="properties.placeholder || ''"
+      [cdkAutosizeMinRows]="properties.rows"
+      (keyup)="onKeyup($event)"
+      (blur)="onBlur()"
+      [value]="properties.value"
+    ></textarea>
+  </mat-form-field>
 </div>

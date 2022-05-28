@@ -1,10 +1,14 @@
 import {
-  Component, EventEmitter, forwardRef,
-  Input, OnInit, Output
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AppDate } from 'src/shared';
-
+import { AppDate, sharedConts } from 'src/shared';
+import moment from 'moment';
 @Component({
   selector: 'app-date',
   templateUrl: './date.component.html',
@@ -17,13 +21,16 @@ import { AppDate } from 'src/shared';
     },
   ],
 })
-export class DateComponent implements  ControlValueAccessor {
+export class DateComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: AppDate;
-
-
+  @Output() closed = new EventEmitter<void>();
+  value: any;
+  get inputValue(): Date | null {
+    return this.value ? new Date(this.value) : null;
+  }
   constructor() {
-    this.properties=new AppDate();
+    this.properties = new AppDate();
   }
 
   private propagateChange: any = () => {};
@@ -49,8 +56,21 @@ export class DateComponent implements  ControlValueAccessor {
     this.propagateChange(this.properties.value);
     this.changeEvent.emit(this.properties.value);
   }
+  onChangeMaterial(event: any): void {
+    console.log(event);
+    this.value = event.value ? event.value.getTime() : new Date().getTime();
+    this.properties.value = moment(event.value).format(
+      sharedConts.forms.controls.date.outputFormat
+    );
+    this.propagateChange(this.properties.value);
+    this.changeEvent.emit(this.properties.value);
+  }
 
   onBlur(): void {
     this.propagateTouched();
+  }
+  onClosed(): void {
+    this.propagateTouched();
+    this.closed.emit();
   }
 }

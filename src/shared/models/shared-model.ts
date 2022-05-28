@@ -6,6 +6,9 @@ export interface IAppShared {
     appearance: AppControlAppearance;
     input: {
       type: FormControlType;
-    };
+    },
+    date:{
+      outputFormat:string
+    }
   };
 }

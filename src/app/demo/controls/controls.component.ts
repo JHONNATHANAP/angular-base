@@ -24,6 +24,7 @@ export class ControlsComponent {
         validators: [Validators.required],
         formControlName: 'documentType',
         label: 'Tipo de documento',
+       /*  value:{id:1}, */
         options: [
           { value: { id: 1 }, label: 'CC' },
           { value: { id: 2 }, label: 'DD' },

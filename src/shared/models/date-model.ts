@@ -1,5 +1,5 @@
 import { IAppControl } from '.';
-import { FormControlType } from './control-model';
+import { AppControlAppearance, Appframework, FormControlType } from './control-model';
 
 export interface IAppDate extends IAppControl {
   min?: string;
@@ -18,6 +18,8 @@ export class AppDate implements IAppDate {
   patternError?: string | undefined;
   class?: string | undefined;
   type: FormControlType;
+  framework?: Appframework ;
+  appearance?: AppControlAppearance;
   constructor(entity?: IAppDate) {
     this.type = 'date';
     if (!entity) return;

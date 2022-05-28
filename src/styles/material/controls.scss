@@ -14,15 +14,15 @@
 mat-form-field {
   width: 100%;
 }
-.mat-form-field-wrapper{
-    padding: 0%;
+.mat-form-field-wrapper {
+  padding: 0%;
 }
 :host-context(.form-control_error) {
-  ::ng-deep .mat-form-field .mat-form-field-outline  {
+  ::ng-deep .mat-form-field .mat-form-field-outline {
     color: $error !important;
     // opacity: 1!important;
   }
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick  {
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     color: $error !important;
     // opacity: 1!important;
   }
@@ -33,16 +33,23 @@ mat-form-field {
   ::ng-deep .mat-focused .mat-form-field-label {
     /*change color of label*/
     color: $error !important;
-   }
-  
-   ::ng-deep.mat-form-field-underline {
+  }
+
+  ::ng-deep.mat-form-field-underline {
     /*change color of underline*/
     background-color: $error !important;
-  } 
-  
+  }
+
   ::ng-deep.mat-form-field-ripple {
-   /*change color of underline when focused*/
-   background-color:  $error !important;
+    /*change color of underline when focused*/
+    background-color: $error !important;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $error !important;
+    // opacity: 1!important;
+  }
+  ::ng-deep .mat-form-field-label {
+    color: $error !important;
   }
 }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {

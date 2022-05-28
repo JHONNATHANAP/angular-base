@@ -89,7 +89,7 @@ export class AppFormControl
   appearance?:AppControlAppearance;
   framework?: Appframework = sharedConts.forms.framework;
   constructor(entity: AllControls) {
-    this.appearance = 'outline';
+    this.appearance = sharedConts.forms.controls.appearance;
     this.formControlName = entity.formControlName ? entity.formControlName : '';
     this.type = entity.type;
     this.value = null;

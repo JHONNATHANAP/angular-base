@@ -53,6 +53,11 @@ export class SelectComponent implements ControlValueAccessor {
     this.propagateChange(this.properties.value);
     this.changeEvent.emit(this.properties.value);
   }
+  onChangeMaterial(event: any): void {  
+    this.properties.value = event.value;
+    this.propagateChange(this.properties.value);
+    this.changeEvent.emit(this.properties.value);
+  }
 
   onBlur(): void {
     this.propagateTouched();

@@ -1,6 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 import { IAppControl } from '.';
-import { AppControlAppearance, FormControlType } from './control-model';
+import { sharedConts } from '..';
+import { AppControlAppearance, Appframework, FormControlType } from './control-model';
 
 export interface IAppSelect extends IAppControl {
   options?: IAppSelectOption[];
@@ -20,6 +21,7 @@ export class AppSelect implements IAppSelect {
     });
   }
   appearance?: AppControlAppearance;
+  framework?: Appframework = sharedConts.forms.framework;
   formControlName?: string | undefined;
   validators?: any[] | undefined;
   formControl?: AbstractControl | undefined;

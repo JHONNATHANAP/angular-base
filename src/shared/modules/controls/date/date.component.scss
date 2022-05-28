@@ -1,4 +1,5 @@
 @import "src/styles/colors";
+@import "src/styles/material/controls";
 :host-context(.form-control_error) {
   .form-control {
     border: 1px solid $error;

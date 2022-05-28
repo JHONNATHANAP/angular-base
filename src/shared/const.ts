@@ -7,5 +7,8 @@ export const forms: IAppShared = {
     input: {
       type: 'text',
     },
+    date:{
+      outputFormat:'YYYY-MM-DD'
+    }
   },
 };
