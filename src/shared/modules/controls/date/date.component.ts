@@ -3,7 +3,7 @@ import {
   Input, OnInit, Output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateProperties } from 'src/shared';
+import { AppDate } from 'src/shared';
 
 @Component({
   selector: 'app-date',
@@ -19,16 +19,11 @@ import { DateProperties } from 'src/shared';
 })
 export class DateComponent implements  ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: DateProperties;
+  @Input() properties: AppDate;
 
 
   constructor() {
-    this.properties={
-      value:'',
-      disabled:false,
-      placeholder:'',
-      class:'',
-    }
+    this.properties=new AppDate();
   }
 
   private propagateChange: any = () => {};

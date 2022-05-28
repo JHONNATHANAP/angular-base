@@ -1,4 +1,5 @@
-import { ButtonProperties } from "./buttons-model";
+import { IAppButton } from ".";
+
 
 export type ItemsListProperties = ItemListProperties[];
 export interface ItemListProperties {
@@ -14,7 +15,7 @@ export interface ItemListDetailProperties extends ItemListProperties{
     id:number;
 
 }
-export interface ItemDetailButtons extends ButtonProperties{
+export interface ItemDetailButtons extends IAppButton{
     title:string;
     event:string;
 }

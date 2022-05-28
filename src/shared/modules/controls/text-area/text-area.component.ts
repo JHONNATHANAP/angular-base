@@ -1,9 +1,13 @@
 import {
-  Component, EventEmitter, forwardRef,
-  Input, OnInit, Output
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TextAreaProperties } from 'src/shared';
+import { AppTextArea } from 'src/shared';
 
 @Component({
   selector: 'app-text-area',
@@ -17,18 +21,12 @@ import { TextAreaProperties } from 'src/shared';
     },
   ],
 })
-export class TextAreaComponent implements  ControlValueAccessor {
+export class TextAreaComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: TextAreaProperties;
+  @Input() properties: AppTextArea;
 
   constructor() {
-    this.properties={
-      value:'',
-      disabled:false,
-      placeholder:'',
-      class:'',
-      rows:5
-    }
+    this.properties = new AppTextArea();
   }
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};

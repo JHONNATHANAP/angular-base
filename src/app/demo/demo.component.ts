@@ -6,9 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent  {
-
+  menu = [{ name: 'controls', path: './demo/controls' }];
   constructor() { }
-
-
 
 }

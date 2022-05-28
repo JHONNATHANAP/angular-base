@@ -7,7 +7,7 @@ import {
   HttpGetRequest,
   HttpOptions,
   HttpPostRequest
-} from '../models/http';
+} from '../models/http-model';
 
 @Injectable()
 export class Api {

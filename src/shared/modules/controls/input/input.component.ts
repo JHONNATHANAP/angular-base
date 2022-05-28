@@ -1,9 +1,13 @@
 import {
-  Component, EventEmitter, forwardRef,
-  Input, OnInit, Output
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputProperties } from 'src/shared';
+import { AppInput } from 'src/shared';
 
 @Component({
   selector: 'app-input',
@@ -19,18 +23,11 @@ import { InputProperties } from 'src/shared';
 })
 export class InputComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: InputProperties;
-
+  @Input() properties: AppInput;
 
   constructor() {
-    this.properties={
-      value:'',
-      disabled:false,
-      placeholder:'',
-      class:'',
-    }
+    this.properties = new AppInput();
   }
-
 
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};

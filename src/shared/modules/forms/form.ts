@@ -1,4 +1,4 @@
-import { ControlItem } from "../../models";
+import { AppFormControl } from "../../models";
 
 
 
@@ -12,9 +12,19 @@ export const markFormGroupTouched = (formGroup: any) => {
 
   })
 }
+export const markFormGroupUnTouched = (formGroup: any) => {
+  (Object as any).values(formGroup.controls).forEach((control: any) => {
+      control.touched=false;
+
+      if(control.controls){
+        markFormGroupUnTouched(control);
+      }
+
+  })
+}
 
 export interface Control {
-  items? : ControlItem[];
+  items? : AppFormControl[];
   changed? : () => void;
   map?: (() => void) | any;
 }

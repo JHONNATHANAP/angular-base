@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ButtonProperties } from '../../../models/buttons-model';
+import { AppButton } from '../../../models/button-model';
 
 @Component({
   selector: 'app-button',
@@ -8,19 +8,15 @@ import { ButtonProperties } from '../../../models/buttons-model';
 })
 export class ButtonComponent {
   @Output() clickEvent = new EventEmitter<any>();
-  @Input() properties: ButtonProperties;
+  @Input() properties: AppButton;
   constructor() {
-    this.properties={
-      type:'button',
-      class:'btn-primary',
-      data:null
-    }
+    this.properties=new AppButton();
   }
 
 
   private propagateClick: any = () => {};
   emitClick(event: MouseEvent): void{
     this.propagateClick();
-    this.clickEvent.emit(this.properties.data);
+    this.clickEvent.emit(this.properties?.data);
   }
 }

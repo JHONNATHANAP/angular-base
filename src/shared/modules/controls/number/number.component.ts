@@ -3,7 +3,7 @@ import {
   Input, OnInit, Output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputProperties } from 'src/shared';
+import { AppInput } from 'src/shared';
 
 @Component({
   selector: 'app-number',
@@ -19,16 +19,11 @@ import { InputProperties } from 'src/shared';
 })
 export class NumberComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: InputProperties;
+  @Input() properties: AppInput;
 
 
   constructor() {
-    this.properties={
-      value:'',
-      disabled:false,
-      placeholder:'',
-      class:'',
-    }
+    this.properties = new AppInput({type:'number'});
   }
 
   private propagateChange: any = () => {};

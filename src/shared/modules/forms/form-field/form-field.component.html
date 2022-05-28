@@ -1,27 +1,29 @@
-<div class="form-field" [class.form-control_error]="hasError()" [class.form-field_inline]="properties.inline">
-    <label [class.form-control_error]="hasError()"  class="form-field__label" *ngIf="properties.label" >
-      {{ properties.label }}
-      <span class="form-field__req" *ngIf="properties.required">*</span>
-    </label>
-    <div class="form-field__control" [class.form-field__control__full]="!properties.label">
-          <ng-content></ng-content>
+<div
+  class="form-field"
+  [class.form-control_error]="properties.hasError()"
+  [class.form-field_inline]="properties.inline"
+>
+  <label
+    [class.form-control_error]="properties.hasError()"
+    class="form-field__label"
+    *ngIf="properties.label && properties.framework === 'bootstrap'"
+  >
+    {{ properties.label }}
+    <span
+      class="form-field__req"
+      *ngIf="properties.required"
+      title="Campo requerido"
+      >*</span
+    >
+  </label>
+  <div
+    class="form-field__control"
+    [class.form-field__control__full]="!properties.label"
+  >
+    <ng-content></ng-content>
 
-          <div *ngIf="hasError() && errorKey" class="form-field__error" >
-              <ng-container  [ngSwitch]="errorKey">
-                    <span *ngSwitchCase="'min'">Minimum {{properties.formControl.errors ? properties.formControl.errors[errorKey].min : 0}}</span>
-                    <span *ngSwitchCase="'max'">Maximum {{properties.formControl.errors ? properties.formControl.errors[errorKey].max : 100000}}</span>
-                    <span *ngSwitchCase="'required'" i18n>This field is required</span>
-                    <span *ngSwitchCase="'email'" i18n>Must be a valid email</span>
-                    <span *ngSwitchCase="'requiredtrue'" i18n>This field is required</span>
-                    <span *ngSwitchCase="'minlength'">Must be at least {{properties.formControl.errors ? properties.formControl.errors[errorKey].requiredLength : 0}} characters</span>
-                    <span *ngSwitchCase="'maxlength'">Must be maximum {{properties.formControl.errors ? properties.formControl.errors[errorKey].requiredLength : 0}} characters</span>
-                    <span *ngSwitchCase="'pattern'">
-                      <span *ngIf="properties.patternError">{{properties.patternError}}</span>
-                      <span *ngIf="!properties.patternError" i18n>The regex expresion is not valid</span>
-                    </span>
-              </ng-container>
-
-          </div>
-
+    <div class="form-field__error" *ngIf="properties.hasError()">
+      {{ properties.errorKey() }}
     </div>
+  </div>
 </div>

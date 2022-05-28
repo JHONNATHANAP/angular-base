@@ -1,5 +1,5 @@
-<div>
-  <input
+<div >
+  <input *ngIf="properties?.framework==='bootstrap'"
     type="text"
     aria-label="input"
     class="form-control {{ properties.class }} "
@@ -9,4 +9,18 @@
     (keyup)="onKeyup($event)"
     (blur)="onBlur()"
   />
+
+  <mat-form-field *ngIf="properties?.framework!=='bootstrap'" [appearance]="properties.appearance?properties.appearance:'outline'">
+    <mat-label>{{ properties.label || "" }}</mat-label>
+    <input
+      [type]="properties.type"
+      [disabled]="properties.disabled"
+      [value]="properties.value"
+      (keyup)="onKeyup($event)"
+      (blur)="onBlur()"
+      matInput
+      [placeholder]="properties.placeholder || ''"
+    />
+    <!--   <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  </mat-form-field>
 </div>

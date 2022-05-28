@@ -1,0 +1,51 @@
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+mat-form-field {
+  width: 100%;
+}
+.mat-form-field-wrapper{
+    padding: 0%;
+}
+:host-context(.form-control_error) {
+  ::ng-deep .mat-form-field .mat-form-field-outline  {
+    color: $error !important;
+    // opacity: 1!important;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick  {
+    color: $error !important;
+    // opacity: 1!important;
+  }
+  ::ng-deep .mat-form-field-label {
+    color: $error !important;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: $error !important;
+   }
+  
+   ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: $error !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color:  $error !important;
+  }
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: $primary !important;
+  // opacity: 1!important;
+}

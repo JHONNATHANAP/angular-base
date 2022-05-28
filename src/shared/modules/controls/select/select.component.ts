@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectProperties } from 'src/shared/models';
+import { AppSelect } from 'src/shared/models';
 
 @Component({
   selector: 'app-select',
@@ -21,20 +21,13 @@ import { SelectProperties } from 'src/shared/models';
     },
   ],
 })
-export class SelectComponent implements  ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: SelectProperties;
+  @Input() properties: AppSelect;
 
   constructor() {
-    this.properties = {
-      value: '',
-      disabled: false,
-      placeholder: '',
-      class: '',
-      items: [],
-    };
+    this.properties = new AppSelect();
   }
-
 
   private propagateChange: any = () => {};
   private propagateTouched: any = () => {};
@@ -64,7 +57,7 @@ export class SelectComponent implements  ControlValueAccessor {
   onBlur(): void {
     this.propagateTouched();
   }
-  getValue(value:any){
-    return JSON.stringify(value)
+  getValue(value: any) {
+    return JSON.stringify(value);
   }
 }
