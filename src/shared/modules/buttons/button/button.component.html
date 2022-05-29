@@ -1,3 +1,12 @@
-<button  (click)="emitClick($event)" class=" btn {{properties.class}} " [type]="properties.type">
-  <ng-content></ng-content>
-</button>
+<div>
+  <button *ngIf="properties?.framework==='bootstrap'"  (click)="emitClick($event)" class=" btn {{properties.class}} " [type]="properties.type">
+    <ng-content></ng-content>
+  </button>
+
+
+  <button  *ngIf="properties?.framework!=='bootstrap'"  (click)="emitClick($event)" class="app-button  {{properties.class}}" mat-flat-button [color]="properties.color" [type]="properties.type">
+    <ng-content></ng-content>
+  </button>
+  
+  
+</div>

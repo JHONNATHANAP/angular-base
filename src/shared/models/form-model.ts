@@ -20,8 +20,12 @@ import {
   markFormGroupTouched,
   markFormGroupUnTouched,
 } from '../modules/forms/form';
-import { AppButton, ButtonType } from './button-model';
-import { AppControlAppearance, Appframework, FormControlType } from './control-model';
+import { AppButton, ButtonType, IAppColorButton } from './button-model';
+import {
+  AppControlAppearance,
+  Appframework,
+  FormControlType,
+} from './control-model';
 
 export interface IAppFormButton extends IAppButton {
   label?: string;
@@ -34,6 +38,7 @@ export class AppFormButton implements IAppFormButton {
   type?: ButtonType | undefined;
   class?: string;
   data?: any;
+  color?: IAppColorButton;
   constructor(entity?: IAppFormButton) {
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
@@ -47,6 +52,7 @@ export class AppFormButton implements IAppFormButton {
       class: this.class,
       data: this.data,
       type: this.type,
+      color:this.color
     });
     return buttonBasic;
   }
@@ -58,6 +64,7 @@ export interface IAppFormGeneric {
   clean?: IAppFormButton;
   class?: string;
   updateOn?: 'change' | 'blur' | 'submit';
+  framework?: Appframework;
 }
 
 export type AllControls = IAppInput | IAppSelect | IAppDate | IAppTextArea;
@@ -86,7 +93,7 @@ export class AppFormControl
   class?: string;
   type: FormControlType;
   updateOn?: 'change' | 'blur' | 'submit';
-  appearance?:AppControlAppearance;
+  appearance?: AppControlAppearance;
   framework?: Appframework = sharedConts.forms.framework;
   constructor(entity: AllControls) {
     this.appearance = sharedConts.forms.controls.appearance;
@@ -98,7 +105,6 @@ export class AppFormControl
       const prop: string = e;
       this[prop] = entity[e] ? entity[e] : this[e];
     });
-    console.log(this.formControl?.hasValidator(Validators.required));
   }
 
   public hasError(): boolean {
@@ -169,12 +175,20 @@ export class AppFormGeneric implements IAppFormGeneric {
       show: true,
       type: 'submit',
       class: 'btn btn-primary',
+      color: 'primary',
+      framework: entity?.framework
+        ? entity?.framework
+        : sharedConts.forms.framework,
     });
     this.clean = new AppFormButton({
       label: 'Cancelar',
       show: true,
       type: 'button',
       class: 'btn btn-danger',
+      color: 'accent',
+      framework: entity?.framework
+        ? entity?.framework
+        : sharedConts.forms.framework,
     });
     this.controls = [];
     if (!entity) return;
@@ -200,7 +214,6 @@ export class AppFormGeneric implements IAppFormGeneric {
         this.change.next('');
       });
     });
-    console.log(this);
   }
 
   private buildForm(): FormGroup {

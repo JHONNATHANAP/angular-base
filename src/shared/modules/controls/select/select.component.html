@@ -20,7 +20,7 @@
       <mat-option *ngFor="let item of properties.options" [value]="item.value">
         {{item.label}}
       </mat-option>
-      <mat-option disabled *ngIf="properties.options?.length==0">
+      <mat-option disabled *ngIf="properties.options?.length===0">
         No hay información
       </mat-option>
     </mat-select>

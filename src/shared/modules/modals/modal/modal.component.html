@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ properties.title }}</h2>
+<mat-dialog-content class="mat-typography">
+  <ng-content></ng-content>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-button
+    *ngFor="let action of properties.actions"
+    mat-dialog-close
+    class="pr-10"
+    type="button"
+    (click)="properties.actionEvent($event)"
+    [properties]="action.basicButton()"
+  >
+    {{ action?.label }}</app-button
+  >
+</mat-dialog-actions>

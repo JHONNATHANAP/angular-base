@@ -57,7 +57,7 @@ export class DateComponent implements ControlValueAccessor {
     this.changeEvent.emit(this.properties.value);
   }
   onChangeMaterial(event: any): void {
-    console.log(event);
+  
     this.value = event.value ? event.value.getTime() : new Date().getTime();
     this.properties.value = moment(event.value).format(
       sharedConts.forms.controls.date.outputFormat
