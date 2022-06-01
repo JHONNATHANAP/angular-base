@@ -1,26 +1,8 @@
-
-
-
-
-<div class="app-header d-flex d-flex justify-content-between">
-  <div ></div>
-  <div class="d-flex align-items-center">
-    <h5 class="m-0">{{title}}</h5>
-  </div>
-  <div>
-    <button (click)="onClose()"
-      mat-icon-button
-      aria-label="Example icon button with a vertical three dot icon"
-    >
-      <app-icon mat-raised-button [properties]="closeIcon"></app-icon>
-    </button>
-  </div>
-</div>
-<div class="app-body ">
+<app-modal [properties]="modalProperties" >
   <div>
     <div class="files-upload p-10">
       <div class="files-upload__header"></div>
-  
+
       <div class="files-upload__content">
         <ng-container *ngIf="!files.length">
           <div
@@ -47,9 +29,11 @@
           <div class="error" *ngIf="isError">Seleccione un archivo</div>
         </ng-container>
       </div>
-  
+
       <div class="files-upload__footer" *ngIf="!imageFile">
-        <app-button (clickEvent)="onClose()" [properties]="closeButton">Cerrar</app-button>
+        <app-button (clickEvent)="onClose()" [properties]="closeButton"
+          >Cerrar</app-button
+        >
         <button
           class="app-button"
           (click)="onComplete()"
@@ -60,9 +44,4 @@
       </div>
     </div>
   </div>
-  
-  
-  
-</div>
-
-
+</app-modal>

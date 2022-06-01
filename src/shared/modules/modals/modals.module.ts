@@ -4,11 +4,12 @@ import { ModalModule } from './modal/modal.module';
 import { ModalService } from './modal.service';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ModalFormModule } from './modal-form/modal-form.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ModalModule,MatDialogModule],
-  providers: [ModalService,ModalFormModule ,{
+  imports: [CommonModule, ModalModule,ModalFormModule,FileUploadModule,MatDialogModule],
+  providers: [ModalService ,{
     provide: MatDialogRef,
     useValue: {}
   },

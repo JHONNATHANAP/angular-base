@@ -21,8 +21,8 @@ export class FileUploadComponent implements OnInit {
   files: File[] = [];
   imageFile!: File | null;
   isError!: boolean;
-  closeButton:AppButton=new AppButton({color:'accent'})
-  closeIcon: AppIcon = new AppIcon({ class: 'close' });
+  closeButton: AppButton = new AppButton({ color: 'accent' });
+  modalProperties: AppModal = new AppModal();
 
   filesURLs: string[] = [];
 
@@ -30,10 +30,16 @@ export class FileUploadComponent implements OnInit {
     private dialogRef: MatDialogRef<FileUploadComponent>,
     // private notification: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    this.modalProperties.closeEvent().subscribe((data) => {
+      this.onClose();
+    });
+  }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.accept = this.data?.accept;
+    this.modalProperties.title = this.data?.title;
   }
 
   toggleHover(event: boolean) {
@@ -96,7 +102,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   onComplete(): void {
-    console.log(this.data)
+    console.log(this.data);
     const res = this.data.multiple ? this.filesURLs : this.filesURLs[0];
     this.dialogRef.close(res);
   }

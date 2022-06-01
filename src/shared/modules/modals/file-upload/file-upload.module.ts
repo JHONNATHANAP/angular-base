@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ButtonModule } from '../../buttons';
 import { IconsModule } from '../../icons';
+import { ModalModule } from '../modal/modal.module';
 import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload.component';
 import { FilesUploadDirective } from './files-upload.directive';
@@ -19,7 +20,8 @@ import { FilesUploadDirective } from './files-upload.directive';
     MatButtonModule,
     MatInputModule,
     ButtonModule,
-    IconsModule
+    IconsModule,
+    ModalModule
     
   ],
   exports: [FilesUploadDirective],
