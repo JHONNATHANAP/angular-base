@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import { IAppControl } from '.';
+import { IAppControl, IAppInput } from '.';
 import { sharedConts } from '..';
 import {
   AppControlAppearance,
@@ -7,35 +7,29 @@ import {
   FormControlType,
 } from './control-model';
 
-export interface IAppInput extends IAppControl {
-  min?: number;
-  max?: number;
-  maxlength?: number;
-  minlength?: number;
-
-
+export interface IAppFile extends IAppControl {
+  accept?: string;
+  valueText?: string;
 }
 
-export class AppInput implements IAppInput {
+export class AppFile implements IAppFile {
   constructor(entity?: IAppInput) {
+    this.valueText = '';
     this.type = sharedConts.forms.controls.input.type;
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
       this[prop] = entity[e] ? entity[e] : this[e];
     });
+  
   }
-  appearance?: AppControlAppearance;
-  framework?: Appframework = sharedConts.forms.framework;
-  formControlName?: string | undefined;
-  validators?: any[] | undefined;
-  formControl?: AbstractControl | undefined;
-  updateOn?: 'change' | 'blur' | 'submit' | undefined;
+  valueText?: string;
   min?: number | undefined;
   max?: number | undefined;
   maxlength?: number | undefined;
   minlength?: number | undefined;
   placeholder?: string | undefined;
+  appearance?: AppControlAppearance | undefined;
   disabled?: boolean | undefined;
   value?: any;
   label?: string | undefined;
@@ -44,5 +38,10 @@ export class AppInput implements IAppInput {
   patternError?: string | undefined;
   class?: string | undefined;
   type: FormControlType;
-  accept?:string;
+  framework?: Appframework | undefined;
+  formControlName?: string | undefined;
+  validators?: any[] | undefined;
+  formControl?: AbstractControl | undefined;
+  updateOn?: 'change' | 'blur' | 'submit' | undefined;
+  accept?: string;
 }

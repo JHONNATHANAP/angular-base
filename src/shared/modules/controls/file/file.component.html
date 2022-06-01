@@ -1,12 +1,13 @@
 <div>
-  <input   *ngIf="properties?.framework === 'bootstrap'"
+  <input
+    *ngIf="properties?.framework === 'bootstrap'"
     appFilesUpload
     [accept]="properties.accept ? properties.accept : ''"
     [title]="properties.label ? properties.label : ''"
     type="text"
     aria-label="input"
     class="form-control {{ properties.class }} "
-    [value]="valueText"
+    [value]="properties?.valueText ? properties.valueText : ''"
     [placeholder]="properties.placeholder || ''"
     [attr.disabled]="properties.disabled ? true : null"
     (blur)="onBlur()"
@@ -26,7 +27,7 @@
       [disabled]="properties.disabled"
       readonly
       (blur)="onBlur()"
-      [value]="valueText"
+      [value]="properties?.valueText ? properties.valueText : ''"
       matInput
       [placeholder]="properties.placeholder || ''"
     />

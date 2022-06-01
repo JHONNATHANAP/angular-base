@@ -4,10 +4,10 @@ import {
   forwardRef,
   Input,
   OnInit,
-  Output,
+  Output
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AppInput } from 'src/shared';
+import { AppFile } from '@src/shared/models/file-model';
 
 @Component({
   selector: 'app-file',
@@ -23,14 +23,14 @@ import { AppInput } from 'src/shared';
 })
 export class FileComponent implements OnInit, ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: AppInput;
+  @Input() properties: AppFile;
 
   modalName!: string;
   isDisabled: boolean = false;
-  valueText: string = '';
+
 
   constructor() {
-    this.properties = new AppInput();
+    this.properties = new AppFile();
   }
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class FileComponent implements OnInit, ControlValueAccessor {
   }
   onFilesChanged(event: any) {
     this.properties.value = event;
-    this.valueText = this.properties.value ? this.properties.value[0].name : '';
+    this.properties.valueText = this.properties.value ? this.properties.value[0].name : '';
     this.propagateChange(this.properties.value);
     this.changeEvent.emit(this.properties.value);
   }
