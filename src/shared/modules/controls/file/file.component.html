@@ -1,12 +1,12 @@
 <div>
-  <input
-  appFilesUpload
-  [accept]="properties.accept?properties.accept:''"
-  [title]="properties.label?properties.label:''"
+  <input   *ngIf="properties?.framework === 'bootstrap'"
+    appFilesUpload
+    [accept]="properties.accept ? properties.accept : ''"
+    [title]="properties.label ? properties.label : ''"
     type="text"
     aria-label="input"
     class="form-control {{ properties.class }} "
-    [value]="properties.value"
+    [value]="valueText"
     [placeholder]="properties.placeholder || ''"
     [attr.disabled]="properties.disabled ? true : null"
     (blur)="onBlur()"
@@ -18,11 +18,11 @@
     appearance="outline"
     (changed)="onFilesChanged($event)"
     appFilesUpload
-    [accept]="properties.accept?properties.accept:''"
-    [title]="properties.label?properties.label:''"
+    [accept]="properties.accept ? properties.accept : ''"
+    [title]="properties.label ? properties.label : ''"
   >
     <mat-label>{{ properties.label || "" }}</mat-label>
-    <input 
+    <input
       [disabled]="properties.disabled"
       readonly
       (blur)="onBlur()"

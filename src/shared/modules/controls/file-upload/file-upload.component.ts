@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AppButton } from '@src/shared/models';
+import { AppButton, AppIcon } from '@src/shared/models';
 import { AppModal } from '@src/shared/models/modal-model';
 
 export interface DialogData {
@@ -22,6 +22,7 @@ export class FileUploadComponent implements OnInit {
   imageFile!: File | null;
   isError!: boolean;
   closeButton:AppButton=new AppButton({color:'accent'})
+  closeIcon: AppIcon = new AppIcon({ class: 'close' });
 
   filesURLs: string[] = [];
 
@@ -95,6 +96,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   onComplete(): void {
+    console.log(this.data)
     const res = this.data.multiple ? this.filesURLs : this.filesURLs[0];
     this.dialogRef.close(res);
   }
