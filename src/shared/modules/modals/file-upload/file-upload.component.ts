@@ -21,7 +21,7 @@ export class FileUploadComponent implements OnInit {
   files: File[] = [];
   imageFile!: File | null;
   isError!: boolean;
-  closeButton: AppButton = new AppButton({ color: 'accent' });
+  closeButton: AppButton = new AppButton({ color: 'accent',class:'btn-danger' });
   modalProperties: AppModal = new AppModal();
 
   filesURLs: string[] = [];
@@ -67,6 +67,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   dropGeneral(files: FileList): void {
+    console.log(files)
     const extension = files[0].name.split('.').pop();
     if (this.accept && extension != this.accept) {
       // this.notification.error('El archivo debe ser de formato ' + this.accept);

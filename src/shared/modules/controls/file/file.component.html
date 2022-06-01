@@ -6,6 +6,7 @@
     [title]="properties.label ? properties.label : ''"
     type="text"
     aria-label="input"
+    (changed)="onFilesChanged($event)"
     class="form-control {{ properties.class }} "
     [value]="properties?.valueText ? properties.valueText : ''"
     [placeholder]="properties.placeholder || ''"

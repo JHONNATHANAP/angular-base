@@ -1,12 +1,27 @@
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
 <div>
-  <button *ngIf="properties?.framework==='bootstrap'"  (click)="emitClick($event)" class=" btn {{properties.class}} " [type]="properties.type">
-    <ng-content></ng-content>
-  </button>
-
-
-  <button  *ngIf="properties?.framework!=='bootstrap'"  (click)="emitClick($event)" class="app-button  {{properties.class}}" mat-flat-button [color]="properties.color" [type]="properties.type">
-    <ng-content></ng-content>
-  </button>
-  
-  
+  <ng-container [ngSwitch]="properties?.framework">
+    <ng-template ngSwitchCase="bootstrap">
+      <button
+        (click)="emitClick($event)"
+        class=" btn {{ properties.class }} "
+        [type]="properties.type"
+      >
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </button>
+    </ng-template>
+    <ng-template ngSwitchCase="material">
+      <button
+        (click)="emitClick($event)"
+        class="app-button  {{ properties.class }}"
+        mat-flat-button
+        [color]="properties.color"
+        [type]="properties.type"
+      >
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </button>
+    </ng-template>
+  </ng-container>
 </div>

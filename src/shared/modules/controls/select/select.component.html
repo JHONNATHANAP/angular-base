@@ -8,8 +8,8 @@
   >
     <option value="" disabled selected>{{properties.placeholder?properties.placeholder:'Select an option'}}</option>
     <option
-      *ngFor="let item of properties.options"
-      [value]="getValue(item.value)"
+      *ngFor="let item of properties.options; let i = index"
+      [value]="i"
     >
       {{ item.label }}
     </option>

@@ -49,11 +49,14 @@ export class SelectComponent implements ControlValueAccessor {
   onChange(event: Event): void {
     const { target } = event;
 
-    this.properties.value = JSON.parse((target as HTMLInputElement).value);
+    this.properties.value =this.properties?.options?
+      this.properties?.options[
+        (target as HTMLInputElement).value
+      ]?.value:'';
     this.propagateChange(this.properties.value);
     this.changeEvent.emit(this.properties.value);
   }
-  onChangeMaterial(event: any): void {  
+  onChangeMaterial(event: any): void {
     this.properties.value = event.value;
     this.propagateChange(this.properties.value);
     this.changeEvent.emit(this.properties.value);
