@@ -32,6 +32,12 @@ export class ControlsComponent implements AfterViewInit {
         label: 'Name',
       },
       {
+        type: 'number',
+        validators: [Validators.required, Validators.minLength(5)],
+        formControlName: 'edad',
+        label: 'Edad',
+      },
+      {
         type: 'select',
         validators: [Validators.required],
         formControlName: 'documentType',

@@ -1,7 +1,7 @@
 import { IAppShared } from './models';
 
 export const forms: IAppShared = {
-  framework: 'bootstrap',
+  framework: 'material',
   controls: {
     appearance: 'outline',
     input: {

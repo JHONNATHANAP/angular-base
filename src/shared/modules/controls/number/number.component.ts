@@ -21,9 +21,8 @@ export class NumberComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: AppInput;
 
-
   constructor() {
-    this.properties = new AppInput({type:'number'});
+    this.properties = new AppInput();
   }
 
   private propagateChange: any = () => {};
