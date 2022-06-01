@@ -30,9 +30,7 @@
     </div>
 
     <div class="files-upload__footer" *ngIf="!imageFile">
-      <button class="app-button" (click)="onClose()" *ngIf="!filesURLs.length">
-        Cerrar
-      </button>
+      <app-button (clickEvent)="onClose()" [properties]="closeButton">Cerrar</app-button>
       <button
         class="app-button"
         (click)="onComplete()"
