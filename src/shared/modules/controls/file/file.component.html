@@ -1,23 +1,28 @@
 <div>
   <input
-  *ngIf="properties?.framework==='bootstrap'"
-    type="file"
+  appFilesUpload
+  [accept]="properties.accept?properties.accept:''"
+  [title]="properties.label?properties.label:''"
+    type="text"
     aria-label="input"
     class="form-control {{ properties.class }} "
     [value]="properties.value"
     [placeholder]="properties.placeholder || ''"
     [attr.disabled]="properties.disabled ? true : null"
     (blur)="onBlur()"
+    readonly
   />
 
-  <mat-form-field  *ngIf="properties?.framework !== 'bootstrap'"
+  <mat-form-field
+    *ngIf="properties?.framework !== 'bootstrap'"
     appearance="outline"
-   
-
     (changed)="onFilesChanged($event)"
+    appFilesUpload
+    [accept]="properties.accept?properties.accept:''"
+    [title]="properties.label?properties.label:''"
   >
     <mat-label>{{ properties.label || "" }}</mat-label>
-    <input
+    <input 
       [disabled]="properties.disabled"
       readonly
       (blur)="onBlur()"
