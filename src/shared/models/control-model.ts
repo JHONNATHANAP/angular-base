@@ -8,6 +8,7 @@ export type FormControlType =
   | 'number'
   | 'checkbox'
   | 'radio'
+  | 'file'
   | 'date'
   | 'textarea';
 export type Appframework = 'material' | 'bootstrap';
@@ -24,6 +25,7 @@ export interface IAppControl extends IAppFormControl {
   class?: string;
   type: FormControlType;
   framework?: Appframework ;
+  accept?:string;
 }
 
 export class AppControl {

@@ -48,6 +48,13 @@
               >
               </app-date>
             </ng-template>
+            <ng-template ngSwitchCase="file">
+              <app-file
+                [properties]="control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-file>
+            </ng-template>
           </app-form-field>
         </div>
       </ng-container>

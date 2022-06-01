@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ControlsRoutingModule } from './controls-routing.module';
 import { ControlsComponent } from './controls.component';
 import { FormGenericModule } from '@src/shared';
+import { ModalModule } from '@src/shared/modules/modals';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormGenericModule } from '@src/shared';
   imports: [
     CommonModule,
     ControlsRoutingModule,
-    FormGenericModule
+    FormGenericModule,
+    ModalModule
   ]
 })
-export class ControlsModule { }
+export class DemoControlsModule { }

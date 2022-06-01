@@ -14,7 +14,7 @@ const routes: Routes = [
       {
         path: routesPath.controls,
         loadChildren: () =>
-          import('./controls/controls.module').then((m) => m.ControlsModule),
+          import('./controls/controls.module').then((m) => m.DemoControlsModule),
       },
       {
         path: routesPath.tables,

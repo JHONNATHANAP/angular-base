@@ -12,6 +12,8 @@ export interface IAppInput extends IAppControl {
   max?: number;
   maxlength?: number;
   minlength?: number;
+  accept?:string;
+
 }
 
 export class AppInput implements IAppInput {
@@ -42,4 +44,5 @@ export class AppInput implements IAppInput {
   patternError?: string | undefined;
   class?: string | undefined;
   type: FormControlType;
+  accept?:string;
 }

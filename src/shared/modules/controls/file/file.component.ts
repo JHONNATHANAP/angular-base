@@ -26,7 +26,6 @@ export class FileComponent implements OnInit, ControlValueAccessor {
   @Input() properties: AppInput;
 
   modalName!: string;
-  value!: any;
   isDisabled: boolean = false;
   valueText: string = '';
 
@@ -42,7 +41,7 @@ export class FileComponent implements OnInit, ControlValueAccessor {
   private propagateTouched: any = () => {};
 
   writeValue(value: string): void {
-    this.value = value;
+    this.properties.value = value;
   }
 
   registerOnChange(fn: any): void {
@@ -59,9 +58,9 @@ export class FileComponent implements OnInit, ControlValueAccessor {
     this.propagateTouched();
   }
   onFilesChanged(event: any) {
-    this.value = event;
-    this.valueText = this.value ? this.value[0].name : '';
-    this.propagateChange(this.value);
-    this.changeEvent.emit(this.value);
+    this.properties.value = event;
+    this.valueText = this.properties.value ? this.properties.value[0].name : '';
+    this.propagateChange(this.properties.value);
+    this.changeEvent.emit(this.properties.value);
   }
 }

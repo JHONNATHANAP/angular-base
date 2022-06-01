@@ -7,4 +7,5 @@ export * from './input-model';
 export * from './list-model';
 export * from './select-model';
 export * from './text-area-model';
+export * from './icon-model';
 export * from './shared-model';

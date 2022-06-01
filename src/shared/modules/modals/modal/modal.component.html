@@ -1,16 +1,38 @@
-<h2 mat-dialog-title>{{ properties.title }}</h2>
-<mat-dialog-content class="mat-typography">
-  <ng-content></ng-content>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <app-button
-    *ngFor="let action of properties.actions"
-    mat-dialog-close
-    class="pr-10"
-    type="button"
-    (click)="properties.actionEvent($event)"
-    [properties]="action.basicButton()"
-  >
-    {{ action?.label }}</app-button
-  >
-</mat-dialog-actions>
+<div class="app-header d-flex d-flex justify-content-between">
+  <div ></div>
+  <div class="d-flex align-items-center">
+    <h5 class="m-0">{{ properties?.title ? properties.title : "" }}</h5>
+  </div>
+  <div>
+    <button (click)="properties.close()"
+      mat-icon-button
+      aria-label="Example icon button with a vertical three dot icon"
+    >
+      <app-icon mat-raised-button [properties]="closeButton"></app-icon>
+    </button>
+  </div>
+</div>
+<div class="app-body ">
+  <mat-dialog-content class="mat-typography">
+    <ng-container>
+      <div [innerHTML]="properties?.html"></div>
+    </ng-container>
+    <ng-container>
+      <ng-content></ng-content>
+    </ng-container>
+  </mat-dialog-content>
+</div>
+<div class="app-footer" *ngIf="properties?.actions?.length">
+  <mat-dialog-actions align="end">
+    <app-button
+      *ngFor="let action of properties?.actions"
+      mat-dialog-close
+      class="pr-10"
+      type="button"
+      (click)="properties.actionEvent($event)"
+      [properties]="action.basicButton()"
+    >
+      {{ action?.label }}</app-button
+    >
+  </mat-dialog-actions>
+</div>

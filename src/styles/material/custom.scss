@@ -1,0 +1,17 @@
+@import "src/styles/colors";
+mat-dialog-container{
+    padding: 0% !important;
+    height: auto !important;
+    overflow: hidden !important;
+    .app-body{
+        padding: 20px;
+    }
+    .app-header{
+        padding: 10px;
+        background-color: $primary;
+        color: $on-primary;
+    }
+    .app-footer{
+        padding: 10px;
+    }
+}
