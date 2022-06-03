@@ -1,21 +1,58 @@
-import { IAppButton } from ".";
+import { Observable, Subject } from 'rxjs';
+import { AppButton, AppIcon } from '.';
 
-
-export type ItemsListProperties = ItemListProperties[];
-export interface ItemListProperties {
-  img?: { class?: string; url?: string };
-  title?: { class?: string; name?: string };
-  subtitle?: { class?: string; name?: string };
-  item?: any;
-  id:number;
+export interface IAppListAction {
+  name: string;
+  label: string;
+  icon?: AppIcon;
+  button?: AppButton;
+  type?: AppListActionType;
 }
-export interface ItemListDetailProperties extends ItemListProperties{
-    buttons?:ItemDetailButtons[];
-    description?: { class?: string; value?: string };
-    id:number;
-
+export type AppListActionType = 'text' | 'icon' | 'button';
+export interface IAppListHeader {
+  name: string;
+  id: string;
+  filter?: string;
+  type?: string;
 }
-export interface ItemDetailButtons extends IAppButton{
-    title:string;
-    event:string;
+export type AppItem = {
+  [param: string]:
+    | string
+    | number
+    | boolean
+    | Array<IAppListAction>
+    | ReadonlyArray<string | number | boolean>;
+  actions: Array<IAppListAction>;
+};
+export interface IAppList {
+  headers: Array<IAppListHeader>;
+  data?: Array<AppItem>;
+  class?: string;
+  actions?: boolean;
+}
+
+export class AppList implements IAppList {
+  headers: IAppListHeader[];
+  class: string;
+  data: Array<AppItem>;
+  actions: boolean;
+  private action = new Subject<any>();
+  constructor(entity?: IAppList) {
+    this.headers = [];
+    this.data = [];
+    this.actions = true;
+    this.class = '';
+
+    if (!entity) return;
+    Array.from(Object.keys(entity)).map((e: string) => {
+      const prop: string = e;
+      this[prop] = entity[e] ? entity[e] : this[e];
+    });
+  }
+  clickAction(item: AppItem, action: IAppListAction) {
+    this.action.next({ item: item, event: action });
+  }
+  actionEvent(): Observable<any> {
+    return this.action.asObservable();
+  }
 }

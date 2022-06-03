@@ -1,0 +1,56 @@
+<div class="table-responsive">
+  <table class=" {{ properties.class }}">
+    <thead>
+      <th *ngFor="let head of properties.headers" [innerHtml]="head.name"></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of properties.data">
+        <td *ngFor="let head of properties.headers">
+          <span [innerHtml]="item[head.id]"> </span>
+        </td>
+        <td *ngIf="properties.actions">
+          <div class="d-flex align-items-center">
+            <ng-container *ngFor="let action of item['actions']" >
+              <div (click)="properties.clickAction(item,action)">
+                <ng-container [ngSwitch]="action.type">
+                  <ng-template ngSwitchCase="icon">
+                    <button class="p-1" mat-icon-button [title]="action.label" [color]="'primary'" >
+                      <app-icon
+                        mat-raised-button
+                        [properties]="action.icon ? action.icon : defaultIcon"
+                      ></app-icon>
+                    </button>
+                  </ng-template>
+                  <ng-template ngSwitchCase="button">
+                  
+                    <app-button 
+                      [properties]="action.button ? action.button : defaultButton"
+                    >
+                      {{ action.label }}
+                    </app-button>
+                  </ng-template>
+                  <ng-template ngSwitchCase="button"></ng-template>
+                  <ng-template ngSwitchDefault>
+                    <button class="p-1" mat-icon-button [title]="action.label"  >
+                      <span class="p-1 link" [innerHtml]="action.label"></span>
+                    </button>
+                  
+                  </ng-template>
+                </ng-container>
+              </div>
+              
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    *ngIf="
+      !properties ||
+      (properties && properties.data && properties.data.length === 0)
+    "
+  >
+    No hay información disponible
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TablesRoutingModule } from './tables-routing.module';
 import { TablesComponent } from './tables.component';
+import { ListModule } from '@src/shared/modules/lists';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { TablesComponent } from './tables.component';
   ],
   imports: [
     CommonModule,
+    ListModule,
     TablesRoutingModule
   ]
 })

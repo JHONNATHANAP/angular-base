@@ -15,6 +15,7 @@ export class AppButton implements IAppButton {
   color?: IAppColorButton;
   constructor(entity?: IAppButton) {
     this.type = 'button';
+    this.framework=sharedConts.forms.framework
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
