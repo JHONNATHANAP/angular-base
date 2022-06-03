@@ -27,7 +27,7 @@ export class DateComponent implements ControlValueAccessor {
   @Output() closed = new EventEmitter<void>();
   value: any;
   get inputValue(): Date | null {
-    return this.value ? new Date(this.value) : null;
+    return this.value && this.properties.value ? new Date(this.value) : null;
   }
   constructor() {
     this.properties = new AppDate();
@@ -57,7 +57,6 @@ export class DateComponent implements ControlValueAccessor {
     this.changeEvent.emit(this.properties.value);
   }
   onChangeMaterial(event: any): void {
-  
     this.value = event.value ? event.value.getTime() : new Date().getTime();
     this.properties.value = moment(event.value).format(
       sharedConts.forms.controls.date.outputFormat

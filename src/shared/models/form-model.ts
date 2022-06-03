@@ -52,7 +52,7 @@ export class AppFormButton implements IAppFormButton {
       class: this.class,
       data: this.data,
       type: this.type,
-      color:this.color
+      color: this.color,
     });
     return buttonBasic;
   }
@@ -91,6 +91,7 @@ export class AppFormControl
   required?: boolean;
   patternError?: string;
   class?: string;
+  valueText?: string;
   type: FormControlType;
   updateOn?: 'change' | 'blur' | 'submit';
   appearance?: AppControlAppearance;
@@ -242,6 +243,9 @@ export class AppFormGeneric implements IAppFormGeneric {
   cleanForm(event): void {
     this.form.markAsUntouched();
     this.form.reset();
+    this.controls.map((e) => {
+      e.valueText = '';
+    });
     this.cancel.next('');
   }
 
