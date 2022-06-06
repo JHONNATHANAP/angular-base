@@ -2,7 +2,7 @@
   <table class=" {{ properties.class }}">
     <thead>
       <th *ngFor="let head of properties.headers" [innerHtml]="head.name"></th>
-      <th *ngIf="properties.actions" ></th>
+      <th *ngIf="properties.actions"  ></th>
     </thead>
     <tbody>
       <tr *ngFor="let item of properties.data">
@@ -25,7 +25,7 @@
                   <ng-template ngSwitchCase="button">
                   
                     <app-button 
-                      [properties]="action.button ? action.button : defaultButton"
+                      [properties]="action.button ? action.button : defaultButton" 
                     >
                       {{ action.label }}
                     </app-button>
