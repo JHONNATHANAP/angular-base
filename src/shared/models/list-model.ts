@@ -46,7 +46,7 @@ export class AppList implements IAppList {
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
-      this[prop] = entity[e] ? entity[e] : this[e];
+      this[prop] = entity[e] || entity[e] == false ? entity[e] : this[e];
     });
   }
   clickAction(item: AppItem, action: IAppListAction) {

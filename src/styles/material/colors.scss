@@ -34,12 +34,13 @@ $my-warn-color: (
   500: #fd7400,
   700: #fc6100,
   contrast: (
-    100: #000000,
-    200: #000000,
-    500: #000000,
-    700: #000000,
+    100: $secondary-dark,
+    200: $secondary-dark,
+    500: $on-secondary,
+    700: $on-secondary,
   ),
 );
+
 $my-palette-warn: mat-palette($my-warn-color);
 $my-palette-primary: mat-palette($my-primary-color);
 $my-palette-accent: mat-palette($my-accent-color);
@@ -50,7 +51,7 @@ $my-theme: mat-light-theme(
     color: (
       primary: $my-palette-primary,
       accent: $my-palette-accent,
-      warn: $my-palette-warn,
+      warn: $my-palette-warn
     ),
   )
 );

@@ -9,13 +9,13 @@ export interface IAppButton {
   color?: IAppColorButton;
   action?: string;
 }
-export type IAppColorButton = 'primary' | 'accent' | 'warn';
+export type IAppColorButton = 'primary' | 'accent' | 'warn' | '' ;
 export class AppButton implements IAppButton {
   framework?: Appframework = sharedConts.forms.framework;
   color?: IAppColorButton;
   constructor(entity?: IAppButton) {
     this.type = 'button';
-    this.framework=sharedConts.forms.framework
+    this.framework = sharedConts.forms.framework;
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
