@@ -29,22 +29,7 @@ export class InputComponent  {
     this.properties = new AppInput();
   }
 
-  private propagateChange: any = () => {};
   private propagateTouched: any = () => {};
-
-  writeValue(value: string): void {
-    this.properties.value = value;
-  }
-
-  registerOnChange(fn: any): void {
-    this.propagateChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.propagateTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    this.properties.disabled = isDisabled;
-  }
 
   onKeyup(event: Event): void {
     const { target } = event;

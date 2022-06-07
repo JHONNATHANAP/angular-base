@@ -63,4 +63,11 @@ describe('InputComponent', () => {
     element.dispatchEvent(event);
     expect(element?.value).toEqual(properties.value);
   });
+  it('blur Input', () => {
+    const element = fixture.nativeElement
+      .querySelector('.app-input')
+      ?.querySelector('input'); 
+    element.dispatchEvent(new Event('blur'));
+    expect(element?.value).toEqual(properties.value);
+  });
 });
