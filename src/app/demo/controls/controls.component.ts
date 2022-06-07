@@ -76,7 +76,7 @@ export class ControlsComponent implements AfterViewInit {
       console.log(e);
       //this.form.cleanForm();
       this.form.form.controls['name'].setValue('Jhonnathan');
-      this.controls[1]['options'].push({ value: '1', label: 'sdasd' });
+      this.controls[2]['options'].push({ value: '1', label: 'sdasd' });
     });
     this.form.cancelEvent().subscribe((e) => {
       console.log('clean');

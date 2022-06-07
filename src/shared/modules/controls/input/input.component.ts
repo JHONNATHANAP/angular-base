@@ -21,7 +21,7 @@ import { AppInput } from 'src/shared';
     },
   ],
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent  {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: AppInput;
 
@@ -49,7 +49,7 @@ export class InputComponent implements ControlValueAccessor {
   onKeyup(event: Event): void {
     const { target } = event;
     this.properties.value = (target as HTMLInputElement).value;
-    this.propagateChange(this.properties.value);
+ 
     this.changeEvent.emit(this.properties.value);
   }
 
