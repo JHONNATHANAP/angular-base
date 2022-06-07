@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { faker } from '@faker-js/faker';
 import { AppInput } from '@src/shared/models';
 import { NumberComponent } from './number.component';
@@ -17,6 +18,9 @@ describe('NumberComponent', () => {
     fixture = TestBed.createComponent(componentTest);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.registerOnChange(() => {});
+    component.registerOnTouched(() => {});
+    fixture.debugElement.injector.get(NG_VALUE_ACCESSOR);
     properties = new AppInput({
       type: 'text',
       label: faker.name.jobTitle(),
