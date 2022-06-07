@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppInput, IAppInput } from '@src/shared/models';
-import { InputComponent } from './input.component';
 import { faker } from '@faker-js/faker';
-import { By } from '@angular/platform-browser';
-const componentTest = InputComponent;
-describe('InputComponent', () => {
-  let component: InputComponent;
-  let fixture: ComponentFixture<InputComponent>;
+import { AppInput } from '@src/shared/models';
+import { NumberComponent } from './number.component';
+const componentTest = NumberComponent;
+describe('NumberComponent', () => {
+  let component: NumberComponent;
+  let fixture: ComponentFixture<NumberComponent>;
   let properties: AppInput;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,23 +26,23 @@ describe('InputComponent', () => {
       disabled:faker.datatype.boolean(),
       minlength: faker.datatype.number(),
       maxlength: faker.datatype.number(),
-      value: faker.datatype.string(),
+      value: faker.datatype.number(),
     });
     component.properties = properties;
     fixture.detectChanges();
   });
 
-  it('should create InputComponent', () => {
+  it('should create NumberComponent', () => {
     const fixture = TestBed.createComponent(componentTest);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('New Input', () => {
+  it('New Number', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
-    expect(element?.value).toEqual(properties.value);
+    expect(element?.value).toEqual(String(properties.value));
     expect(element?.placeholder).toEqual(properties.placeholder);
     expect(element?.min).toEqual(String(properties.min));
     expect(element?.max).toEqual(String(properties.max));
@@ -52,7 +51,7 @@ describe('InputComponent', () => {
     expect(element?.disabled).toEqual(properties.disabled);
   });
 
-  it('keyup Input', () => {
+  it('keyup Number', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
@@ -70,6 +69,6 @@ describe('InputComponent', () => {
       .querySelector('.app-input')
       ?.querySelector('input'); 
     element.dispatchEvent(new Event('blur'));
-    expect(element?.value).toEqual(properties.value);
+    expect(element?.value).toEqual(String(properties.value));
   });
 });

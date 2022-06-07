@@ -1,24 +1,32 @@
-<div >
+<div class="app-input" >
   <input *ngIf="properties?.framework==='bootstrap'"
-    type="text"
+    type="number"
     aria-label="input"
     class="form-control {{ properties.class }} "
     [value]="properties.value"
     [placeholder]="properties.placeholder || ''"
-    [attr.disabled]="properties.disabled ? true : null"
+    [disabled]="properties.disabled ? true : null"
     (keyup)="onKeyup($event)"
     (blur)="onBlur()"
+    [min]="properties.min"
+    [max]="properties.max"
+    [attr.minlength]="properties.minlength"
+    [maxLength]="properties.maxlength"
   />
 
   <mat-form-field *ngIf="properties?.framework!=='bootstrap'" [appearance]="properties.appearance?properties.appearance:'outline'">
     <mat-label>{{ properties.label || "" }}</mat-label>
     <input
-      [type]="properties.type"
+      type="number"
       [disabled]="properties.disabled"
       [value]="properties.value"
       (keyup)="onKeyup($event)"
       (blur)="onBlur()"
       matInput
+      [min]="properties.min"
+      [max]="properties.max"
+      [attr.minlength]="properties.minlength"
+      [maxLength]="properties.maxlength"
       [placeholder]="properties.placeholder || ''"
     />
     <!--   <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
