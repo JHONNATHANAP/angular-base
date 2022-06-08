@@ -44,7 +44,7 @@ export class ControlsComponent implements AfterViewInit {
         validators: [Validators.required],
         formControlName: 'documentType',
         label: 'Tipo de documento',
-        /*  value:{id:1}, */
+        value: { id: 2 },
         options: [
           { value: { id: 1 }, label: 'CC' },
           { value: { id: 2 }, label: 'DD' },
@@ -65,6 +65,7 @@ export class ControlsComponent implements AfterViewInit {
         formControlName: 'perfil',
         label: 'Perfil',
         rows: 10,
+        value: faker.lorem.paragraphs(),
       },
       {
         type: 'file',

@@ -1,30 +1,40 @@
-<div>
-  <select *ngIf="properties?.framework==='bootstrap'"
+<div class="app-select">
+  <select
+    *ngIf="properties?.framework === 'bootstrap'"
     class="form-select {{ properties.class }}"
     aria-label="input"
     [attr.disabled]="properties.disabled ? true : null"
     (blur)="onBlur()"
     (change)="onChange($event)"
+    [value]="properties.selectValue()"
   >
-    <option value="" disabled selected>{{properties.placeholder?properties.placeholder:'Select an option'}}</option>
-    <option
-      *ngFor="let item of properties.options; let i = index"
-      [value]="i"
-    >
+    <option value="" disabled selected>
+      {{ properties.placeholder ? properties.placeholder : "Select an option" }}
+    </option>
+    <option *ngFor="let item of properties.options; let i = index" [value]="i">
       {{ item.label }}
     </option>
   </select>
-  <mat-form-field *ngIf="properties?.framework!=='bootstrap'" [appearance]="properties.appearance?properties.appearance:'outline'">
+  <mat-form-field
+    *ngIf="properties?.framework !== 'bootstrap'"
+    [appearance]="properties.appearance ? properties.appearance : 'outline'"
+  >
     <mat-label>{{ properties.label || "" }}</mat-label>
-    <mat-select [value]="properties.value"  [disabled]="properties.disabled"(selectionChange)="onChangeMaterial($event)" (blur)="onBlur()">
-      <mat-option *ngFor="let item of properties.options" [value]="item.value">
-        {{item.label}}
+    <mat-select
+      [value]="properties.selectValue()"
+      [disabled]="properties.disabled"
+      (selectionChange)="onChangeMaterial($event)"
+      (blur)="onBlur()"
+    >
+      <mat-option
+        *ngFor="let item of properties.options; let i = index"
+        [value]="i"
+      >
+        {{ item.label }}
       </mat-option>
-      <mat-option disabled *ngIf="properties.options?.length===0">
+      <mat-option disabled *ngIf="properties.options?.length === 0">
         No hay información
       </mat-option>
     </mat-select>
-  
   </mat-form-field>
 </div>
-

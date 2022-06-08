@@ -14,6 +14,7 @@ import {
   IAppDate,
   IAppInput,
   IAppSelect,
+  IAppSelectOption,
   IAppTextArea,
 } from '.';
 import { sharedConts } from '..';
@@ -77,7 +78,6 @@ export interface IAppFormControl {
   updateOn?: 'change' | 'blur' | 'submit';
 }
 
-export interface Iasas extends IAppFormControl {}
 export class AppFormControl
   implements IAppFormControl, IAppInput, IAppSelect, IAppDate, IAppTextArea
 {
@@ -91,6 +91,7 @@ export class AppFormControl
   inline?: boolean;
   required?: boolean;
   patternError?: string;
+  options?: IAppSelectOption[] | undefined;
   class?: string;
   valueText?: string;
   type: FormControlType;
@@ -118,6 +119,21 @@ export class AppFormControl
   dateValue(): Date | null {
     return this.value ? new Date(moment(this.value).toDate()) : null;
   }
+  selectValue(): number | undefined {
+    switch (typeof this.value) {
+      case 'object':
+        return this.options?.findIndex(
+          (e) => JSON.stringify(e.value) === JSON.stringify(this.value)
+        );
+      default:
+        return this.options
+          ?.map((e) => {
+            return e.value;
+          })
+          .indexOf(this.value);
+    }
+  }
+
   public errorKey(): string {
     if (!this.formControl?.errors) return '';
 

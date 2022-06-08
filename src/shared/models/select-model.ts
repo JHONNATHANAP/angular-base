@@ -1,7 +1,11 @@
 import { AbstractControl } from '@angular/forms';
 import { IAppControl } from '.';
 import { sharedConts } from '..';
-import { AppControlAppearance, Appframework, FormControlType } from './control-model';
+import {
+  AppControlAppearance,
+  Appframework,
+  FormControlType,
+} from './control-model';
 
 export interface IAppSelect extends IAppControl {
   options?: IAppSelectOption[];
@@ -36,4 +40,18 @@ export class AppSelect implements IAppSelect {
   patternError?: string | undefined;
   class?: string | undefined;
   type: FormControlType;
+  selectValue(): number | undefined {
+    switch (typeof this.value) {
+      case 'object':
+        return this.options?.findIndex(
+          (e) => JSON.stringify(e.value) === JSON.stringify(this.value)
+        );
+      default:
+        return this.options
+          ?.map((e) => {
+            return e.value;
+          })
+          .indexOf(this.value);
+    }
+  }
 }
