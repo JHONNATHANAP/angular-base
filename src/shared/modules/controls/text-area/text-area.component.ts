@@ -41,14 +41,13 @@ export class TextAreaComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.propagateTouched = fn;
   }
-  setDisabledState(isDisabled: boolean): void {
-    this.properties.disabled = isDisabled;
-  }
 
   onKeyup(event: Event): void {
     const { target } = event;
     this.properties.value = (target as HTMLInputElement).value;
-    this.propagateChange(this.properties.value);
+    this.writeValue(this.properties.value);
+    this.propagateChange();
+    this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }
 
