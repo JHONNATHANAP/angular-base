@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import {
   ControlType,
@@ -113,6 +114,9 @@ export class AppFormControl
       (this.formControl?.invalid ? true : false) &&
       (this.formControl?.touched ? true : false)
     );
+  }
+  dateValue(): Date | null {
+    return this.value ? new Date(moment(this.value).toDate()) : null;
   }
   public errorKey(): string {
     if (!this.formControl?.errors) return '';

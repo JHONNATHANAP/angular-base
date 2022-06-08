@@ -25,12 +25,10 @@ export class DateComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: AppDate;
   @Output() closed = new EventEmitter<void>();
-  value: any;
-  get inputValue(): Date | null {
-    return this.value && this.properties.value ? new Date(this.value) : null;
-  }
+
   constructor() {
     this.properties = new AppDate();
+
   }
 
   private propagateChange: any = () => {};
@@ -46,22 +44,21 @@ export class DateComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.propagateTouched = fn;
   }
-  setDisabledState(isDisabled: boolean): void {
-    this.properties.disabled = isDisabled;
-  }
-
   onChange(event: Event): void {
     const { target } = event;
     this.properties.value = (target as HTMLInputElement).value;
-    this.propagateChange(this.properties.value);
+    this.writeValue(this.properties.value);
+    this.propagateChange();
+    this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }
   onChangeMaterial(event: any): void {
-    this.value = event.value ? event.value.getTime() : new Date().getTime();
     this.properties.value = moment(event.value).format(
       sharedConts.forms.controls.date.outputFormat
     );
-    this.propagateChange(this.properties.value);
+    this.writeValue(this.properties.value);
+    this.propagateChange();
+    this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }
 

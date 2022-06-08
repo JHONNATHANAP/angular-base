@@ -1,5 +1,6 @@
-<div>
-  <input *ngIf="properties?.framework==='bootstrap'"
+<div class="app-date">
+  <input
+    *ngIf="properties?.framework === 'bootstrap'"
     type="date"
     aria-label="input"
     class="form-control {{ properties.class }} "
@@ -10,12 +11,31 @@
     (blur)="onBlur()"
   />
 
-  <mat-form-field (click)="picker.open()" *ngIf="properties?.framework!=='bootstrap'" [appearance]="properties.appearance?properties.appearance:'outline'">
+  <mat-form-field
+    (click)="picker.open()"
+    *ngIf="properties?.framework !== 'bootstrap'"
+    [appearance]="properties.appearance ? properties.appearance : 'outline'"
+  >
     <mat-label>{{ properties.label }}</mat-label>
-    <input matInput class="" type="text" readonly [matDatepicker]="picker" (dateChange)="onChangeMaterial($event)"
-        [disabled]="properties.disabled"    [value]="inputValue" [min]="properties.min "[max]="properties.max"
-      [placeholder]="properties.placeholder || ''">
-    <mat-datepicker-toggle matSuffix [for]="picker"  [disabled]="properties.disabled">
+    <input
+      matInput
+      class=""
+      type="text"
+      readonly
+      [matDatepicker]="picker"
+      (dateChange)="onChangeMaterial($event)"
+      [disabled]="properties.disabled"
+      [value]="properties.dateValue()"
+      [min]="properties.min"
+      [max]="properties.max"
+      [placeholder]="properties.placeholder || ''"
+      (blur)="onBlur()"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker"
+      [disabled]="properties.disabled"
+    >
     </mat-datepicker-toggle>
     <mat-datepicker #picker (closed)="onClosed()"></mat-datepicker>
   </mat-form-field>

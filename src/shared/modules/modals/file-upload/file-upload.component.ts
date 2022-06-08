@@ -37,7 +37,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.accept = this.data?.accept;
     this.modalProperties.title = this.data?.title;
   }
@@ -67,7 +66,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   dropGeneral(files: FileList): void {
-    console.log(files)
     const extension = files[0].name.split('.').pop();
     if (this.accept && extension != this.accept) {
       // this.notification.error('El archivo debe ser de formato ' + this.accept);
@@ -103,7 +101,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   onComplete(): void {
-    console.log(this.data);
     const res = this.data.multiple ? this.filesURLs : this.filesURLs[0];
     this.dialogRef.close(res);
   }

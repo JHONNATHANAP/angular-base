@@ -1,17 +1,17 @@
 import {
   AfterViewInit,
   Component,
-  OnInit,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { AllControls, AppFormGeneric, IAppFormGeneric } from '@src/shared';
+import { faker } from '@faker-js/faker';
+import { AllControls, AppFormGeneric, sharedConts } from '@src/shared';
 import { AppModal } from '@src/shared/models/modal-model';
 import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
-
+import moment from 'moment';
 @Component({
   selector: 'app-controls',
   templateUrl: './controls.component.html',
@@ -30,12 +30,14 @@ export class ControlsComponent implements AfterViewInit {
         validators: [Validators.required, Validators.minLength(5)],
         formControlName: 'name',
         label: 'Name',
+        value: 'Ricardo',
       },
       {
         type: 'number',
         validators: [Validators.required, Validators.minLength(5)],
         formControlName: 'edad',
         label: 'Edad',
+        value: 28,
       },
       {
         type: 'select',
@@ -53,6 +55,9 @@ export class ControlsComponent implements AfterViewInit {
         validators: [Validators.required],
         formControlName: 'date',
         label: 'Fecha Nacimiento',
+        value: moment(faker.datatype.datetime()).format(
+          sharedConts.forms.controls.date.outputFormat
+        ),
       },
       {
         type: 'textarea',

@@ -1,5 +1,10 @@
+import moment from 'moment';
 import { IAppControl } from '.';
-import { AppControlAppearance, Appframework, FormControlType } from './control-model';
+import {
+  AppControlAppearance,
+  Appframework,
+  FormControlType,
+} from './control-model';
 
 export interface IAppDate extends IAppControl {
   min?: string;
@@ -18,16 +23,17 @@ export class AppDate implements IAppDate {
   patternError?: string | undefined;
   class?: string | undefined;
   type: FormControlType;
-  framework?: Appframework ;
+  framework?: Appframework;
   appearance?: AppControlAppearance;
   constructor(entity?: IAppDate) {
     this.type = 'date';
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
-      this[prop] = entity[e] ? entity[e] : this[e];
+      this[prop] = entity[e] || entity[e] == false ? entity[e] : this[e];
     });
-   
   }
- 
+  dateValue(): Date | null {
+    return this.value ? new Date(moment(this.value).toDate()) : null;
+  }
 }

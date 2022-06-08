@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppInput, IAppInput } from '@src/shared/models';
-import { InputComponent } from './input.component';
-import { faker } from '@faker-js/faker';
-import { By } from '@angular/platform-browser';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { faker } from '@faker-js/faker';
+import { AppInput } from '@src/shared/models';
+import { InputComponent } from './input.component';
 const componentTest = InputComponent;
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -21,7 +20,7 @@ describe('InputComponent', () => {
     component.registerOnChange(() => {});
     component.registerOnTouched(() => {});
     fixture.debugElement.injector.get(NG_VALUE_ACCESSOR);
- 
+
     fixture.detectChanges();
     properties = new AppInput({
       type: 'text',
@@ -38,13 +37,13 @@ describe('InputComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create InputComponent', () => {
+  it('Create component', () => {
     const fixture = TestBed.createComponent(componentTest);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('New Input', () => {
+  it('New', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
@@ -57,7 +56,7 @@ describe('InputComponent', () => {
     expect(element?.disabled).toEqual(properties.disabled);
   });
 
-  it('keyup Input', () => {
+  it('keyup', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
@@ -70,7 +69,7 @@ describe('InputComponent', () => {
     element.dispatchEvent(event);
     expect(element?.value).toEqual(properties.value);
   });
-  it('blur Input', () => {
+  it('blur', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');

@@ -36,13 +36,13 @@ describe('NumberComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create NumberComponent', () => {
+  it('Create component', () => {
     const fixture = TestBed.createComponent(componentTest);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('New Number', () => {
+  it('New', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
@@ -55,7 +55,7 @@ describe('NumberComponent', () => {
     expect(element?.disabled).toEqual(properties.disabled);
   });
 
-  it('keyup Number', () => {
+  it('keyup', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input');
@@ -68,7 +68,7 @@ describe('NumberComponent', () => {
     element.dispatchEvent(event);
     expect(element?.value).toEqual(properties.value);
   });
-  it('blur Input', () => {
+  it('blur', () => {
     const element = fixture.nativeElement
       .querySelector('.app-input')
       ?.querySelector('input'); 
