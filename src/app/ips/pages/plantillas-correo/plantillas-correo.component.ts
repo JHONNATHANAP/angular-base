@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalAgregarPlantillaComponent } from '@app/ips/components/modal-agregar-plantilla/modal-agregar-plantilla.component';
 import { faker } from '@faker-js/faker';
 import {
   AllControls,
@@ -10,7 +11,7 @@ import {
   AppListActionType,
   AppModal,
   IAppListAction,
-  sharedConts
+  sharedConts,
 } from '@src/shared';
 import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
@@ -86,14 +87,17 @@ export class PlantillasCorreoComponent {
           formControlName: 'description',
           class: 'col-12',
           label: 'Descripción',
-          value: faker.lorem.word(),
+          rows: 3,
+          value: faker.lorem.paragraphs(),
         },
         {
-          type: 'file',
+          type: 'textarea',
           validators: [],
-          formControlName: 'description',
+          formControlName: 'plantilla',
           class: 'col-12',
+          rows: 3,
           label: 'Plantilla',
+          value: '<h1>APORTE FAMILIAR PERMANENTE 2022</h1></br><h2>GRUPO 1</h2><p>Personas que la segunda mitad de cada mes cobran beneficios por Subsidio Familiar, Chile Solidario o por el Subsistema de Seguridades y Oportunidades (Ingreso Ético Familiar) a través del IPS.</p>',
         },
       ],
       updateOn: 'change',
@@ -212,7 +216,7 @@ export class PlantillasCorreoComponent {
         new AppModal({
           title: title,
           data: this.editForm,
-          component: ModalFormComponent,
+          component: ModalAgregarPlantillaComponent,
         })
       )
       .open();

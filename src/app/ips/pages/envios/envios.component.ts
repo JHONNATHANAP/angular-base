@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalSelectPlantillaComponent } from '@app/ips/components/modal-select-plantilla/modal-select-plantilla.component';
+import { Component } from '@angular/core';
+import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { faker } from '@faker-js/faker';
 import {
   AllControls,
@@ -187,7 +187,7 @@ export class EnviosComponent {
           label: 'Buscar plantilla',
           class: 'col-12',
           validators: [],
-          value: 'Jho',
+          value: faker.lorem.word(),
         },
       ],
       updateOn: 'change',
@@ -242,7 +242,7 @@ export class EnviosComponent {
         new AppModal({
           title: 'Seleccionar plantilla',
           data: { form: searchForm, list: list },
-          component: ModalSelectPlantillaComponent,
+          component: ModalSelectComponent,
         })
       )
       .open()

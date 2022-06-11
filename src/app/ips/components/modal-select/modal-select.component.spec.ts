@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalSelectPlantillaComponent } from './modal-select-plantilla.component';
+import { ModalSelectComponent } from './modal-select.component';
 
 describe('ModalSelectPlantillaComponent', () => {
-  let component: ModalSelectPlantillaComponent;
-  let fixture: ComponentFixture<ModalSelectPlantillaComponent>;
+  let component: ModalSelectComponent;
+  let fixture: ComponentFixture<ModalSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalSelectPlantillaComponent ]
+      declarations: [ ModalSelectComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalSelectPlantillaComponent);
+    fixture = TestBed.createComponent(ModalSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

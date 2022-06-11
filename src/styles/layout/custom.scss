@@ -112,3 +112,17 @@ h1 {
 .pointer {
   cursor: pointer !important;
 }
+.mat-dialog-container {
+  .modal-agregar-plantilla {
+    .app-body {
+      &.full {
+        max-height: none !important;
+        height: 90% !important;
+        .mat-dialog-content {
+          max-height: none !important;
+          height: 100% !important;
+        }
+      }
+    }
+  }
+}

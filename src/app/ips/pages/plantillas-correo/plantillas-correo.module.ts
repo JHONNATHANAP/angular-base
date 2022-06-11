@@ -8,6 +8,7 @@ import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
 import { ModalsModule } from '@src/shared/modules/modals';
 import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-upload.module';
+import { ModalAgregarPlantillaModule } from '@app/ips/components/modal-agregar-plantilla/modal-agregar-plantilla.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-up
     IconModule,
     ModalsModule,
     FileUploadModule,
+    ModalAgregarPlantillaModule
   ]
 })
 export class PlantillasCorreoModule { }

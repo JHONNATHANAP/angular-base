@@ -4,27 +4,17 @@ import {
   Inject,
   Input,
   Output,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { faker } from '@faker-js/faker';
-import {
-  AppFormButton,
-  AppFormGeneric,
-  AppList,
-  AppListActionType,
-  AppModal,
-  IAppListAction,
-  sharedConts,
-} from '@src/shared';
-import moment from 'moment';
+import { AppModal } from '@src/shared';
 
 @Component({
-  selector: 'app-modal-select-plantilla',
-  templateUrl: './modal-select-plantilla.component.html',
-  styleUrls: ['./modal-select-plantilla.component.scss'],
+  selector: 'app-modal-select',
+  templateUrl: './modal-select.component.html',
+  styleUrls: ['./modal-select.component.scss'],
 })
-export class ModalSelectPlantillaComponent {
+export class ModalSelectComponent {
   @Input() properties!: AppModal;
   @Output() closeEvent = new EventEmitter<any>();
 
@@ -34,7 +24,6 @@ export class ModalSelectPlantillaComponent {
     @Inject(MAT_DIALOG_DATA) public data: AppModal
   ) {
     this.properties = data;
-    
   }
 
   closeModal(data) {

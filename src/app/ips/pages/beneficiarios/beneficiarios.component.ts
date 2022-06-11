@@ -1,6 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { faker } from '@faker-js/faker';
-import { AppList, AppFormGeneric, AllControls, AppButton, AppIcon, IAppListAction, AppListActionType, AppFormButton, AppModal, sharedConts } from '@src/shared';
+import {
+  AllControls,
+  AppButton,
+  AppFormButton,
+  AppFormGeneric,
+  AppIcon,
+  AppList,
+  AppListActionType,
+  AppModal,
+  IAppListAction,
+  sharedConts,
+} from '@src/shared';
 import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
@@ -8,10 +20,9 @@ import moment from 'moment';
 @Component({
   selector: 'app-beneficiarios',
   templateUrl: './beneficiarios.component.html',
-  styleUrls: ['./beneficiarios.component.scss']
+  styleUrls: ['./beneficiarios.component.scss'],
 })
 export class BeneficiariosComponent {
-
   list: AppList;
   form: AppFormGeneric;
   controls: AllControls[];
@@ -32,9 +43,10 @@ export class BeneficiariosComponent {
       upload: new AppIcon({ class: 'upload' }),
       download: new AppIcon({ class: 'download' }),
       check: new AppIcon({ class: 'check' }),
+      email: new AppIcon({ class: 'email' }),
     },
   };
-  constructor(modalService: ModalService) {
+  constructor(public modalService: ModalService) {
     const actions: IAppListAction[] = [
       {
         label: 'Editar',
@@ -54,7 +66,7 @@ export class BeneficiariosComponent {
 
       return {
         id: faker.name.firstName(),
-        name:faker.name.findName(),
+        name: faker.name.findName(),
         empresa: faker.company.companyName(),
         identificaion: faker.datatype.number({ min: 10000000000 }),
         email: faker.internet.email(),
@@ -200,4 +212,77 @@ export class BeneficiariosComponent {
   exportar() {}
   aprobarTodos() {}
   aprobarRegistro() {}
+  enviarCorreo() {
+    const searchForm = new AppFormGeneric({
+      controls: [
+        {
+          type: 'text',
+          formControlName: 'search',
+          label: 'Buscar plantilla',
+          class: 'col-12',
+          validators: [],
+          value: faker.lorem.word(),
+        },
+      ],
+      updateOn: 'change',
+      class: 'p-1 w-100',
+      clean: new AppFormButton({
+        show: false,
+      }),
+      submit: new AppFormButton({
+        show: false,
+      }),
+    });
+    searchForm.changeEvent().subscribe((data) => {
+      console.log(searchForm.controls[0].value);
+    });
+    const actions: IAppListAction[] = [
+      {
+        label: 'Seleccionar',
+        name: 'select',
+        type: 'icon',
+        icon: { class: 'check', type: 'button' },
+        button: {
+          data: '',
+          framework: 'material',
+          color: '',
+        },
+      },
+    ];
+    const fakeList = Array.from(Array(10).keys()).map((e, index) => {
+      const types: AppListActionType[] = ['icon', 'button', 'text'];
+      const typ = types[index % types.length];
+
+      return {
+        plantilla: faker.lorem.word(),
+        descripcion: faker.lorem.sentence(),
+        actions: actions,
+      };
+    });
+    const list = new AppList({
+      headers: [
+        { name: 'Nombre plantilla', id: 'plantilla' },
+        { name: 'Descripción', id: 'descripcion' },
+      ],
+      data: fakeList,
+      class: 'table align-middle table-striped table-hover',
+      actions: true,
+    });
+    list.actionEvent().subscribe((data) => {
+      console.log(data);
+    });
+    const modald = this.modalService
+      .new(
+        new AppModal({
+          title: 'Seleccionar plantilla',
+          data: { form: searchForm, list: list },
+          component: ModalSelectComponent,
+        })
+      )
+      .open()
+      .closeEvent()
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
 }

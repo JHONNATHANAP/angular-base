@@ -1,0 +1,19 @@
+<app-modal [properties]="properties" class="modal-agregar-plantilla">
+  <div class="row">
+    <div class="col-6">
+      <app-form-generic
+        #formTemplate
+        [properties]="properties.data"
+      ></app-form-generic>
+    </div>
+    <div class="col-6">
+      <h2 class="py-2 primary-dark">Previsualización</h2>
+      <hr>
+      <div class="w-100 fl-al-item-center">
+        <div
+          [innerHtml]="properties.data.form?.controls['plantilla']?.value"
+        ></div>
+      </div>
+    </div>
+  </div>
+</app-modal>
