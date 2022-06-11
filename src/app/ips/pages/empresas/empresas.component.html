@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center p-4">
+  <div class="w-80">
+    <div>
+      <h5 class="py-2 primary-dark">Búsqueda avanzada</h5>
+      <app-form-generic #formTemplate [properties]="form"></app-form-generic>
+    </div>
+    <hr />
+    <div class="py-4">
+      <div class="w-100 fl-justify-between">
+        <div></div>
+        <div class="fl-justify-center pb-3">
+         
+          <app-button class="p-1" [properties]="view.buttons.exportar" (clickEvent)="exportar()">
+            <div class="d-flex align-items-center">
+              <app-icon [properties]="view.icons.download"></app-icon> Exportar
+            </div>
+          </app-button>
+        </div>
+      </div>
+      <app-table class="py-4" [properties]="list"></app-table>
+    </div>
+  </div>
+</div>

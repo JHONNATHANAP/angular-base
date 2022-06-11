@@ -21,6 +21,12 @@ export class ModalComponent {
   @Input() properties!: AppModal;
   @Output() closeEvent = new EventEmitter<any>();
   closeButton: AppIcon = new AppIcon({ class: 'close' });
+  openFullButton: AppIcon = new AppIcon({
+    class: 'open_in_full',
+  });
+  closeFullButton: AppIcon = new AppIcon({
+    class: 'close_fullscreen',
+  });
   constructor(
     private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: AppModal

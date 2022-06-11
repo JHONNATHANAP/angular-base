@@ -19,89 +19,8 @@ mat-sidenav {
   //justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
-
-
-
-  .up {
-    padding: 15px;
-    height: 100px;
-    display: flex;
-
-    .logo {
-      width: 100%;
-
-      img {
-        height: 100%;
-        margin-left: 10%;
-      }
-    }
-    .menu {
-      display: flex;
-      align-content: center;
-    }
-  }
-  &__title {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    padding: 15px;
-    height: 60px;
-    background-color: $primary;
-    color: $on-primary;
-    .title {
-      margin: 0;
-    }
-  }
 }
 
-.icons.md-18 {
-  font-size: 18px;
-}
-.icons.md-24 {
-  font-size: 24px;
-}
-.icons.md-36 {
-  font-size: 36px;
-}
-.icons.md-48 {
-  font-size: 48px;
-}
-
-.estiloIcon {
-  cursor: pointer;
-  margin-right: 15px;
-  color: black;
-}
-
-.estiloIcon:hover {
-  color: #0277bd;
-}
-
-.app-a {
-  margin-left: 1em;
-  margin-right: 0;
-}
-.user {
-  color: $primary !important;
-  cursor: pointer;
-  .user-icon {
-    span {
-      font-size: 55px;
-    }
-  }
-  .user-info {
-    font-size: 14px;
-    min-width: 130px;
-    .name {
-      color: $primary !important;
-      font-weight: 700 !important;
-    }
-    .rol {
-      font-size: 10px;
-    }
-  }
-}
 .navegation-list-label {
   display: inline-block;
   padding-left: 6px;
@@ -165,7 +84,7 @@ mat-sidenav {
   border-right: solid 3px #4a4644;
 }
 
-h1{
+h1 {
   font-size: 24px;
 }
 
@@ -177,16 +96,19 @@ h1{
   background-color: white;
 }
 
-.circles{
+.circles {
   width: 30px;
 }
-.form-control,.form-select{
+.form-control,
+.form-select {
   border-radius: 20px !important;
   border: 1px solid $primary;
   background-image: none;
- 
 }
-.form-control:focus.form-select:focus{
+.form-control:focus.form-select:focus {
   box-shadow: 0 0 0 0.25rem #1123c542;
-  background-image: none;    
+  background-image: none;
+}
+.pointer {
+  cursor: pointer !important;
 }

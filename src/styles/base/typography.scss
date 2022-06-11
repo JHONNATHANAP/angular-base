@@ -1,0 +1,46 @@
+@import "src/styles/colors";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &.primary {
+    color: $primary;
+  }
+  &.secondary {
+    color: $secondary;
+  }
+  &.error {
+    color: $error;
+  }
+  &.success {
+    color: $success;
+  }
+
+  &.primary-dark {
+    color: $primary-dark;
+  }
+  &.secondary-dark {
+    color: $secondary-dark;
+  }
+  &.error-dark {
+    color: $error-dark;
+  }
+  &.success-dark {
+    color: $success-dark;
+  }
+
+  &.primary-light {
+    color: $primary-light;
+  }
+  &.secondary-light {
+    color: $secondary-light;
+  }
+  &.error-light {
+    color: $error-light;
+  }
+  &.success-light {
+    color: $success-light;
+  }
+}

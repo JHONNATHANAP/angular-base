@@ -50,7 +50,7 @@ export class SelectComponent implements ControlValueAccessor {
       ? this.properties?.options[(target as HTMLInputElement).value]?.value
       : '';
     this.writeValue(this.properties.value);
-    this.propagateChange();
+    this.propagateChange(this.properties.value);
     this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }
@@ -59,7 +59,7 @@ export class SelectComponent implements ControlValueAccessor {
       ? this.properties?.options[event.value]?.value
       : '';
     this.writeValue(this.properties.value);
-    this.propagateChange();
+    this.propagateChange(this.properties.value);
     this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }

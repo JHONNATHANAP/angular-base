@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  AppModal
-  
-} from '@src/shared/models/modal-model';
+import { AppModal } from '@src/shared/models/modal-model';
 import { Observable, Subject } from 'rxjs';
-export type ModalType = AppModal ;
+export type ModalType = AppModal;
 @Injectable({
   providedIn: 'root',
 })
@@ -18,19 +15,27 @@ export class ModalService {
   }
   new(newModal: ModalType): ModalService {
     this.modal = newModal;
-    this.modal.closeEvent().subscribe((e)=>{
-      this.close(e)
-    })
+    this.modal.closeEvent().subscribe((e) => {
+      this.close(e);
+    });
+    this.modal.changeEvent().subscribe((e: ModalType) => {
+      this.close(e);
+      this.open();
+    });
     return this;
   }
   open(): ModalService {
     this.dialog.open(this.modal.component, {
       panelClass: this.modal.panelClass,
+      maxWidth: this.modal.full ? '100vw' : '',
+      maxHeight: this.modal.full ? '100vh' : '',
+      height: this.modal.full ? '100%' : '',
+      width: this.modal.full ? '100%' : '',
       data: this.modal,
     });
     return this;
   }
-  close(data) {
+  close(data?) {
     this.dialog.closeAll();
     this.closeSubject.next(this.modal);
   }

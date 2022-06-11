@@ -21,7 +21,9 @@ export class AppModal implements IAppModal {
   html?: string;
   data?: any;
   templateBody!: TemplateRef<any>;
+  full?: boolean = false;
   private closeSubject = new Subject<any>();
+  private changeSubject = new Subject<any>();
   constructor(entity?: IAppModal) {
     this.component = ModalComponent;
     if (!entity) return;
@@ -37,6 +39,13 @@ export class AppModal implements IAppModal {
   closeEvent(): Observable<any> {
     return this.closeSubject.asObservable();
   }
-  actionEvent(event) {}
+  toogleFull() {
+    this.full = !this.full;
+    this.changeSubject.next(this);
+    return this.full;
+  }
+  changeEvent(): Observable<any> {
+    return this.changeSubject.asObservable();
+  }
+  actionEvent(data?: any) {}
 }
-

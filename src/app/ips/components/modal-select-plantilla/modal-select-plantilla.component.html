@@ -1,0 +1,9 @@
+<app-modal [properties]="properties">
+ <div>
+    <app-form-generic
+    #formTemplate
+    [properties]="properties?.data?.form"
+  ></app-form-generic>
+ </div>
+  <app-table [properties]="properties?.data?.list"></app-table>
+</app-modal>

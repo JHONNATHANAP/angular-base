@@ -1,18 +1,27 @@
 <div class="app-header d-flex d-flex justify-content-between">
-  <div ></div>
+  <div></div>
   <div class="d-flex align-items-center">
     <h5 class="m-0">{{ properties?.title ? properties.title : "" }}</h5>
   </div>
   <div>
-    <button (click)="properties.close()"
-      mat-icon-button
-      aria-label="Example icon button with a vertical three dot icon"
-    >
+    <button (click)="properties.toogleFull()" mat-icon-button aria-label="">
+      <app-icon
+        *ngIf="properties.full"
+        mat-raised-button
+        [properties]="closeFullButton"
+      ></app-icon>
+      <app-icon
+        *ngIf="!properties.full"
+        mat-raised-button
+        [properties]="openFullButton"
+      ></app-icon>
+    </button>
+    <button (click)="properties.close()" mat-icon-button aria-label="">
       <app-icon mat-raised-button [properties]="closeButton"></app-icon>
     </button>
   </div>
 </div>
-<div class="app-body ">
+<div class="app-body">
   <mat-dialog-content class="mat-typography">
     <ng-container>
       <div [innerHTML]="properties?.html"></div>

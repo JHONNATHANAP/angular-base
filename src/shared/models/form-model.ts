@@ -183,7 +183,7 @@ export class AppFormGeneric implements IAppFormGeneric {
   class?: string;
   form: FormGroup;
   appearance?: AppControlAppearance;
-  valid: boolean = false;
+  valid: boolean = this.isValid();
   private sub = new Subject<any>();
   private cancel = new Subject<any>();
   private change = new Subject<any>();
@@ -232,9 +232,17 @@ export class AppFormGeneric implements IAppFormGeneric {
           })
           .includes('INVALID');
 
-        this.change.next('');
+        this.change.next(this);
       });
     });
+  }
+  isValid(): boolean {
+    if (!this.form?.controls) return true;
+    return !Array.from(Object.keys(this.form.controls))
+      .map((e) => {
+        return this.form.controls[e].status;
+      })
+      .includes('INVALID');
   }
 
   private buildForm(): FormGroup {

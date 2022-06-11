@@ -47,7 +47,7 @@ export class InputComponent implements ControlValueAccessor {
     const { target } = event;
     this.properties.value = (target as HTMLInputElement).value;
     this.writeValue(this.properties.value);
-    this.propagateChange();
+    this.propagateChange(this.properties.value);
     this.propagateTouched();
     this.changeEvent.emit(this.properties.value);
   }
