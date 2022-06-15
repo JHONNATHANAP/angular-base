@@ -35,7 +35,7 @@ export class ModalService {
     });
     return this;
   }
-  close(data?) {
+  close(data?:any) {
     this.dialog.closeAll();
     this.closeSubject.next(this.modal);
   }

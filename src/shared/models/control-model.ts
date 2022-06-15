@@ -1,5 +1,12 @@
 import { AbstractControl } from '@angular/forms';
-import { AppDate, AppInput, AppSelect, AppTextArea, IAppFormControl, sharedConts } from '..';
+import {
+  AppDate,
+  AppInput,
+  AppSelect,
+  AppTextArea,
+  IAppFormControl,
+  sharedConts,
+} from '..';
 
 export type ControlType = AppInput | AppSelect | AppDate | AppTextArea;
 export type FormControlType =
@@ -7,10 +14,12 @@ export type FormControlType =
   | 'select'
   | 'number'
   | 'checkbox'
+  | 'password'
   | 'radio'
   | 'file'
   | 'date'
-  | 'textarea';
+  | 'textarea'
+  | 'chips';
 export type Appframework = 'material' | 'bootstrap';
 export type AppControlAppearance = 'legacy' | 'outline';
 export interface IAppControl extends IAppFormControl {
@@ -24,8 +33,8 @@ export interface IAppControl extends IAppFormControl {
   patternError?: string;
   class?: string;
   type: FormControlType;
-  framework?: Appframework ;
-  accept?:string;
+  framework?: Appframework;
+  accept?: string;
 }
 
 export class AppControl {

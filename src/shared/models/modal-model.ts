@@ -33,8 +33,9 @@ export class AppModal implements IAppModal {
       this[prop] = entity[e] ? entity[e] : this[e];
     });
   }
-  close() {
-    this.closeSubject.next({});
+  close(info?: any) {
+    this.data = info;
+    this.closeSubject.next(info);
   }
   closeEvent(): Observable<any> {
     return this.closeSubject.asObservable();

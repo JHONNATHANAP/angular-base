@@ -59,6 +59,17 @@ export class BeneficiariosComponent {
           color: '',
         },
       },
+      {
+        label: 'Eliminar',
+        name: 'delete',
+        type: 'icon',
+        icon: { class: 'delete', type: 'button' },
+        button: {
+          data: '',
+          framework: 'material',
+          color: '',
+        },
+      },
     ];
     const fakeList = Array.from(Array(10).keys()).map((e, index) => {
       const types: AppListActionType[] = ['icon', 'button', 'text'];

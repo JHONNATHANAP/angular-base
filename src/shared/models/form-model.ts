@@ -10,6 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import {
   ControlType,
   IAppButton,
+  IAppChip,
   IAppControl,
   IAppDate,
   IAppInput,
@@ -69,7 +70,12 @@ export interface IAppFormGeneric {
   framework?: Appframework;
 }
 
-export type AllControls = IAppInput | IAppSelect | IAppDate | IAppTextArea;
+export type AllControls =
+  | IAppInput
+  | IAppSelect
+  | IAppDate
+  | IAppTextArea
+  | IAppChip;
 
 export interface IAppFormControl {
   formControlName?: string;
@@ -106,7 +112,7 @@ export class AppFormControl
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
-      this[prop] = entity[e] ? entity[e] : this[e];
+      this[prop] = entity[e] != null ? entity[e] : this[e];
     });
   }
 
@@ -215,7 +221,7 @@ export class AppFormGeneric implements IAppFormGeneric {
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
-      this[prop] = entity[e] ? entity[e] : this[e];
+      this[prop] = entity[e] != null ? entity[e] : this[e];
     });
     this.controls = entity.controls.map((e) => {
       return new AppFormControl(e);

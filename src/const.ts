@@ -1,3 +1,5 @@
+import { AppButton, AppIcon } from './shared';
+
 export const routesPath = {
   demo: 'demo',
   controls: 'controls',
@@ -11,6 +13,11 @@ export const routesPath = {
   empresasCargue: 'empresas/cargar',
   beneficiarios: 'beneficiarios',
   beneficiariosCargue: 'beneficiarios/cargar',
+  auth: 'auth',
+  login: 'login',
+  verificar: 'verificar',
+  empresa: 'empresa',
+  beneficiario: 'beneficiario',
 };
 export const views = [
   {
@@ -65,3 +72,32 @@ export const views = [
     ],
   },
 ];
+export const viewConst = {
+  buttons: {
+    cargar: new AppButton({
+      color: 'primary',
+      framework: 'material',
+      class: 'btn',
+    }),
+    exportar: new AppButton({
+      color: 'primary',
+      framework: 'material',
+      class: 'btn',
+    }),
+    add: new AppButton({
+      color: 'primary',
+      framework: 'material',
+      class: '',
+    }),
+  },
+  icons: {
+    upload: new AppIcon({ class: 'upload' }),
+    download: new AppIcon({ class: 'download' }),
+    check: new AppIcon({ class: 'check' }),
+    email: new AppIcon({ class: 'email' }),
+    add: new AppIcon({ class: 'add' }),
+  },
+  text: {
+    busquedaAvanzada: '<h5 class="py-2 primary-dark">Búsqueda avanzada</h5>',
+  },
+};

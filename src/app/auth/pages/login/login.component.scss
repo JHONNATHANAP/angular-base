@@ -1,0 +1,18 @@
+.app-login {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("/assets/img/banner.png");
+
+  //height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .ips-logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+}

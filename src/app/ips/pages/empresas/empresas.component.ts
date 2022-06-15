@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { faker } from '@faker-js/faker';
+import { viewConst } from '@src/const';
 import {
   AllControls,
-  AppButton,
   AppFormButton,
   AppFormGeneric,
-  AppIcon,
   AppList,
   AppListActionType,
   AppModal,
   IAppListAction,
   sharedConts,
 } from '@src/shared';
-import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
+import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
 @Component({
@@ -21,37 +21,215 @@ import moment from 'moment';
   templateUrl: './empresas.component.html',
   styleUrls: ['./empresas.component.scss'],
 })
-export class EmpresasComponent  {
-  list: AppList;
-  form: AppFormGeneric;
-  controls: AllControls[];
-  view = {
-    buttons: {
-      cargar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-      exportar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-    },
-    icons: {
-      upload: new AppIcon({ class: 'upload' }),
-      download: new AppIcon({ class: 'download' }),
-      check: new AppIcon({ class: 'check' }),
-      email: new AppIcon({ class: 'email' }),
-    },
-  };
+export class EmpresasComponent implements OnInit {
+  list: AppList = new AppList();
+  panel: AppExpansionPanel = new AppExpansionPanel({
+    title: viewConst.text.busquedaAvanzada,
+    class: 'border-none',
+  });
+  formFiltros: AppFormGeneric = new AppFormGeneric();
+  formEmpresa: AppFormGeneric = new AppFormGeneric();
+  view = viewConst;
   constructor(public modalService: ModalService) {
+    this.modalService.closeEvent().subscribe((modalData: any) => {
+      console.log(modalData.data);
+    });
+  }
+  ngOnInit(): void {
+    this.initView();
+  }
+  initView() {
+    this.inicializarFiltros();
+    this.inicializarTabla();
+  }
+  inicializarFiltros(): void {
+    const controls: AllControls[] = [
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'name',
+        class: 'col-12 col-md-4',
+        label: 'Nombre empresa',
+        value: faker.name.firstName(),
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'lastname',
+        class: 'col-12 col-md-4',
+        label: 'Nombre representante',
+        value: faker.name.lastName(),
+      },
+      {
+        type: 'number',
+        validators: [],
+        formControlName: 'edad',
+        class: 'col-12 col-md-4',
+        label: 'RUT',
+        value: 28,
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'email',
+        class: 'col-12 col-md-4',
+        label: 'Correo',
+        value: faker.internet.email(),
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'region',
+        class: 'col-12 col-md-4',
+        label: 'Región',
+        value: faker.internet.email(),
+      },
+      {
+        type: 'date',
+        validators: [],
+        formControlName: 'date',
+        class: 'col-12 col-md-4',
+        label: 'Fecha de registro',
+        value: moment(faker.date.recent()).format(
+          sharedConts.forms.controls.date.outputFormat
+        ),
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoEnviado',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Correo enviado',
+        value: faker.datatype.boolean(),
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoRecibido',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Correo recibido',
+        value: false,
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoAbierto',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Correo abierto',
+        value: faker.datatype.boolean(),
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoRechazado',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Correo rechazado',
+        value: true,
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoRechazado',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Tiene número de telefono',
+        value: true,
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'datosCompletos',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Trabajadores con datos completos',
+        value: true,
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'cargasFamiliares',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Trabajadores con cargas familiares',
+        value: true,
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'cargasFamiliares',
+        options: [
+          { label: 'Sí', value: true },
+          { label: 'No', value: false },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Empresa confirmo datos',
+        value: true,
+      },
+    ];
+    this.formFiltros = new AppFormGeneric({
+      controls: controls,
+      updateOn: 'change',
+      clean: new AppFormButton({
+        label: 'Limpiar',
+        show: true,
+        type: 'button',
+        class: 'btn',
+        color: '',
+        framework: 'material',
+      }),
+      submit: new AppFormButton({
+        label: 'Filtrar',
+        show: true,
+        type: 'button',
+        class: 'btn ',
+        color: 'primary',
+        framework: 'material',
+      }),
+    });
+  }
+  inicializarTabla(): void {
     const actions: IAppListAction[] = [
       {
         label: 'Editar',
         name: 'edit',
         type: 'icon',
         icon: { class: 'edit', type: 'button' },
+        button: {
+          data: '',
+          framework: 'material',
+          color: '',
+        },
+      },
+      {
+        label: 'Eliminar',
+        name: 'delete',
+        type: 'icon',
+        icon: { class: 'delete', type: 'button' },
         button: {
           data: '',
           framework: 'material',
@@ -85,117 +263,20 @@ export class EmpresasComponent  {
     });
     this.list.actionEvent().subscribe((data) => {
       console.log(data);
-      const editForm: AppFormGeneric = new AppFormGeneric({
-        controls: this.controls,
-        updateOn: 'change',
-        class: 'p-1',
-        clean: new AppFormButton({
-          label: 'Cancelar',
-          show: true,
-          type: 'button',
-          class: 'btn',
-          color: '',
-          framework: 'material',
-        }),
-        submit: new AppFormButton({
-          label: 'Editar',
-          show: true,
-          type: 'submit',
-          class: 'btn ',
-          color: 'primary',
-          framework: 'material',
-        }),
-      });
-      const modald = modalService
-        .new(
-          new AppModal({
-            title: 'Editar empresa',
-            data: editForm,
-            component: ModalFormComponent,
-          })
-        )
-        .open();
-      editForm.submitEvent().subscribe((data) => {
-        console.log(data);
-        modald.close();
-      });
+
+      this.abrirFormularioEmpresa({});
     });
-    this.controls = [
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'name',
-        class: 'col-12 col-md-4',
-        label: 'Nombre',
-        value: faker.name.firstName(),
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'lastname',
-        class: 'col-12 col-md-4',
-        label: 'Apellido',
-        value: faker.name.lastName(),
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'documentType',
-        class: 'col-12 col-md-4',
-        label: 'Tipo de documento',
-        value: { id: 2 },
-        options: [
-          { value: { id: 1 }, label: 'CC' },
-          { value: { id: 2 }, label: 'DD' },
-        ],
-      },
-      {
-        type: 'number',
-        validators: [],
-        formControlName: 'edad',
-        class: 'col-12 col-md-4',
-        label: 'Indetifiación',
-        value: 28,
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'email',
-        class: 'col-12 col-md-4',
-        label: 'Correo',
-        value: faker.internet.email(),
-      },
-      {
-        type: 'date',
-        validators: [],
-        formControlName: 'date',
-        class: 'col-12 col-md-4',
-        label: 'Fecha Nacimiento',
-        value: moment(faker.date.recent()).format(
-          sharedConts.forms.controls.date.outputFormat
-        ),
-      },
-    ];
-    this.form = new AppFormGeneric({
-      controls: this.controls,
-      updateOn: 'change',
-      clean: new AppFormButton({
-        label: 'Limpiar',
-        show: true,
-        type: 'button',
-        class: 'btn',
-        color: '',
-        framework: 'material',
-      }),
-      submit: new AppFormButton({
-        label: 'Filtrar',
-        show: true,
-        type: 'button',
-        class: 'btn ',
-        color: 'primary',
-        framework: 'material',
-      }),
-    });
+  }
+  abrirFormularioEmpresa(data?: any) {
+    this.modalService
+      .new(
+        new AppModal({
+          title: data ? 'Editar empresa' : 'Nueva empresa',
+          data: this.formEmpresa,
+          component: ModalAgregarEmpresaComponent,
+        })
+      )
+      .open();
   }
   onFilesChanged(event) {
     console.log(event);
@@ -216,7 +297,7 @@ export class EmpresasComponent  {
         },
       ],
       updateOn: 'change',
-      class: 'p-1 w-100',
+      class: 'p-1',
       clean: new AppFormButton({
         show: false,
       }),

@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-center p-4">
+  <div class="w-80">
+    <div class="row py-4">
+      <div
+        class="col-12 col-md-6 d-flex align-items-center justify-content-center"
+      >
+        <p class="py-4 d-flex" style="text-align: justify">
+          En IPS estamos trabajando para brindar el mejor servicio a ti y a tu
+          familia, por eso queremos pedirte que nos ayudes a verificar la
+          siguiente información para asegurar que tu y tu familia sean
+          beneficiarios de Subsidio Familiar, Chile Solidario, el Subsistema de
+          Seguridades y Oportunidades (Ingreso Ético Familiar), Asignación
+          Familiar o Asignación Maternal.
+        </p>
+      </div>
+      <div class="col-12 col-md-6">
+        <img class="w-100" src="/assets/img/banner.png" alt="image" />
+      </div>
+    </div>
+    <div class="card p-4">
+      <div class="d-flex align-items-center justify-content-between">
+        <h1 class="m-0 primary">Información</h1>
+        <button
+          (click)="editarBeneficiario()"
+          mat-icon-button
+          [title]="'Editar'"
+          [color]="'primary'"
+        >
+          <app-icon mat-raised-button [properties]="view.icons.edit"></app-icon>
+        </button>
+      </div>
+      <hr class="primary-dark" style="height: 2px; opacity: 0.7" />
+      <div class="row">
+        <div class="col-12 col-md-4" *ngFor="let item of datosBeneficiario()">
+          <div class="py-2">
+            <strong class="primary-dark">{{ item.key }}</strong>
+            <hr class="primary-dark" />
+            <p>{{ item.value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-4 d-flex align-items-center justify-content-center">
+      <app-button [properties]="view.buttons.aprobar"
+        >Aprobar información</app-button
+      >
+    </div>
+  </div>
+</div>

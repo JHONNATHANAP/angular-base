@@ -1,0 +1,7 @@
+@import "src/styles/colors";
+button {
+  &.primary-fill {
+    background-color: $primary !important;
+    color: $on-primary !important;
+  }
+}

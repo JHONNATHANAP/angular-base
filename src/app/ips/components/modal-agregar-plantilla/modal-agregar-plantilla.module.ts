@@ -8,7 +8,7 @@ import { ModalService } from '@src/shared/modules/modals/modal.service';
 
 @NgModule({
   declarations: [ModalAgregarPlantillaComponent],
-  imports: [[CommonModule, ModalModule, FormGenericModule]],
+  imports: [CommonModule, ModalModule, FormGenericModule],
   providers: [
     ModalService,
     {

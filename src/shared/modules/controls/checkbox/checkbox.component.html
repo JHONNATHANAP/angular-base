@@ -1,0 +1,12 @@
+<div class="app-checkbox p-1 w-100" [title]="properties.label">
+  <div class="d-flex align-items-center">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="properties.value"
+      (change)="onChange($event.checked)"
+      color="primary"
+    >
+    </mat-checkbox>
+    <span *ngIf="properties.label" class="px-2">{{ properties.label }}</span>
+  </div>
+</div>

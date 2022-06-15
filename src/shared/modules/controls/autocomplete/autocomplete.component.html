@@ -1,0 +1,31 @@
+<div class="app-chips">
+  <mat-form-field
+    *ngIf="properties?.framework !== 'bootstrap'"
+    [appearance]="properties.appearance ? properties.appearance : 'outline'"
+  >
+    <mat-label>{{ properties.label || "" }}</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip *ngFor="let item of properties.value" (removed)="remove(item)">
+        {{ item }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        [type]="properties.chipType ? properties.chipType : 'text'"
+        [disabled]="properties.disabled"
+        (blur)="onBlur()"
+        matInput
+        [placeholder]="properties.placeholder || ''"
+        [min]="properties.min"
+        [max]="properties.max"
+        [attr.minlength]="properties.minlength"
+        [attr.maxlength]="properties.maxlength"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)"
+      />
+    </mat-chip-list>
+  </mat-form-field>
+</div>

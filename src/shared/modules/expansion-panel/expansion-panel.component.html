@@ -1,0 +1,11 @@
+<mat-expansion-panel
+  class="app-expansiom-panel {{ properties.class }}"
+  [expanded]="properties.expanded"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title [innerHtml]="properties.title"> </mat-panel-title>
+    <mat-panel-description [innerHtml]="properties.description">
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-content></ng-content>
+</mat-expansion-panel>

@@ -1,0 +1,30 @@
+<app-modal [properties]="properties" class="modal-agregar-plantilla">
+  <div class="row">
+    <div class="col-12  col-md-6">
+      <h2 class="py-1 primary-dark">Información empresa</h2>
+      <hr />
+      <app-form-generic
+        #formTemplate
+        [properties]="formEmpresa"
+      ></app-form-generic>
+    </div>
+    <div class="col-12 col-md-6">
+      <h2 class="py-1 primary-dark">Información representante legal</h2>
+      <hr />
+      <app-form-generic
+        #formTemplate
+        [properties]="formRepresentante"
+      ></app-form-generic>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="d-flex justify-content-center p-4">
+      <app-button (clickEvent)="properties.close()" [properties]="clean"
+        >Cancelar</app-button
+      >
+      <app-button (clickEvent)="submitEvent()" [properties]="submit"
+        >Guardar</app-button
+      >
+    </div>
+  </div>
+</app-modal>

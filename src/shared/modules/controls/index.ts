@@ -1,7 +1,10 @@
 export * from './controls.module';
-export * from './input/input.module';
-export * from './select/select.module';
+export * from './checkbox/checkbox.module';
+export * from './chips/chips.module';
 export * from './date/date.module';
+export * from './file/file.module';
+export * from './input/input.module';
+export * from './number/number.module';
+export * from './password/password.module';
+export * from './select/select.module';
 export * from './text-area/text-area.module';
-/* export * from './file/file.module';
-export * from './file-upload/file-upload.module'; */

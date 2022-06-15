@@ -21,6 +21,12 @@
                 formControlName="{{ control.formControlName }}"
               ></app-input>
             </ng-template>
+            <ng-template ngSwitchCase="password">
+              <app-password
+                [properties]="control"
+                formControlName="{{ control.formControlName }}"
+              ></app-password>
+            </ng-template>
             <ng-template ngSwitchCase="number">
               <app-number
                 [properties]="control"
@@ -54,6 +60,21 @@
                 formControlName="{{ control.formControlName }}"
               >
               </app-file>
+            </ng-template>
+            <ng-template ngSwitchCase="checkbox">
+              <app-checkbox
+                class="check-form"
+                [properties]="control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-checkbox>
+            </ng-template>
+            <ng-template ngSwitchCase="chips">
+              <app-chips
+                [properties]="control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-chips>
             </ng-template>
           </app-form-field>
         </div>

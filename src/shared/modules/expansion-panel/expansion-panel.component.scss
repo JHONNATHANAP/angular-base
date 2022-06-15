@@ -1,0 +1,13 @@
+@import "src/styles/colors";
+.app-expansiom-panel {
+  &.border-none {
+    box-shadow: none;
+    mat-expansion-panel-header {
+      padding: 0px;
+      padding-right: 10px;
+    }
+    ::ng-deep.mat-expansion-panel-body {
+      padding: 0px !important;
+    }
+  }
+}
