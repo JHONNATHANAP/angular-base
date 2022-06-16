@@ -1,0 +1,7 @@
+@import "src/styles/colors";
+.mat-snack-bar-container {
+  &.primary {
+    background-color: $primary !important;
+    color: $on-primary !important;
+  }
+}

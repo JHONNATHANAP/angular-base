@@ -17,7 +17,9 @@ import {
   IAppListAction,
 } from '@src/shared';
 import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
+import { AppSnackBar } from '@src/shared/models/snack-bar-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
+import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
@@ -38,7 +40,10 @@ export class EmpresasComponent implements OnInit {
   view = viewConst;
   itemsAutoComplete: AppAutoCompleteOption[] = [];
   filtrosSeleccionados: AppFiltrosSeleccionados = new AppFiltrosSeleccionados();
-  constructor(public modalService: ModalService) {
+  constructor(
+    public modalService: ModalService,
+    public snackService: SnackBarService
+  ) {
     this.modalService.closeEvent().subscribe((modalData: any) => {
       console.log(modalData.data);
     });
@@ -422,6 +427,15 @@ export class EmpresasComponent implements OnInit {
       console.log(data, this.formFiltros);
       const filtros = this.mapearFIltros();
       if (filtros.length === 0) {
+        this.snackService
+          .new(
+            new AppSnackBar({
+              messaje: 'Debe ingresar al menos un filtro',            
+              class: 'secondary',
+              duration: 3000,
+            })
+          )
+          .open();
         return;
       }
       const count = faker.datatype.number({ min: 100 });

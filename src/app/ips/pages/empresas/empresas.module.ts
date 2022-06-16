@@ -10,6 +10,7 @@ import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
 import { ModalsModule } from '@src/shared/modules/modals';
 import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-upload.module';
+import { SnackBarModule } from '@src/shared/modules/snack-bar';
 import { EmpresasRoutingModule } from './empresas-routing.module';
 import { EmpresasComponent } from './empresas.component';
 @NgModule({
@@ -27,6 +28,7 @@ import { EmpresasComponent } from './empresas.component';
     ExpansionPanelModule,
     ModalAgregarEmpresaModule,
     FiltrosSeleccionadosModule,
+    SnackBarModule
   ],
 })
 export class EmpresasModule {}
