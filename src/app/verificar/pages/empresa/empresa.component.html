@@ -19,7 +19,7 @@
     </div>
     <div class="card p-4">
       <div class="d-flex align-items-center justify-content-between">
-        <h1 class="m-0 primary">Información de la empresa</h1>
+        <h1 class="m-0 primary">Información general</h1>
         <button
           (click)="editarEmpresa()"
           mat-icon-button
@@ -29,13 +29,34 @@
           <app-icon mat-raised-button [properties]="view.icons.edit"></app-icon>
         </button>
       </div>
+
       <hr class="primary-dark" style="height: 2px; opacity: 0.7" />
-      <div class="row">
-        <div class="col-12 col-md-4" *ngFor="let item of datosEmpresa()">
-          <div class="py-2">
-            <strong class="primary-dark">{{ item.key }}</strong>
-            <hr class="primary-dark" />
-            <p>{{ item.value }}</p>
+      <div class="card p-4">
+        <h1 class="m-0 primary">Información de la empresa</h1>
+        <hr class="primary-dark" style="height: 2px; opacity: 0.7" />
+        <div class="row">
+          <div class="col-12 col-md-3" *ngFor="let item of datosEmpresa()">
+            <div class="py-2">
+              <strong class="primary-dark">{{ item.key }}</strong>
+              <hr class="primary-dark" />
+              <p>{{ item.value }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 card p-4">
+        <h1 class="m-0 primary">Información representante legal</h1>
+        <hr class="primary-dark" style="height: 2px; opacity: 0.7" />
+        <div class="row">
+          <div
+            class="col-12 col-md-3"
+            *ngFor="let item of datosRepresentante()"
+          >
+            <div class="py-2">
+              <strong class="primary-dark">{{ item.key }}</strong>
+              <hr class="primary-dark" />
+              <p>{{ item.value }}</p>
+            </div>
           </div>
         </div>
       </div>

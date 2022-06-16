@@ -45,17 +45,57 @@ export class EmpresaComponent {
   };
   empresa = {
     nombre: { label: 'Nombre', value: faker.company.companyName() },
-    rut: {
-      label: 'Rut',
+    dv: {
+      label: 'DV',
       value: faker.datatype.number({ min: 1111111111111 }),
     },
-    representadnte: { label: 'Representante', value: faker.name.findName() },
+    run: {
+      label: 'RUN',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+
+    comuna: { label: 'Comuna', value: faker.address.streetAddress() },
+    region: { label: 'Región', value: faker.address.streetAddress() },
+    prepiloto: { label: 'Prepiloto', value: 'Si' },
+    cara: { label: 'Trabajadores con carga', value: 'Si' },
     email: { label: 'Email', value: faker.internet.email() },
     telefono: {
       label: 'Telefono',
       value: faker.datatype.number({ min: 1111111111111 }),
     },
     direccion: { label: 'Dirección', value: faker.address.streetAddress() },
+    celular: {
+      label: 'Celular',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+  };
+  representante = {
+    nombre: { label: 'Nombre', value: faker.company.companyName() },
+    dv: {
+      label: 'DV',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+    run: {
+      label: 'RUN',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+    email: { label: 'Email', value: faker.internet.email() },
+    telefono: {
+      label: 'Telefono',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+    celular: {
+      label: 'Celular',
+      value: faker.datatype.number({ min: 1111111111111 }),
+    },
+    sexo: { label: 'Sexo', value: 'Masculino' },
+
+    fecha: {
+      label: 'Fecha nacimiento',
+      value: moment(faker.date.past()).format(
+        sharedConts.forms.controls.date.outputFormat
+      ),
+    },
   };
   constructor(public modalService: ModalService) {
     this.formSearch = new AppFormGeneric({
@@ -137,6 +177,11 @@ export class EmpresaComponent {
   datosEmpresa(): any[] {
     return Array.from(Object.keys(this.empresa)).map((e) => {
       return { key: this.empresa[e].label, value: this.empresa[e].value };
+    });
+  }
+  datosRepresentante(): any[] {
+    return Array.from(Object.keys(this.representante)).map((e) => {
+      return { key: this.representante[e].label, value: this.representante[e].value };
     });
   }
 
