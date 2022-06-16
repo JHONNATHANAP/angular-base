@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { AppFiltrosSeleccionados } from '@app/models';
@@ -7,21 +6,18 @@ import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
   AllControls,
-  AppAutoCompleteOption,
   AppAutocompleteItems,
+  AppAutoCompleteOption,
   AppFormButton,
   AppFormGeneric,
+  AppInput,
   AppList,
   AppListActionType,
   AppModal,
   IAppListAction,
-  sharedConts,
-  AppInput,
 } from '@src/shared';
 import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
-import moment from 'moment';
-import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
@@ -67,31 +63,6 @@ export class EmpresasComponent implements OnInit {
       };
     });
   }
-  fakeFiltrosSeleccionados() {
-    const filtros = Array.from(Array(5).keys()).map((e, index) => {
-      const count = faker.datatype.number({ min: 20 });
-      return {
-        check: new AppInput({
-          value: faker.datatype.boolean(),
-          type: 'checkbox',
-        }),
-        total: '<p class="m-0"><b>' + count + ' </b> ' + ' registros</p>',
-        filtros: [
-          { title: faker.lorem.word(), label: faker.lorem.word() },
-          { title: faker.lorem.word(), label: faker.lorem.word() },
-          { labtitleel: faker.lorem.word(), label: faker.lorem.word() },
-          { title: faker.lorem.word(), label: faker.lorem.word() },
-        ],
-        count: count,
-      };
-    });
-    this.filtrosSeleccionados = {
-      filtros: filtros,
-      total: `<p><h5 class="primary">${filtros
-        .map((e) => e.count)
-        .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`,
-    };
-  }
   fakeEstadosCorreo() {
     return [
       {
@@ -124,162 +95,7 @@ export class EmpresasComponent implements OnInit {
       },
     ];
   }
-  inicializarFiltros(): void {
-    const autoNomina = new AppAutocompleteItems(this.fakeNomina());
-    autoNomina.onSearch().subscribe((data) => {
-      console.log(data);
-      autoNomina.items = this.fakeNomina();
-    });
-    const autoCorreoEstado = new AppAutocompleteItems(this.fakeEstadosCorreo());
-    autoCorreoEstado.onSearch().subscribe((data) => {
-      console.log(data);
-      autoCorreoEstado.items = this.fakeEstadosCorreo();
-    });
-    const controls: AllControls[] = [
-      {
-        type: 'autocomplete',
-        validators: [],
-        chipType: 'text',
-        formControlName: 'nominas',
-        placeholder: 'Buscar nomina',
-        items: autoNomina,
-        class: 'col-12 col-md-6',
-        label: 'Nómina',
-        value: [],
-        multiple: true,
-      },
-      {
-        type: 'autocomplete',
-        validators: [],
-        formControlName: 'correoEstado',
-        items: autoCorreoEstado,
-        class: 'col-12 col-md-6',
-        label: 'Estados de envio',
-        placeholder: 'Seleccionar estados',
-        value: [],
-        searchable: false,
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'name',
-        class: 'col-12 col-md-4',
-        label: 'Nombre empresa',
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'lastname',
-        class: 'col-12 col-md-4',
-        label: 'Nombre representante',
-      },
-      {
-        type: 'number',
-        validators: [],
-        formControlName: 'edad',
-        class: 'col-12 col-md-4',
-        label: 'RUT',
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'email',
-        class: 'col-12 col-md-4',
-        label: 'Correo',
-      },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'region',
-        class: 'col-12 col-md-4',
-        label: 'Región',
-      },
-      {
-        type: 'date',
-        validators: [],
-        formControlName: 'date',
-        class: 'col-12 col-md-4',
-        label: 'Fecha de registro',
-       
-      },
 
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'correoRechazado',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Tiene número de telefono',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'datosCompletos',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Trabajadores con datos completos',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'cargasFamiliares',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Trabajadores con cargas familiares',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'cargasFamiliares',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Empresa confirmo datos',
-      },
-    ];
-    this.formFiltros = new AppFormGeneric({
-      controls: controls,
-      updateOn: 'change',
-      clean: new AppFormButton({
-        label: 'Limpiar',
-        show: true,
-        type: 'button',
-        class: 'btn',
-        color: '',
-        framework: 'material',
-      }),
-      submit: new AppFormButton({
-        label: 'Agregar',
-        show: true,
-        type: 'submit',
-        class: 'btn ',
-        color: 'primary',
-        framework: 'material',
-      }),
-    });
-    this.formFiltros.submitEvent().subscribe((data) => {
-      console.log(data, this.formFiltros);
-      const filtros = this.mapearFIltros();
-      if (filtros.length === 0) {
-        return;
-      }
-      this.filtrosSeleccionados.filtros.push({
-        filtros: filtros,
-        check: new AppInput({ value: true, type: 'checkbox' }),
-      });
-    });
-  }
   mapearFIltros() {
     return this.formFiltros.controls
       .map((control) => {
@@ -345,7 +161,8 @@ export class EmpresasComponent implements OnInit {
         id: faker.name.firstName(),
         empresa: faker.company.companyName(),
         representante: faker.name.findName(),
-        identificaion: faker.datatype.number({ min: 10000000000 }),
+        rut: faker.datatype.number({ min: 10000000000 }),
+        rutRepresentante: faker.datatype.number({ min: 10000000000 }),
         email: faker.internet.email(),
         actions: actions,
       };
@@ -353,9 +170,10 @@ export class EmpresasComponent implements OnInit {
     this.list = new AppList({
       headers: [
         { name: 'Nombre empresa', id: 'empresa' },
+        { name: 'RUT empresa', id: 'rut' },
+        { name: 'Email empresa', id: 'email' },
         { name: 'Representante', id: 'representante' },
-        { name: 'Identificación', id: 'identificaion' },
-        { name: 'Contacto', id: 'email' },
+        { name: 'RUT Representante', id: 'rutRepresentante' },
       ],
       data: fakeList,
       class: 'table align-middle table-striped table-hover',
@@ -456,5 +274,168 @@ export class EmpresasComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
       });
+  }
+  inicializarFiltros(): void {
+    const autoNomina = new AppAutocompleteItems(this.fakeNomina());
+    autoNomina.onSearch().subscribe((data) => {
+      console.log(data);
+      autoNomina.items = this.fakeNomina();
+    });
+    const autoCorreoEstado = new AppAutocompleteItems(this.fakeEstadosCorreo());
+    autoCorreoEstado.onSearch().subscribe((data) => {
+      console.log(data);
+      autoCorreoEstado.items = this.fakeEstadosCorreo();
+    });
+    const controls: AllControls[] = [
+      {
+        type: 'autocomplete',
+        validators: [],
+        chipType: 'text',
+        formControlName: 'nominas',
+        placeholder: 'Buscar nomina',
+        items: autoNomina,
+        class: 'col-12 col-md-6',
+        label: 'Nómina',
+        value: [],
+        multiple: true,
+      },
+      {
+        type: 'autocomplete',
+        validators: [],
+        formControlName: 'correoEstado',
+        items: autoCorreoEstado,
+        class: 'col-12 col-md-6',
+        label: 'Estados de envio',
+        placeholder: 'Seleccionar estados',
+        value: [],
+        searchable: false,
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'name',
+        class: 'col-12 col-md-4',
+        label: 'Nombre empresa',
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'lastname',
+        class: 'col-12 col-md-4',
+        label: 'Nombre representante',
+      },
+      {
+        type: 'number',
+        validators: [],
+        formControlName: 'edad',
+        class: 'col-12 col-md-4',
+        label: 'RUT',
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'email',
+        class: 'col-12 col-md-4',
+        label: 'Correo',
+      },
+      {
+        type: 'text',
+        validators: [],
+        formControlName: 'region',
+        class: 'col-12 col-md-4',
+        label: 'Región',
+      },
+      {
+        type: 'date',
+        validators: [],
+        formControlName: 'date',
+        class: 'col-12 col-md-4',
+        label: 'Fecha de registro',
+      },
+
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'correoRechazado',
+        options: [
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Tiene número de telefono',
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'datosCompletos',
+        options: [
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Trabajadores con datos completos',
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'cargasFamiliares',
+        options: [
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Trabajadores con cargas familiares',
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'cargasFamiliares',
+        options: [
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Empresa confirmo datos',
+      },
+    ];
+    this.formFiltros = new AppFormGeneric({
+      controls: controls,
+      updateOn: 'change',
+      clean: new AppFormButton({
+        label: 'Limpiar',
+        show: true,
+        type: 'button',
+        class: 'btn',
+        color: '',
+        framework: 'material',
+      }),
+      submit: new AppFormButton({
+        label: 'Agregar',
+        show: true,
+        type: 'submit',
+        class: 'btn ',
+        color: 'primary',
+        framework: 'material',
+      }),
+    });
+    this.formFiltros.submitEvent().subscribe((data) => {
+      console.log(data, this.formFiltros);
+      const filtros = this.mapearFIltros();
+      if (filtros.length === 0) {
+        return;
+      }
+      const count = faker.datatype.number({ min: 100 });
+      this.filtrosSeleccionados.filtros.push({
+        filtros: filtros,
+        check: new AppInput({ value: true, type: 'checkbox' }),
+        total: this.view.text.totalFiltroFormat
+          .replace('@count', String(count))
+          .replace('@itemLabel', String('empresas')),
+        count: count,
+      });
+      this.filtrosSeleccionados.total = `<p><h5 class="primary">${this.filtrosSeleccionados.filtros
+        .map((e) => e.count)
+        .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
+    });
   }
 }

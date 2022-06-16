@@ -102,5 +102,6 @@ export const viewConst = {
     agregarFiltros: '<h5 class="py-2 primary-dark">Agregar filtros</h5>',
     filtrosAgregados:
       '<h5 class="py-2 primary-dark">Filtros seleccionados</h5>',
+    totalFiltroFormat: '<p class="m-0"><b>@count </b> ' + ' @itemLabel</p>',
   },
 };

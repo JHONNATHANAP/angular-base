@@ -11,9 +11,9 @@ export interface IAppFiltro {
 }
 export interface IAppFiltroSeleccionado {
   check: AppInput;
-
+  total?: string;
   filtros?: IAppFiltro[];
-  count?: string | number;
+  count:  number;
 }
 export class AppFiltrosSeleccionados implements IAppFiltrosSeleccionados {
   filtros: IAppFiltroSeleccionado[] = [];
