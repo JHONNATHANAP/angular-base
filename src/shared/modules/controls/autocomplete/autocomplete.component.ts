@@ -3,11 +3,17 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  Input, Output
+  Input,
+  Output,
+  ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { AppChip } from 'src/shared';
+import { AppAutocomplete } from 'src/shared';
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
@@ -21,11 +27,16 @@ import { AppChip } from 'src/shared';
   ],
 })
 export class AutocompleteComponent implements ControlValueAccessor {
+  @ViewChild(MatAutocompleteTrigger) autoTrigger!: MatAutocompleteTrigger;
   @Output() changeEvent = new EventEmitter<string>();
-  @Input() properties: AppChip;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  @Input() properties: AppAutocomplete;
+  readonly separatorKeysCodes = [] as const;
+  optionsSelected: { label: string; value: any }[] = [];
   constructor() {
-    this.properties = new AppChip();
+    this.properties = new AppAutocomplete();
+    this.properties.value = this.optionsSelected.map((data) => {
+      return data.value;
+    });
   }
 
   private propagateChange: any = () => {};
@@ -44,11 +55,7 @@ export class AutocompleteComponent implements ControlValueAccessor {
 
   onKeyup(event: Event): void {
     const { target } = event;
-    this.properties.value = (target as HTMLInputElement).value;
-    this.writeValue(this.properties.value);
-    this.propagateChange(this.properties.value);
-    this.propagateTouched();
-    this.changeEvent.emit(this.properties.value);
+    this.properties.items?.keyUp((target as HTMLInputElement).value);
   }
 
   onBlur(): void {
@@ -62,14 +69,71 @@ export class AutocompleteComponent implements ControlValueAccessor {
     this.writeValue(this.properties.value);
     this.propagateChange(this.properties.value);
     this.propagateTouched();
-    // Clear the input value
-    event.chipInput!.clear();
+    //event.chipInput!.clear();
   }
+
   remove(value: any): void {
-    const index = this.properties.value.indexOf(value);
+    const index = this.optionsSelected.indexOf(value);
     if (index >= 0) {
-      this.properties.value.splice(index, 1);
+      this.optionsSelected.splice(index, 1);
     }
+    this.setValue();
+  }
+  openAutoComplete() {
+    const self = this;
+    setTimeout(function () {
+      self.autoTrigger.openPanel();
+    }, 1);
+  }
+  selected(event: MatAutocompleteSelectedEvent): void {
+    if (this.properties.multiple) {
+      this.openAutoComplete();
+      if (!this.properties.multiple) {
+        this.optionsSelected = [];
+      }
+    }
+    if (this.validatecheck({ value: event.option.value })) {
+      const index = this.optionsSelected
+        .map((data) => {
+          return data.value;
+        })
+        .indexOf(event.option.value);
+      this.optionsSelected.splice(index, 1);
+    } else {
+      this.optionsSelected.push({
+        label: event.option.viewValue,
+        value: event.option.value,
+      });
+    }
+
+    this.setValue();
+  }
+
+  filtrarValor(item) {
+    return this.optionsSelected.filter((e) => {
+      switch (typeof item.value) {
+        case 'object':
+          return JSON.stringify(e.value) === JSON.stringify(item.value);
+        default:
+          return e === item.value;
+      }
+    });
+  }
+  validatecheck(item): boolean {
+    if (this.optionsSelected.length === 0) return false;
+    const i = this.filtrarValor(item);
+    return i.length > 0 ? true : false;
+  }
+  setValue() {
+    if (!this.properties.multiple) {
+      this.properties.value = this.optionsSelected.map((data) => {
+        return data.value;
+      })[0];
+      return;
+    }
+    this.properties.value = this.optionsSelected.map((data) => {
+      return data.value;
+    });
     this.writeValue(this.properties.value);
     this.propagateChange(this.properties.value);
     this.propagateTouched();

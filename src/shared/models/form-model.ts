@@ -8,7 +8,10 @@ import {
 import moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import {
+  AppAutocompleteItems,
+  AppAutoCompleteOption,
   ControlType,
+  IAppAutocomplete,
   IAppButton,
   IAppChip,
   IAppControl,
@@ -75,6 +78,7 @@ export type AllControls =
   | IAppSelect
   | IAppDate
   | IAppTextArea
+  | IAppAutocomplete
   | IAppChip;
 
 export interface IAppFormControl {
@@ -103,12 +107,19 @@ export class AppFormControl
   type: FormControlType;
   updateOn?: 'change' | 'blur' | 'submit';
   appearance?: AppControlAppearance;
+  items?: AppAutocompleteItems;
   framework?: Appframework = sharedConts.forms.framework;
+  searchable?: boolean;
+  multiple?: boolean;
   constructor(entity: AllControls) {
     this.appearance = sharedConts.forms.controls.appearance;
     this.formControlName = entity.formControlName ? entity.formControlName : '';
     this.type = entity.type;
     this.value = null;
+    this.searchable = true;
+    this.multiple = true;
+    this.items = new AppAutocompleteItems();
+    this.keyUp = () => {};
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
@@ -139,7 +150,7 @@ export class AppFormControl
           .indexOf(this.value);
     }
   }
-
+  keyUp: (value: any) => void;
   public errorKey(): string {
     if (!this.formControl?.errors) return '';
 

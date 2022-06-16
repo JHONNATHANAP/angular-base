@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
   AllControls,
+  AppAutoCompleteOption,
+  AppAutocompleteItems,
   AppFormButton,
   AppFormGeneric,
   AppList,
@@ -16,6 +19,7 @@ import {
 import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
+import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
@@ -30,11 +34,13 @@ export class EmpresasComponent implements OnInit {
   formFiltros: AppFormGeneric = new AppFormGeneric();
   formEmpresa: AppFormGeneric = new AppFormGeneric();
   view = viewConst;
+  itemsAutoComplete: AppAutoCompleteOption[] = [];
   constructor(public modalService: ModalService) {
     this.modalService.closeEvent().subscribe((modalData: any) => {
       console.log(modalData.data);
     });
   }
+
   ngOnInit(): void {
     this.initView();
   }
@@ -42,8 +48,59 @@ export class EmpresasComponent implements OnInit {
     this.inicializarFiltros();
     this.inicializarTabla();
   }
+  fakeNomina() {
+    return Array.from(Array(5).keys()).map((e, index) => {
+      return {
+        label: 'Nómina ' + faker.datatype.number(),
+        value: { id: faker.datatype.number({ min: 10000000000 }) },
+      };
+    });
+  }
+  fakeEstadosCorreo() {
+    return [
+      {
+        label: 'Correo enviado',
+        value: { id: faker.datatype.number({ min: 10000000000 }) },
+      },
+      {
+        label: 'Correo recibido',
+        value: { id: faker.datatype.number({ min: 10000000000 }) },
+      },
+      {
+        label: 'Correo abierto',
+        value: { id: faker.datatype.number({ min: 10000000000 }) },
+      },
+      {
+        label: 'Correo rechazado',
+        value: { id: faker.datatype.number({ min: 10000000000 }) },
+      },
+    ];
+  }
   inicializarFiltros(): void {
+    const autoNomina = new AppAutocompleteItems(this.fakeNomina());
+    autoNomina.onSearch().subscribe((data) => {
+      console.log(data);
+      autoNomina.items = this.fakeNomina();
+    });
+    const autoCorreoEstado = new AppAutocompleteItems(this.fakeEstadosCorreo());
+    autoCorreoEstado.onSearch().subscribe((data) => {
+      console.log(data);
+      autoCorreoEstado.items = this.fakeEstadosCorreo();
+    });
     const controls: AllControls[] = [
+      {
+        type: 'autocomplete',
+        validators: [],
+        chipType: 'text',
+        formControlName: 'nominas',
+        placeholder: 'Buscar nomina',
+        items: autoNomina,
+        class: 'col-12',
+        label: 'Nómina',
+        value: [],
+        multiple: true,
+      },
+
       {
         type: 'text',
         validators: [],
@@ -95,53 +152,16 @@ export class EmpresasComponent implements OnInit {
         ),
       },
       {
-        type: 'select',
+        type: 'autocomplete',
         validators: [],
-        formControlName: 'correoEnviado',
-        options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
-        ],
+        formControlName: 'correoEstado',
+        items: autoCorreoEstado,
         class: 'col-12 col-md-4',
-        label: 'Correo enviado',
-        value: faker.datatype.boolean(),
+        label: 'Estados de correo',
+        value: [],
+        searchable: false,
       },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'correoRecibido',
-        options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Correo recibido',
-        value: false,
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'correoAbierto',
-        options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Correo abierto',
-        value: faker.datatype.boolean(),
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'correoRechazado',
-        options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Correo rechazado',
-        value: true,
-      },
+
       {
         type: 'select',
         validators: [],

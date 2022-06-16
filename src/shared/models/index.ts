@@ -1,3 +1,4 @@
+export * from './autocomplete-model';
 export * from './button-model';
 export * from './chip-model';
 export * from './control-model';

@@ -76,6 +76,13 @@
               >
               </app-chips>
             </ng-template>
+            <ng-template ngSwitchCase="autocomplete">
+              <app-autocomplete
+                [properties]="control"
+                formControlName="{{ control.formControlName }}"
+              >
+              </app-autocomplete>
+            </ng-template>
           </app-form-field>
         </div>
       </ng-container>

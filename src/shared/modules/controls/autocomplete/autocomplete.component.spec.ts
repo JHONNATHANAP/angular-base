@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { faker } from '@faker-js/faker';
-import { AppChip } from '@src/shared/models';
+import { AppAutocomplete, AppChip } from '@src/shared/models';
 import { AutocompleteComponent } from './autocomplete.component';
 const componentTest = AutocompleteComponent;
 describe('AutocompleteComponent', () => {
   let component: AutocompleteComponent;
   let fixture: ComponentFixture<AutocompleteComponent>;
-  let properties: AppChip;
+  let properties: AppAutocomplete;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [componentTest],
@@ -22,7 +22,7 @@ describe('AutocompleteComponent', () => {
     fixture.debugElement.injector.get(NG_VALUE_ACCESSOR);
 
     fixture.detectChanges();
-    properties = new AppChip({
+   /*  properties = new AppAutocomplete({
       type: 'text',
       label: faker.name.jobTitle(),
       placeholder: faker.name.jobTitle(),
@@ -32,7 +32,7 @@ describe('AutocompleteComponent', () => {
       minlength: faker.datatype.number(),
       maxlength: faker.datatype.number(),
       value: faker.datatype.string(),
-    });
+    }); */
     component.properties = properties;
     fixture.detectChanges();
   });

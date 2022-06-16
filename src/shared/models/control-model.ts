@@ -1,5 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import {
+  AppAutocomplete,
   AppDate,
   AppInput,
   AppSelect,
@@ -8,7 +9,12 @@ import {
   sharedConts,
 } from '..';
 
-export type ControlType = AppInput | AppSelect | AppDate | AppTextArea;
+export type ControlType =
+  | AppInput
+  | AppSelect
+  | AppDate
+  | AppTextArea
+  | AppAutocomplete;
 export type FormControlType =
   | 'text'
   | 'select'
@@ -19,6 +25,7 @@ export type FormControlType =
   | 'file'
   | 'date'
   | 'textarea'
+  | 'autocomplete'
   | 'chips';
 export type Appframework = 'material' | 'bootstrap';
 export type AppControlAppearance = 'legacy' | 'outline';
