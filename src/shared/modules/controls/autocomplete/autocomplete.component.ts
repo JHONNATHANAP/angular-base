@@ -31,10 +31,9 @@ export class AutocompleteComponent implements ControlValueAccessor {
   @Output() changeEvent = new EventEmitter<string>();
   @Input() properties: AppAutocomplete;
   readonly separatorKeysCodes = [] as const;
-  optionsSelected: { label: string; value: any }[] = [];
   constructor() {
     this.properties = new AppAutocomplete();
-    this.properties.value = this.optionsSelected.map((data) => {
+    this.properties.value = this.properties.optionsSelected.map((data) => {
       return data.value;
     });
   }
@@ -73,9 +72,9 @@ export class AutocompleteComponent implements ControlValueAccessor {
   }
 
   remove(value: any): void {
-    const index = this.optionsSelected.indexOf(value);
+    const index = this.properties.optionsSelected.indexOf(value);
     if (index >= 0) {
-      this.optionsSelected.splice(index, 1);
+      this.properties.optionsSelected.splice(index, 1);
     }
     this.setValue();
   }
@@ -89,18 +88,18 @@ export class AutocompleteComponent implements ControlValueAccessor {
     if (this.properties.multiple) {
       this.openAutoComplete();
       if (!this.properties.multiple) {
-        this.optionsSelected = [];
+        this.properties.optionsSelected = [];
       }
     }
     if (this.validatecheck({ value: event.option.value })) {
-      const index = this.optionsSelected
+      const index = this.properties.optionsSelected
         .map((data) => {
           return data.value;
         })
         .indexOf(event.option.value);
-      this.optionsSelected.splice(index, 1);
+      this.properties.optionsSelected.splice(index, 1);
     } else {
-      this.optionsSelected.push({
+      this.properties.optionsSelected.push({
         label: event.option.viewValue,
         value: event.option.value,
       });
@@ -110,7 +109,7 @@ export class AutocompleteComponent implements ControlValueAccessor {
   }
 
   filtrarValor(item) {
-    return this.optionsSelected.filter((e) => {
+    return this.properties.optionsSelected.filter((e) => {
       switch (typeof item.value) {
         case 'object':
           return JSON.stringify(e.value) === JSON.stringify(item.value);
@@ -120,18 +119,18 @@ export class AutocompleteComponent implements ControlValueAccessor {
     });
   }
   validatecheck(item): boolean {
-    if (this.optionsSelected.length === 0) return false;
+    if (this.properties.optionsSelected.length === 0) return false;
     const i = this.filtrarValor(item);
     return i.length > 0 ? true : false;
   }
   setValue() {
     if (!this.properties.multiple) {
-      this.properties.value = this.optionsSelected.map((data) => {
+      this.properties.value = this.properties.optionsSelected.map((data) => {
         return data.value;
       })[0];
       return;
     }
-    this.properties.value = this.optionsSelected.map((data) => {
+    this.properties.value = this.properties.optionsSelected.map((data) => {
       return data.value;
     });
     this.writeValue(this.properties.value);

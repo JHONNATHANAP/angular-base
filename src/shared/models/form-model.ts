@@ -104,6 +104,7 @@ export class AppFormControl
   options?: IAppSelectOption[] | undefined;
   class?: string;
   valueText?: string;
+  optionsSelected: { label: string; value: any }[] = [];
   type: FormControlType;
   updateOn?: 'change' | 'blur' | 'submit';
   appearance?: AppControlAppearance;
@@ -119,7 +120,7 @@ export class AppFormControl
     this.searchable = true;
     this.multiple = true;
     this.items = new AppAutocompleteItems();
- 
+
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
@@ -289,6 +290,7 @@ export class AppFormGeneric implements IAppFormGeneric {
     this.form.reset();
     this.controls.map((e) => {
       e.valueText = '';
+      e.optionsSelected = [];
     });
     this.cancel.next('');
   }

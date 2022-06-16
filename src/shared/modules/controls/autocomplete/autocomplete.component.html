@@ -5,7 +5,7 @@
   >
     <mat-label>{{ properties.label || "" }}</mat-label>
     <mat-chip-list #chipList aria-label="">
-      <mat-chip *ngFor="let item of optionsSelected" (removed)="remove(item)">
+      <mat-chip *ngFor="let item of properties.optionsSelected" (removed)="remove(item)">
         {{ item.label }}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>

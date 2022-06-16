@@ -48,6 +48,7 @@ export class AppAutocomplete implements IAppAutocomplete {
     });
     this.disabled = entity.disabled;
   }
+  optionsSelected: { label: string; value: any }[] = [];
   chipType?: 'number' | 'text' | 'date';
   appearance?: AppControlAppearance;
   framework?: Appframework = sharedConts.forms.framework;
