@@ -36,7 +36,12 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-
+/src/environments/environment.dev.ts
 # System files
 .DS_Store
 Thumbs.db
+/.firebase/*
+/.firebaserc
+/firebase.json
+/public/*
+/dist/*

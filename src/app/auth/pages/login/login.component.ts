@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faker } from '@faker-js/faker';
 import {
@@ -7,6 +8,8 @@ import {
   AppFormGeneric,
   sharedConts,
 } from '@src/shared';
+import { AppSnackBar } from '@src/shared/models/snack-bar-model';
+import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
 import moment from 'moment';
 
 @Component({
@@ -17,19 +20,22 @@ import moment from 'moment';
 export class LoginComponent {
   form: AppFormGeneric;
   controls: AllControls[];
-  constructor(private router: Router,) {
+  constructor(
+    private router: Router,
+    private snackBarService: SnackBarService
+  ) {
     this.controls = [
       {
         type: 'text',
-        validators: [],
+        validators: [Validators.required],
         formControlName: 'user',
         class: 'col-12',
         label: 'Usuario',
-        value: faker.name.firstName(),
+        value: 'IPS',
       },
       {
         type: 'password',
-        validators: [],
+        validators: [Validators.required],
         formControlName: 'password',
         class: 'col-12',
         label: 'Contraseña',
@@ -51,8 +57,24 @@ export class LoginComponent {
         framework: 'material',
       }),
     });
-    this.form.submitEvent().subscribe((data)=>{
-      this.router.navigate(['/ips/empresas']);
-    })
+    this.form.submitEvent().subscribe((data) => {
+      if (data.user === 'IPS') {
+        this.router.navigate(['/ips/empresas']);
+      } else if (data.user === 'Empresa') {
+        this.router.navigate(['/verificar/empresa']);
+      } else if (data.user === 'Trabajador') {
+        this.router.navigate(['/verificar/beneficiario']);
+      } else {
+        this.snackBarService
+          .new(
+            new AppSnackBar({
+              messaje: 'Usuarios validos: IPS,Empresa,Trabajador',
+              class: 'secondary',
+              duration: 3000,
+            })
+          )
+          .open();
+      }
+    });
   }
 }
