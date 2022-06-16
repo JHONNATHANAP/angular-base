@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { BeneficiariosRoutingModule } from './beneficiarios-routing.module';
-import { BeneficiariosComponent } from './beneficiarios.component';
-import { FormGenericModule, ButtonModule } from '@src/shared';
+import { MatButtonModule } from '@angular/material/button';
+import { FiltrosSeleccionadosModule } from '@app/ips/components/filtros-seleccionados/filtros-seleccionados.module';
+import { ModalAgregarBeneficiarioModule } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.module';
+import { ButtonModule, FormGenericModule } from '@src/shared';
+import { ExpansionPanelModule } from '@src/shared/modules/expansion-panel';
 import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
 import { ModalsModule } from '@src/shared/modules/modals';
 import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-upload.module';
-
+import { SnackBarModule } from '@src/shared/modules/snack-bar';
+import { BeneficiariosRoutingModule } from './beneficiarios-routing.module';
+import { BeneficiariosComponent } from './beneficiarios.component';
 
 @NgModule({
-  declarations: [
-    BeneficiariosComponent
-  ],
+  declarations: [BeneficiariosComponent],
   imports: [
     CommonModule,
     BeneficiariosRoutingModule,
@@ -22,7 +24,12 @@ import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-up
     ButtonModule,
     IconModule,
     ModalsModule,
-    FileUploadModule
-  ]
+    FileUploadModule,
+    MatButtonModule,
+    ExpansionPanelModule,
+    ModalAgregarBeneficiarioModule,
+    FiltrosSeleccionadosModule,
+    SnackBarModule,
+  ],
 })
-export class BeneficiariosModule { }
+export class BeneficiariosModule {}

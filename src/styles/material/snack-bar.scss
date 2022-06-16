@@ -1,11 +1,18 @@
 .mat-snack-bar-container {
-    &.primary {
-      background-color: $primary !important;
-      color: $on-primary !important;
-    }
-    &.secondary {
-        background-color: $secondary !important;
-        color: $on-secondary !important;
-      }
+  &.primary {
+    background-color: $primary !important;
+    color: $on-primary !important;
   }
-  
+  &.secondary {
+    background-color: $secondary !important;
+    color: $on-secondary !important;
+  }
+  &.success {
+    background-color: $success !important;
+    color: $on-success !important;
+  }
+  &.error {
+    background-color: $error !important;
+    color: $on-error !important;
+  }
+}

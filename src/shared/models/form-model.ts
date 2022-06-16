@@ -285,7 +285,7 @@ export class AppFormGeneric implements IAppFormGeneric {
     return form;
   }
 
-  cleanForm(event): void {
+  cleanForm(event?): void {
     this.form.markAsUntouched();
     this.form.reset();
     this.controls.map((e) => {

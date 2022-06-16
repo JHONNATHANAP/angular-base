@@ -46,6 +46,15 @@ export class EmpresasComponent implements OnInit {
   ) {
     this.modalService.closeEvent().subscribe((modalData: any) => {
       console.log(modalData.data);
+      this.snackService
+        .new(
+          new AppSnackBar({
+            messaje: 'Se ha guardado con exito',
+            class: 'success',
+            duration: 2000,
+          })
+        )
+        .open();
     });
   }
 
@@ -220,7 +229,7 @@ export class EmpresasComponent implements OnInit {
         },
       ],
       updateOn: 'change',
-      class: 'p-1',
+      class: 'p-1 w-100',
       clean: new AppFormButton({
         show: false,
       }),
@@ -357,11 +366,21 @@ export class EmpresasComponent implements OnInit {
         class: 'col-12 col-md-4',
         label: 'Fecha de registro',
       },
-
       {
         type: 'select',
         validators: [],
-        formControlName: 'correoRechazado',
+        formControlName: 'tieneCorreo',
+        options: [
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
+        ],
+        class: 'col-12 col-md-4',
+        label: 'Tiene correo registrado',
+      },
+      {
+        type: 'select',
+        validators: [],
+        formControlName: 'tieneTelefono',
         options: [
           { label: 'Sí', value: { value: true, label: 'Sí' } },
           { label: 'No', value: { value: false, label: 'No' } },
@@ -394,13 +413,13 @@ export class EmpresasComponent implements OnInit {
       {
         type: 'select',
         validators: [],
-        formControlName: 'cargasFamiliares',
+        formControlName: 'confirmoDatos',
         options: [
           { label: 'Sí', value: { value: true, label: 'Sí' } },
           { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
-        label: 'Empresa confirmo datos',
+        label: 'Datos confirmados',
       },
     ];
     this.formFiltros = new AppFormGeneric({
@@ -430,7 +449,7 @@ export class EmpresasComponent implements OnInit {
         this.snackService
           .new(
             new AppSnackBar({
-              messaje: 'Debe ingresar al menos un filtro',            
+              messaje: 'Debe ingresar al menos un filtro',
               class: 'secondary',
               duration: 3000,
             })
@@ -450,6 +469,7 @@ export class EmpresasComponent implements OnInit {
       this.filtrosSeleccionados.total = `<p><h5 class="primary">${this.filtrosSeleccionados.filtros
         .map((e) => e.count)
         .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
+      this.formFiltros.cleanForm();
     });
   }
 }
