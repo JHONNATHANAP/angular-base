@@ -67,7 +67,7 @@ export class EnviosComponent {
         plantilla: faker.lorem.word(),
         nombre: faker.name.findName(),
         empresa: faker.company.companyName(),
-        tipoContacto: ['Beneficiario', 'Empleador'][
+        tipoContacto: ['Beneficiario', 'trabajadorr'][
           faker.datatype.number({ min: 0, max: 1 })
         ],
         date: moment(faker.date.past()).format(

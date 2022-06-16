@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
+import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
 import { faker } from '@faker-js/faker';
 import {
   AppButton,
@@ -20,7 +22,7 @@ import moment from 'moment';
   templateUrl: './empresa.component.html',
   styleUrls: ['./empresa.component.scss'],
 })
-export class EmpresaComponent  {
+export class EmpresaComponent {
   formSearch: AppFormGeneric;
   list: AppList;
   view = {
@@ -61,8 +63,8 @@ export class EmpresaComponent  {
         {
           formControlName: 'search',
           type: 'text',
-          label: 'Buscar colaborador',
-          placeholder: 'Nombre colaborador',
+          label: 'Buscar trabajador',
+          placeholder: 'Nombre trabajador',
           value: faker.name.firstName(),
           class: 'col-12 col-md-4',
         },
@@ -118,7 +120,7 @@ export class EmpresaComponent  {
     });
     this.list = new AppList({
       headers: [
-        { name: 'Colaborador', id: 'name' },
+        { name: 'trabajador', id: 'name' },
         { name: 'Identificación', id: 'identificaion' },
         { name: 'Contacto', id: 'email' },
       ],
@@ -128,7 +130,7 @@ export class EmpresaComponent  {
     });
     this.list.actionEvent().subscribe((data) => {
       console.log(data);
-      this.editarColaborador();
+      this.editartrabajador();
     });
   }
 
@@ -138,7 +140,7 @@ export class EmpresaComponent  {
     });
   }
 
-  editarColaborador(isNew?: boolean) {
+  editartrabajador(isNew?: boolean) {
     const editForm: AppFormGeneric = new AppFormGeneric({
       controls: [
         {
@@ -218,9 +220,9 @@ export class EmpresaComponent  {
     const modald = this.modalService
       .new(
         new AppModal({
-          title: isNew ? 'Añadir colaborador' : 'Editar colaborador',
+          title: isNew ? 'Añadir trabajador' : 'Editar trabajador',
           data: editForm,
-          component: ModalFormComponent,
+          component: ModalAgregarBeneficiarioComponent,
         })
       )
       .open();
@@ -305,7 +307,7 @@ export class EmpresaComponent  {
         new AppModal({
           title: 'Editar Información empresa',
           data: editForm,
-          component: ModalFormComponent,
+          component: ModalAgregarEmpresaComponent,
         })
       )
       .open();

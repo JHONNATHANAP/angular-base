@@ -6,6 +6,7 @@ import { BeneficiarioComponent } from './beneficiario.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule, FormGenericModule } from '@src/shared';
 import { IconModule } from '@src/shared/modules/icons';
+import { ModalAgregarBeneficiarioModule } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.module';
 
 @NgModule({
   declarations: [BeneficiarioComponent],
@@ -15,7 +16,8 @@ import { IconModule } from '@src/shared/modules/icons';
     IconModule,
     MatButtonModule,
     FormGenericModule,
-    ButtonModule
+    ButtonModule,
+    ModalAgregarBeneficiarioModule,
   ],
 })
 export class BeneficiarioModule {}

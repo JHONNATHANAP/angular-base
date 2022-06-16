@@ -7,6 +7,8 @@ import { IconModule } from '@src/shared/modules/icons';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule, FormGenericModule } from '@src/shared';
 import { ListModule } from '@src/shared/modules/lists';
+import { ModalAgregarEmpresaModule } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.module';
+import { ModalAgregarBeneficiarioModule } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.module';
 
 @NgModule({
   declarations: [EmpresaComponent],
@@ -17,7 +19,9 @@ import { ListModule } from '@src/shared/modules/lists';
     MatButtonModule,
     FormGenericModule,
     ListModule,
-    ButtonModule
+    ButtonModule,
+    ModalAgregarEmpresaModule,
+    ModalAgregarBeneficiarioModule
   ],
 })
 export class EmpresaModule {}

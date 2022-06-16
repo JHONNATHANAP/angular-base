@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
 import { faker } from '@faker-js/faker';
-import { AppButton, AppFormButton, AppFormGeneric, AppIcon, AppModal, sharedConts } from '@src/shared';
+import {
+  AppButton,
+  AppFormButton,
+  AppFormGeneric,
+  AppIcon,
+  AppModal,
+  sharedConts,
+} from '@src/shared';
 import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
@@ -10,7 +18,7 @@ import moment from 'moment';
   templateUrl: './beneficiario.component.html',
   styleUrls: ['./beneficiario.component.scss'],
 })
-export class BeneficiarioComponent{
+export class BeneficiarioComponent {
   beneficiario = {
     nombre: { label: 'Nombre', value: faker.company.companyName() },
     rut: {
@@ -126,7 +134,7 @@ export class BeneficiarioComponent{
         new AppModal({
           title: 'Editar información',
           data: editForm,
-          component: ModalFormComponent,
+          component: ModalAgregarBeneficiarioComponent,
         })
       )
       .open();
