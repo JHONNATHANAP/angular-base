@@ -1,11 +1,16 @@
 <div class="d-flex justify-content-center p-4">
   <div class="w-80">
     <div>
-      <app-expansion-panel [properties]="panel">
+      <app-expansion-panel [properties]="panelAgregar">
         <app-form-generic
           #formTemplate
           [properties]="formFiltros"
         ></app-form-generic>
+      </app-expansion-panel>
+      <app-expansion-panel *ngIf="filtrosSeleccionados.filtros.length>0" [properties]="panelAgregados">
+        <app-filtros-seleccionados
+          [properties]="filtrosSeleccionados"
+        ></app-filtros-seleccionados>
       </app-expansion-panel>
     </div>
     <hr />
@@ -20,7 +25,7 @@
             >
               <div class="d-flex align-items-center">
                 <app-icon [properties]="view.icons.email"></app-icon>
-                Enviar correo
+                Crear campaña
               </div>
             </app-button>
           </div>

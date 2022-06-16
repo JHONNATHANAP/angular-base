@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
+import { AppFiltrosSeleccionados } from '@app/models';
 import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
@@ -15,6 +16,7 @@ import {
   AppModal,
   IAppListAction,
   sharedConts,
+  AppInput,
 } from '@src/shared';
 import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
@@ -27,14 +29,19 @@ import { Observable, Subject } from 'rxjs';
 })
 export class EmpresasComponent implements OnInit {
   list: AppList = new AppList();
-  panel: AppExpansionPanel = new AppExpansionPanel({
-    title: viewConst.text.busquedaAvanzada,
-    class: 'border-none',
+  panelAgregar: AppExpansionPanel = new AppExpansionPanel({
+    title: viewConst.text.agregarFiltros,
+    class: 'my-2',
+  });
+  panelAgregados: AppExpansionPanel = new AppExpansionPanel({
+    title: viewConst.text.filtrosAgregados,
+    class: 'my-2',
   });
   formFiltros: AppFormGeneric = new AppFormGeneric();
   formEmpresa: AppFormGeneric = new AppFormGeneric();
   view = viewConst;
   itemsAutoComplete: AppAutoCompleteOption[] = [];
+  filtrosSeleccionados: AppFiltrosSeleccionados = new AppFiltrosSeleccionados();
   constructor(public modalService: ModalService) {
     this.modalService.closeEvent().subscribe((modalData: any) => {
       console.log(modalData.data);
@@ -50,29 +57,70 @@ export class EmpresasComponent implements OnInit {
   }
   fakeNomina() {
     return Array.from(Array(5).keys()).map((e, index) => {
+      const label = 'Nómina ' + faker.datatype.number();
       return {
-        label: 'Nómina ' + faker.datatype.number(),
-        value: { id: faker.datatype.number({ min: 10000000000 }) },
+        label: label,
+        value: {
+          id: faker.datatype.number({ min: 10000000000 }),
+          label: label,
+        },
       };
     });
+  }
+  fakeFiltrosSeleccionados() {
+    const filtros = Array.from(Array(5).keys()).map((e, index) => {
+      const count = faker.datatype.number({ min: 20 });
+      return {
+        check: new AppInput({
+          value: faker.datatype.boolean(),
+          type: 'checkbox',
+        }),
+        total: '<p class="m-0"><b>' + count + ' </b> ' + ' registros</p>',
+        filtros: [
+          { title: faker.lorem.word(), label: faker.lorem.word() },
+          { title: faker.lorem.word(), label: faker.lorem.word() },
+          { labtitleel: faker.lorem.word(), label: faker.lorem.word() },
+          { title: faker.lorem.word(), label: faker.lorem.word() },
+        ],
+        count: count,
+      };
+    });
+    this.filtrosSeleccionados = {
+      filtros: filtros,
+      total: `<p><h5 class="primary">${filtros
+        .map((e) => e.count)
+        .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`,
+    };
   }
   fakeEstadosCorreo() {
     return [
       {
         label: 'Correo enviado',
-        value: { id: faker.datatype.number({ min: 10000000000 }) },
+        value: {
+          id: faker.datatype.number({ min: 10000000000 }),
+          label: 'Correo enviado',
+        },
       },
       {
         label: 'Correo recibido',
-        value: { id: faker.datatype.number({ min: 10000000000 }) },
+        value: {
+          id: faker.datatype.number({ min: 10000000000 }),
+          label: 'Correo recibido',
+        },
       },
       {
         label: 'Correo abierto',
-        value: { id: faker.datatype.number({ min: 10000000000 }) },
+        value: {
+          id: faker.datatype.number({ min: 10000000000 }),
+          label: 'Correo abierto',
+        },
       },
       {
         label: 'Correo rechazado',
-        value: { id: faker.datatype.number({ min: 10000000000 }) },
+        value: {
+          id: faker.datatype.number({ min: 10000000000 }),
+          label: 'Correo rechazado',
+        },
       },
     ];
   }
@@ -95,19 +143,28 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'nominas',
         placeholder: 'Buscar nomina',
         items: autoNomina,
-        class: 'col-12',
+        class: 'col-12 col-md-6',
         label: 'Nómina',
         value: [],
         multiple: true,
       },
-
+      {
+        type: 'autocomplete',
+        validators: [],
+        formControlName: 'correoEstado',
+        items: autoCorreoEstado,
+        class: 'col-12 col-md-6',
+        label: 'Estados de envio',
+        placeholder: 'Seleccionar estados',
+        value: [],
+        searchable: false,
+      },
       {
         type: 'text',
         validators: [],
         formControlName: 'name',
         class: 'col-12 col-md-4',
         label: 'Nombre empresa',
-        value: faker.name.firstName(),
       },
       {
         type: 'text',
@@ -115,7 +172,6 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'lastname',
         class: 'col-12 col-md-4',
         label: 'Nombre representante',
-        value: faker.name.lastName(),
       },
       {
         type: 'number',
@@ -123,7 +179,6 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'edad',
         class: 'col-12 col-md-4',
         label: 'RUT',
-        value: 28,
       },
       {
         type: 'text',
@@ -131,7 +186,6 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'email',
         class: 'col-12 col-md-4',
         label: 'Correo',
-        value: faker.internet.email(),
       },
       {
         type: 'text',
@@ -139,7 +193,6 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'region',
         class: 'col-12 col-md-4',
         label: 'Región',
-        value: faker.internet.email(),
       },
       {
         type: 'date',
@@ -147,19 +200,7 @@ export class EmpresasComponent implements OnInit {
         formControlName: 'date',
         class: 'col-12 col-md-4',
         label: 'Fecha de registro',
-        value: moment(faker.date.recent()).format(
-          sharedConts.forms.controls.date.outputFormat
-        ),
-      },
-      {
-        type: 'autocomplete',
-        validators: [],
-        formControlName: 'correoEstado',
-        items: autoCorreoEstado,
-        class: 'col-12 col-md-4',
-        label: 'Estados de correo',
-        value: [],
-        searchable: false,
+       
       },
 
       {
@@ -167,48 +208,44 @@ export class EmpresasComponent implements OnInit {
         validators: [],
         formControlName: 'correoRechazado',
         options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
         label: 'Tiene número de telefono',
-        value: true,
       },
       {
         type: 'select',
         validators: [],
         formControlName: 'datosCompletos',
         options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
         label: 'Trabajadores con datos completos',
-        value: true,
       },
       {
         type: 'select',
         validators: [],
         formControlName: 'cargasFamiliares',
         options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
         label: 'Trabajadores con cargas familiares',
-        value: true,
       },
       {
         type: 'select',
         validators: [],
         formControlName: 'cargasFamiliares',
         options: [
-          { label: 'Sí', value: true },
-          { label: 'No', value: false },
+          { label: 'Sí', value: { value: true, label: 'Sí' } },
+          { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
         label: 'Empresa confirmo datos',
-        value: true,
       },
     ];
     this.formFiltros = new AppFormGeneric({
@@ -223,14 +260,57 @@ export class EmpresasComponent implements OnInit {
         framework: 'material',
       }),
       submit: new AppFormButton({
-        label: 'Filtrar',
+        label: 'Agregar',
         show: true,
-        type: 'button',
+        type: 'submit',
         class: 'btn ',
         color: 'primary',
         framework: 'material',
       }),
     });
+    this.formFiltros.submitEvent().subscribe((data) => {
+      console.log(data, this.formFiltros);
+      const filtros = this.mapearFIltros();
+      if (filtros.length === 0) {
+        return;
+      }
+      this.filtrosSeleccionados.filtros.push({
+        filtros: filtros,
+        check: new AppInput({ value: true, type: 'checkbox' }),
+      });
+    });
+  }
+  mapearFIltros() {
+    return this.formFiltros.controls
+      .map((control) => {
+        const title = control.label;
+        let value = control.value;
+        let label: string = '';
+        switch (typeof control.value) {
+          case 'object':
+            if (Array.isArray(control.value)) {
+              label = control.value
+                .map((e) => {
+                  return e.label;
+                })
+                .toString();
+            } else {
+              label = control.value?.label;
+            }
+            break;
+          default:
+            label = String(control.value);
+        }
+        return {
+          title: title,
+          value: value,
+          label: label,
+          typeof: typeof control.value,
+        };
+      })
+      .filter((data) => {
+        return data.label && data.label !== '';
+      });
   }
   inicializarTabla(): void {
     const actions: IAppListAction[] = [

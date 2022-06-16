@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
+import { FiltrosSeleccionadosModule } from '@app/ips/components/filtros-seleccionados/filtros-seleccionados.module';
 import { ModalAgregarEmpresaModule } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.module';
-import { ButtonModule, FormGenericModule } from '@src/shared';
+import { ButtonModule, CheckboxModule, FormGenericModule } from '@src/shared';
 import { ExpansionPanelModule } from '@src/shared/modules/expansion-panel/expansion-panel.module';
 import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
@@ -24,7 +25,8 @@ import { EmpresasComponent } from './empresas.component';
     FileUploadModule,
     MatButtonModule,
     ExpansionPanelModule,
-    ModalAgregarEmpresaModule
+    ModalAgregarEmpresaModule,
+    FiltrosSeleccionadosModule,
   ],
 })
 export class EmpresasModule {}

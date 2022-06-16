@@ -119,7 +119,7 @@ export class AppFormControl
     this.searchable = true;
     this.multiple = true;
     this.items = new AppAutocompleteItems();
-    this.keyUp = () => {};
+ 
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
@@ -150,7 +150,6 @@ export class AppFormControl
           .indexOf(this.value);
     }
   }
-  keyUp: (value: any) => void;
   public errorKey(): string {
     if (!this.formControl?.errors) return '';
 

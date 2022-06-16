@@ -26,14 +26,14 @@ export const views = [
     view: routesPath.empresas,
     children: [
       {
+        title: 'Cargue de nóminas',
+        path: `/${routesPath.ips}/${routesPath.empresasCargue}`,
+        view: routesPath.empresasCargue,
+      },
+      {
         title: 'Listado',
         path: `/${routesPath.ips}/${routesPath.empresas}`,
         view: routesPath.empresas,
-      },
-      {
-        title: 'Cargues',
-        path: `/${routesPath.ips}/${routesPath.empresasCargue}`,
-        view: routesPath.empresasCargue,
       },
     ],
   },
@@ -99,5 +99,8 @@ export const viewConst = {
   },
   text: {
     busquedaAvanzada: '<h5 class="py-2 primary-dark">Búsqueda avanzada</h5>',
+    agregarFiltros: '<h5 class="py-2 primary-dark">Agregar filtros</h5>',
+    filtrosAgregados:
+      '<h5 class="py-2 primary-dark">Filtros seleccionados</h5>',
   },
 };
