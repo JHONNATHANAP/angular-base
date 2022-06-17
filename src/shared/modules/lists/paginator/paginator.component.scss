@@ -1,0 +1,20 @@
+@import "src/styles/colors";
+.app-paginator {
+  font-size: 0.8rem;
+  .select {
+    width: 40px;
+    font-size: 0.9rem;
+  }
+  .previous {
+    font-size: 15px;
+  }
+  .w {
+    width: 33, 3% !important;
+  }
+  .separador {
+    background-color: rgba(75, 75, 75, 0.658);
+    margin: 0px 10px;
+    width: 1px;
+    height: 20px;
+  }
+}

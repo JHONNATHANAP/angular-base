@@ -1,4 +1,5 @@
 <div class="table-responsive">
+  <app-paginator></app-paginator>
   <table class=" {{ properties.class }}">
     <thead>
       <th *ngFor="let head of properties.headers" [innerHtml]="head.name"></th>

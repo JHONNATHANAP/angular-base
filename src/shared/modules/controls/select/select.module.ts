@@ -7,12 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [SelectComponent],
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatInputModule,
-  ],
+  imports: [CommonModule, MatSelectModule, MatInputModule],
   exports: [SelectComponent],
 })
 export class SelectModule {}

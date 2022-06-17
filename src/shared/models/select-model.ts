@@ -8,7 +8,7 @@ import {
 } from './control-model';
 
 export interface IAppSelect extends IAppControl {
-  options?: IAppSelectOption[];
+  options?: IAppSelectOption[]|[];
 }
 export interface IAppSelectOption {
   label: string;

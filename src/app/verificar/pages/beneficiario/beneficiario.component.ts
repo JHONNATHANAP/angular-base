@@ -1,15 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
 import { faker } from '@faker-js/faker';
-import {
-  AppButton,
-  AppFormButton,
-  AppFormGeneric,
-  AppIcon,
-  AppModal,
-  sharedConts,
-} from '@src/shared';
-import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
+import { AppButton, AppIcon, AppModal, sharedConts } from '@src/shared';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
 
