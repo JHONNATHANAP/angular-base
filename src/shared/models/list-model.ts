@@ -9,6 +9,12 @@ export interface IAppListAction {
   type?: AppListActionType;
 }
 export type AppListActionType = 'text' | 'icon' | 'button';
+export type AppSort = {
+  value?: string;
+  id?: string;
+  type?: 'asc' | 'dsc' | 'none';
+  show?: boolean;
+};
 export interface IAppListHeader {
   name: string;
   id: string;
@@ -29,6 +35,7 @@ export interface IAppList {
   data?: Array<AppItem>;
   class?: string;
   actions?: boolean;
+  sort?: AppSort;
 }
 
 export class AppList implements IAppList {
@@ -36,6 +43,7 @@ export class AppList implements IAppList {
   class: string;
   data: Array<AppItem>;
   actions: boolean;
+  sort?: AppSort;
   private action = new Subject<any>();
   constructor(entity?: IAppList) {
     this.headers = [];
@@ -54,5 +62,18 @@ export class AppList implements IAppList {
   }
   actionEvent(): Observable<any> {
     return this.action.asObservable();
+  }
+  sortAction(head) {
+    this.sort = {
+      id: head.id,
+      type:
+        head.id !== this.sort?.id
+          ? 'asc'
+          : this.sort?.type === 'asc'
+          ? 'dsc'
+          : this.sort?.type === 'dsc'
+          ? 'none'
+          : 'asc',
+    };
   }
 }

@@ -42,9 +42,9 @@ export class AppPaginator implements IAppPaginator {
       disabled: false,
     };
     this.items = {
-      from: 1,
-      to: 50,
-      total: 5000,
+      from: 11,
+      to: 20,
+      total: 240,
     };
     this.show = true;
     if (!entity) return;
