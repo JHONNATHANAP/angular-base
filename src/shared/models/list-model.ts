@@ -43,13 +43,14 @@ export class AppList implements IAppList {
   class: string;
   data: Array<AppItem>;
   actions: boolean;
-  sort?: AppSort;
+  sort: AppSort;
   private action = new Subject<any>();
   constructor(entity?: IAppList) {
     this.headers = [];
     this.data = [];
     this.actions = true;
     this.class = '';
+    this.sort = { show: true };
 
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
@@ -66,6 +67,7 @@ export class AppList implements IAppList {
   sortAction(head) {
     this.sort = {
       id: head.id,
+      show:true,
       type:
         head.id !== this.sort?.id
           ? 'asc'

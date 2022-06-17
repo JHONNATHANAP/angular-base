@@ -3,8 +3,8 @@
   <table class=" {{ properties.class }}">
     <thead>
       <th *ngFor="let head of properties.headers">
-        <button
-          class="w-100 d-flex"
+        <button [ngClass]="{ disabledSort: !properties.sort?.show }"
+          class="head w-100 d-flex"
           mat-flat-button
           (click)="properties.sortAction(head)"
         >
