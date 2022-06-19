@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { AppButton, AppIcon } from '.';
+import { AppButton, AppIcon, AppInput } from '.';
 
 export interface IAppListAction {
   name: string;
@@ -25,6 +25,7 @@ export type AppItem = {
   [param: string]:
     | string
     | number
+    | AppInput
     | boolean
     | Array<IAppListAction>
     | ReadonlyArray<string | number | boolean>;
@@ -36,6 +37,7 @@ export interface IAppList {
   class?: string;
   actions?: boolean;
   sort?: AppSort;
+  customBody?: boolean;
 }
 
 export class AppList implements IAppList {
@@ -44,6 +46,7 @@ export class AppList implements IAppList {
   data: Array<AppItem>;
   actions: boolean;
   sort: AppSort;
+  customBody: boolean;
   private action = new Subject<any>();
   constructor(entity?: IAppList) {
     this.headers = [];
@@ -51,7 +54,7 @@ export class AppList implements IAppList {
     this.actions = true;
     this.class = '';
     this.sort = { show: true };
-
+    this.customBody = false;
     if (!entity) return;
     Array.from(Object.keys(entity)).map((e: string) => {
       const prop: string = e;
@@ -67,7 +70,7 @@ export class AppList implements IAppList {
   sortAction(head) {
     this.sort = {
       id: head.id,
-      show:true,
+      show: true,
       type:
         head.id !== this.sort?.id
           ? 'asc'

@@ -3,8 +3,9 @@
   <table class=" {{ properties.class }}">
     <thead>
       <th *ngFor="let head of properties.headers">
-        <button [ngClass]="{ disabledSort: !properties.sort?.show }"
-          class="head w-100 d-flex"
+        <button
+          [ngClass]="{ disabledSort: !properties.sort?.show }"
+          class="d-flex  justify-content-center head w-100 d-flex"
           mat-flat-button
           (click)="properties.sortAction(head)"
         >
@@ -27,53 +28,58 @@
       <th *ngIf="properties.actions"></th>
     </thead>
     <tbody>
-      <tr *ngFor="let item of properties.data">
-        <td *ngFor="let head of properties.headers">
-          <span [innerHtml]="item[head.id]"> </span>
-        </td>
-        <td *ngIf="properties.actions">
-          <div class="d-flex align-items-center">
-            <ng-container *ngFor="let action of item['actions']">
-              <div class="p-1" (click)="properties.clickAction(item, action)">
-                <ng-container [ngSwitch]="action.type">
-                  <ng-template ngSwitchCase="icon">
-                    <button
-                      mat-icon-button
-                      [title]="action.label"
-                      [color]="action.button?.color"
-                    >
-                      <app-icon
-                        mat-raised-button
-                        [properties]="action.icon ? action.icon : defaultIcon"
-                      ></app-icon>
-                    </button>
-                  </ng-template>
-                  <ng-template ngSwitchCase="button">
-                    <app-button
-                      [properties]="
-                        action.button ? action.button : defaultButton
-                      "
-                    >
-                      {{ action.label }}
-                    </app-button>
-                  </ng-template>
-                  <ng-template ngSwitchCase="button"></ng-template>
-                  <ng-template ngSwitchDefault>
-                    <button
-                      mat-icon-button
-                      [title]="action.label"
-                      [color]="action.button?.color"
-                      style="width: fit-content"
-                    >
-                      <span class="link" [innerHtml]="action.label"></span>
-                    </button>
-                  </ng-template>
-                </ng-container>
-              </div>
-            </ng-container>
-          </div>
-        </td>
-      </tr>
+      <ng-container *ngIf="properties.customBody">
+        <ng-content></ng-content>
+      </ng-container>
+      <ng-container *ngIf="!properties.customBody">
+        <tr *ngFor="let item of properties.data">
+          <td *ngFor="let head of properties.headers">
+            <span [innerHtml]="item[head.id]"> </span>
+          </td>
+          <td *ngIf="properties.actions">
+            <div class="d-flex align-items-center">
+              <ng-container *ngFor="let action of item['actions']">
+                <div class="p-1" (click)="properties.clickAction(item, action)">
+                  <ng-container [ngSwitch]="action.type">
+                    <ng-template ngSwitchCase="icon">
+                      <button
+                        mat-icon-button
+                        [title]="action.label"
+                        [color]="action.button?.color"
+                      >
+                        <app-icon
+                          mat-raised-button
+                          [properties]="action.icon ? action.icon : defaultIcon"
+                        ></app-icon>
+                      </button>
+                    </ng-template>
+                    <ng-template ngSwitchCase="button">
+                      <app-button
+                        [properties]="
+                          action.button ? action.button : defaultButton
+                        "
+                      >
+                        {{ action.label }}
+                      </app-button>
+                    </ng-template>
+                    <ng-template ngSwitchCase="button"></ng-template>
+                    <ng-template ngSwitchDefault>
+                      <button
+                        mat-icon-button
+                        [title]="action.label"
+                        [color]="action.button?.color"
+                        style="width: fit-content"
+                      >
+                        <span class="link" [innerHtml]="action.label"></span>
+                      </button>
+                    </ng-template>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
   <div

@@ -43,14 +43,14 @@ export const views = [
     view: routesPath.beneficiarios,
     children: [
       {
+        title: 'Cargue de nóminas',
+        path: `/${routesPath.ips}/${routesPath.beneficiariosCargue}`,
+        view: routesPath.beneficiariosCargue,
+      },
+      {
         title: 'Listado',
         path: `/${routesPath.ips}/${routesPath.beneficiarios}`,
         view: routesPath.beneficiarios,
-      },
-      {
-        title: 'Cargues',
-        path: `/${routesPath.ips}/${routesPath.beneficiariosCargue}`,
-        view: routesPath.beneficiariosCargue,
       },
     ],
   },
