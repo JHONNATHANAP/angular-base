@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BeneficiariosCargueRoutingModule } from './beneficiarios-cargue-routing.module';
-import { BeneficiariosCargueComponent } from './beneficiarios-cargue.component';
+import { TrabajadoresRegistroRoutingModule } from './trabajadores-registro-routing.module';
+import { TrabajadoresRegistroComponent } from './trabajadores-registro.component';
 import { FormGenericModule, ButtonModule } from '@src/shared';
 import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
@@ -12,11 +12,11 @@ import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-up
 
 @NgModule({
   declarations: [
-    BeneficiariosCargueComponent
+    TrabajadoresRegistroComponent
   ],
   imports: [
     CommonModule,
-    BeneficiariosCargueRoutingModule,
+    TrabajadoresRegistroRoutingModule,
     ListModule,
     FormGenericModule,
     ButtonModule,
@@ -25,4 +25,4 @@ import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-up
     FileUploadModule
   ]
 })
-export class BeneficiariosCargueModule { }
+export class TrabajadoresRegistroModule { }

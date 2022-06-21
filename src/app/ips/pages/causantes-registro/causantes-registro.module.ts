@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EmpresasCargueRoutingModule } from './empresas-cargue-routing.module';
-import { EmpresasCargueComponent } from './empresas-cargue.component';
+import { CausantesRegistroRoutingModule } from './causantes-registro-routing.module';
+import { CausantesRegistroComponent } from './causantes-registro.component';
 import { FormGenericModule, ButtonModule } from '@src/shared';
 import { IconModule } from '@src/shared/modules/icons';
 import { ListModule } from '@src/shared/modules/lists';
@@ -10,10 +10,10 @@ import { ModalsModule } from '@src/shared/modules/modals';
 import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-upload.module';
 
 @NgModule({
-  declarations: [EmpresasCargueComponent],
+  declarations: [CausantesRegistroComponent],
   imports: [
     CommonModule,
-    EmpresasCargueRoutingModule,
+    CausantesRegistroRoutingModule,
     ListModule,
     FormGenericModule,
     ButtonModule,
@@ -22,4 +22,4 @@ import { FileUploadModule } from '@src/shared/modules/modals/file-upload/file-up
     FileUploadModule,
   ],
 })
-export class EmpresasCargueModule {}
+export class CausantesRegistroModule {}

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BeneficiarioRoutingModule } from './beneficiario-routing.module';
-import { BeneficiarioComponent } from './beneficiario.component';
+import { TrabajadorRoutingModule } from './trabajador-routing.module';
+import { TrabajadorComponent } from './trabajador.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule, CheckboxModule, FormGenericModule } from '@src/shared';
 import { IconModule } from '@src/shared/modules/icons';
@@ -11,10 +11,10 @@ import { ListModule } from '@src/shared/modules/lists';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [BeneficiarioComponent],
+  declarations: [TrabajadorComponent],
   imports: [
     CommonModule,
-    BeneficiarioRoutingModule,
+    TrabajadorRoutingModule,
     IconModule,
     MatButtonModule,
     FormGenericModule,
@@ -25,4 +25,4 @@ import { MatIconModule } from '@angular/material/icon';
     CheckboxModule
   ],
 })
-export class BeneficiarioModule {}
+export class TrabajadorModule {}

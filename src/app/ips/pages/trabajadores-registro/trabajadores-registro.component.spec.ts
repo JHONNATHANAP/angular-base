@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BeneficiariosCargueComponent } from './beneficiarios-cargue.component';
+import { TrabajadoresRegistroComponent } from './trabajadores-registro.component';
 
 describe('BeneficiariosCargueComponent', () => {
-  let component: BeneficiariosCargueComponent;
-  let fixture: ComponentFixture<BeneficiariosCargueComponent>;
+  let component: TrabajadoresRegistroComponent;
+  let fixture: ComponentFixture<TrabajadoresRegistroComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BeneficiariosCargueComponent ]
-    })
-    .compileComponents();
+      declarations: [TrabajadoresRegistroComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BeneficiariosCargueComponent);
+    fixture = TestBed.createComponent(TrabajadoresRegistroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

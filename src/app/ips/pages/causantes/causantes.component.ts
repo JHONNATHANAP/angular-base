@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
-import { ModalAgregarEmpresaComponent } from '@app/ips/components/modal-agregar-empresa/modal-agregar-empresa.component';
+import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
 import { AppFiltrosSeleccionados } from '@app/models';
 import { faker } from '@faker-js/faker';
@@ -9,30 +8,25 @@ import {
   AllControls,
   AppAutocompleteItems,
   AppAutoCompleteOption,
-  AppButton,
   AppFormButton,
   AppFormGeneric,
-  AppIcon,
   AppInput,
   AppList,
   AppListActionType,
   AppModal,
   IAppListAction,
-  sharedConts,
 } from '@src/shared';
 import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { AppSnackBar } from '@src/shared/models/snack-bar-model';
 import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
-import moment from 'moment';
-
 @Component({
-  selector: 'app-beneficiarios',
-  templateUrl: './beneficiarios.component.html',
-  styleUrls: ['./beneficiarios.component.scss'],
+  selector: 'app-causantes',
+  templateUrl: './causantes.component.html',
+  styleUrls: ['./causantes.component.scss'],
 })
-export class BeneficiariosComponent {
+export class CausantesComponent implements OnInit {
   list: AppList = new AppList();
   panelAgregar: AppExpansionPanel = new AppExpansionPanel({
     title: viewConst.text.agregarFiltros,
@@ -180,11 +174,9 @@ export class BeneficiariosComponent {
 
       return {
         id: faker.name.firstName(),
-        empresa: faker.company.companyName(),
+        nombre: faker.company.companyName(),
         rut: faker.datatype.number({ min: 10000000000 }),
-        rutEmpresa: faker.datatype.number({ min: 10000000000 }),
-        nombre: faker.datatype.number({ min: 10000000000 }),
-        email: faker.internet.email(),
+        tieneRetencion: 'Si',
         actions: actions,
       };
     });
@@ -192,9 +184,7 @@ export class BeneficiariosComponent {
       headers: [
         { name: 'Nombre', id: 'nombre' },
         { name: 'RUT', id: 'rut' },
-        { name: 'Email', id: 'email' },
-        { name: 'Nombre empresa', id: 'empresa' },
-        { name: 'RUT empresa', id: 'rutEmpresa' },
+        { name: 'Tiene retención', id: 'tieneRetencion' },
       ],
       data: fakeList,
       class: 'table align-middle table-striped table-hover',
@@ -203,19 +193,73 @@ export class BeneficiariosComponent {
     this.list.actionEvent().subscribe((data) => {
       console.log(data);
 
-      this.abrirFormularioEmpresa({});
+      this.abrirFormularioCausante({});
     });
   }
-  abrirFormularioEmpresa(data?: any) {
-    this.modalService
+  abrirFormularioCausante(data?: any) {
+    const form: AppFormGeneric = new AppFormGeneric(
+      new AppFormGeneric({
+        controls: [
+          {
+            type: 'text',
+            validators: [Validators.required],
+            formControlName: 'nombre',
+            class: 'col-12 col-md-6',
+            label: 'Nombre',
+            value: faker.name.findName(),
+          },
+          {
+            type: 'number',
+            validators: [Validators.required],
+            formControlName: 'identificacion',
+            class: 'col-12 col-md-6',
+            label: 'Identificación',
+            value: faker.datatype.number({ min: 100000 }),
+          },
+          {
+            type: 'select',
+            validators: [Validators.required],
+            formControlName: 'marcado',
+            class: 'col-12 col-md-6',
+            label: 'Tiene retención',
+            options: [
+              { label: 'Si', value: 0 },
+              { label: 'No', value: 1 },
+            ],
+          },
+        ],
+        updateOn: 'change',
+        class: 'p-1',
+        clean: new AppFormButton({
+          show: true,
+          type: 'submit',
+          class: 'btn',
+          color: 'primary',
+          framework: 'material',
+          label: 'Guardar',
+        }),
+        submit: new AppFormButton({
+          show: true,
+          type: 'button',
+          class: 'btn',
+          color: '',
+          framework: 'material',
+          label: 'Cancelar',
+        }),
+      })
+    );
+    const modald = this.modalService
       .new(
         new AppModal({
-          title: data ? 'Editar beneficiario' : 'Nuevo beneficiario',
-          data: this.formEmpresa,
-          component: ModalAgregarBeneficiarioComponent,
+          title: 'Editar información',
+          data: form,
+          component: ModalFormComponent,
         })
       )
       .open();
+    modald.closeEvent().subscribe((data) => {
+      console.log(data);
+    });
   }
   onFilesChanged(event) {
     console.log(event);
@@ -334,9 +378,9 @@ export class BeneficiariosComponent {
       {
         type: 'text',
         validators: [],
-        formControlName: 'name',
+        formControlName: 'lastname',
         class: 'col-12 col-md-4',
-        label: 'Nombre beneficiario',
+        label: 'Nombre',
       },
       {
         type: 'number',
@@ -345,42 +389,7 @@ export class BeneficiariosComponent {
         class: 'col-12 col-md-4',
         label: 'RUT',
       },
-      {
-        type: 'text',
-        validators: [],
-        formControlName: 'email',
-        class: 'col-12 col-md-4',
-        label: 'Correo',
-      },
-      {
-        type: 'date',
-        validators: [],
-        formControlName: 'date',
-        class: 'col-12 col-md-4',
-        label: 'Fecha de registro',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'tieneCorreo',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Tiene correo registrado',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'tieneTelefono',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Tiene número de telefono',
-      },
+
       {
         type: 'select',
         validators: [],
@@ -390,18 +399,7 @@ export class BeneficiariosComponent {
           { label: 'No', value: { value: false, label: 'No' } },
         ],
         class: 'col-12 col-md-4',
-        label: 'Tiene retención judicial',
-      },
-      {
-        type: 'select',
-        validators: [],
-        formControlName: 'confirmoDatos',
-        options: [
-          { label: 'Sí', value: { value: true, label: 'Sí' } },
-          { label: 'No', value: { value: false, label: 'No' } },
-        ],
-        class: 'col-12 col-md-4',
-        label: 'Datos confirmados',
+        label: 'Tiene retención',
       },
     ];
     this.formFiltros = new AppFormGeneric({
@@ -445,7 +443,7 @@ export class BeneficiariosComponent {
         check: new AppInput({ value: true, type: 'checkbox' }),
         total: this.view.text.totalFiltroFormat
           .replace('@count', String(count))
-          .replace('@itemLabel', String('beneficiarios')),
+          .replace('@itemLabel', String('empresas')),
         count: count,
       });
       this.filtrosSeleccionados.total = `<p><h5 class="primary">${this.filtrosSeleccionados.filtros

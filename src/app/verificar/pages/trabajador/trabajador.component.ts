@@ -19,11 +19,11 @@ import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-beneficiario',
-  templateUrl: './beneficiario.component.html',
-  styleUrls: ['./beneficiario.component.scss'],
+  selector: 'app-trabajador',
+  templateUrl: './trabajador.component.html',
+  styleUrls: ['./trabajador.component.scss'],
 })
-export class BeneficiarioComponent implements OnInit {
+export class TrabajadorComponent implements OnInit {
   defaultIcon: AppIcon = new AppIcon();
   defaultButton: AppButton = new AppButton();
   defaultCheckbox: AppInput = new AppInput({ type: 'checkbox' });
@@ -84,30 +84,7 @@ export class BeneficiarioComponent implements OnInit {
     this.inicializarCargasFamiliares();
   }
   inicializarCargasFamiliares() {
-    const actions: IAppListAction[] = [
-      {
-        label: 'Editar',
-        name: 'edit',
-        type: 'icon',
-        icon: { class: 'edit', type: 'button' },
-        button: {
-          data: '',
-          framework: 'material',
-          color: '',
-        },
-      },
-      {
-        label: 'Eliminar',
-        name: 'delete',
-        type: 'icon',
-        icon: { class: 'delete', type: 'button' },
-        button: {
-          data: '',
-          framework: 'material',
-          color: '',
-        },
-      },
-    ];
+    const actions: IAppListAction[] = [];
     const fakeList = Array.from(Array(3).keys()).map((e, index) => {
       const types: AppListActionType[] = ['icon', 'button', 'text'];
       const typ = types[index % types.length];

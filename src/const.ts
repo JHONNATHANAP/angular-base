@@ -10,14 +10,16 @@ export const routesPath = {
   plantillas: 'plantillas',
   envios: 'envios',
   empresas: 'empresas',
-  empresasCargue: 'empresas/cargar',
-  beneficiarios: 'beneficiarios',
-  beneficiariosCargue: 'beneficiarios/cargar',
+  empresasRegistro: 'empresas/registro',
+  causantes: 'causantes',
+  causantesRegistro: 'causantes/registro',
+  trabajadores: 'trabajadores',
+  trabajadoresRegistro: 'trabajadores/registro',
   auth: 'auth',
   login: 'login',
   verificar: 'verificar',
   empresa: 'empresa',
-  beneficiario: 'beneficiario',
+  trabajador: 'trabajador',
 };
 export const views = [
   {
@@ -26,9 +28,9 @@ export const views = [
     view: routesPath.empresas,
     children: [
       {
-        title: 'Cargue de nóminas',
-        path: `/${routesPath.ips}/${routesPath.empresasCargue}`,
-        view: routesPath.empresasCargue,
+        title: 'Registro',
+        path: `/${routesPath.ips}/${routesPath.empresasRegistro}`,
+        view: routesPath.empresasRegistro,
       },
       {
         title: 'Listado',
@@ -38,19 +40,36 @@ export const views = [
     ],
   },
   {
-    title: 'Beneficiarios',
-    path: `/${routesPath.ips}/${routesPath.beneficiarios}`,
-    view: routesPath.beneficiarios,
+    title: 'Trabajadores',
+    path: `/${routesPath.ips}/${routesPath.trabajadores}`,
+    view: routesPath.trabajadores,
     children: [
       {
-        title: 'Cargue de nóminas',
-        path: `/${routesPath.ips}/${routesPath.beneficiariosCargue}`,
-        view: routesPath.beneficiariosCargue,
+        title: 'Registro',
+        path: `/${routesPath.ips}/${routesPath.trabajadoresRegistro}`,
+        view: routesPath.trabajadoresRegistro,
       },
       {
         title: 'Listado',
-        path: `/${routesPath.ips}/${routesPath.beneficiarios}`,
-        view: routesPath.beneficiarios,
+        path: `/${routesPath.ips}/${routesPath.trabajadores}`,
+        view: routesPath.trabajadores,
+      },
+    ],
+  },
+  {
+    title: 'Causantes',
+    path: `/${routesPath.ips}/${routesPath.causantes}`,
+    view: routesPath.trabajadores,
+    children: [
+      {
+        title: 'Registro',
+        path: `/${routesPath.ips}/${routesPath.causantesRegistro}`,
+        view: routesPath.causantesRegistro,
+      },
+      {
+        title: 'Listado',
+        path: `/${routesPath.ips}/${routesPath.causantes}`,
+        view: routesPath.causantes,
       },
     ],
   },

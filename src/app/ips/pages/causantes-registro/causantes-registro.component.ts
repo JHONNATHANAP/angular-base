@@ -15,11 +15,11 @@ import { ModalService } from '@src/shared/modules/modals/modal.service';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-beneficiarios-cargue',
-  templateUrl: './beneficiarios-cargue.component.html',
-  styleUrls: ['./beneficiarios-cargue.component.scss'],
+  selector: 'app-causantes-registro',
+  templateUrl: './causantes-registro.component.html',
+  styleUrls: ['./causantes-registro.component.scss'],
 })
-export class BeneficiariosCargueComponent {
+export class CausantesRegistroComponent  {
   list: AppList;
   form: AppFormGeneric;
   controls: AllControls[];

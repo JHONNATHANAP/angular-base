@@ -14,25 +14,39 @@ const routes: Routes = [
           ),
       },
       {
-        path: routesPath.empresasCargue,
+        path: routesPath.empresasRegistro,
         loadChildren: () =>
-          import('./pages/empresas-cargue/empresas-cargue.module').then(
-            (m) => m.EmpresasCargueModule
+          import('./pages/empresas-registro/empresas-registro.module').then(
+            (m) => m.EmpresasRegistroModule
           ),
       },
       {
-        path: routesPath.beneficiarios,
+        path: routesPath.trabajadores,
         loadChildren: () =>
-          import('./pages/beneficiarios/beneficiarios.module').then(
-            (m) => m.BeneficiariosModule
+          import('./pages/trabajadores/trabajadores.module').then(
+            (m) => m.TrabajadoresModule
           ),
       },
       {
-        path: routesPath.beneficiariosCargue,
+        path: routesPath.trabajadoresRegistro,
         loadChildren: () =>
-          import('./pages/beneficiarios-cargue/beneficiarios-cargue.module').then(
-            (m) => m.BeneficiariosCargueModule
+          import(
+            './pages/trabajadores-registro/trabajadores-registro.module'
+          ).then((m) => m.TrabajadoresRegistroModule),
+      },
+      {
+        path: routesPath.causantes,
+        loadChildren: () =>
+          import('./pages/causantes/causantes.module').then(
+            (m) => m.CausantesModule
           ),
+      },
+      {
+        path: routesPath.causantesRegistro,
+        loadChildren: () =>
+          import(
+            './pages/causantes-registro/causantes-registro.module'
+          ).then((m) => m.CausantesRegistroModule),
       },
       {
         path: routesPath.plantillas,
@@ -44,9 +58,7 @@ const routes: Routes = [
       {
         path: routesPath.envios,
         loadChildren: () =>
-          import('./pages/envios/envios.module').then(
-            (m) => m.EnviosModule
-          ),
+          import('./pages/envios/envios.module').then((m) => m.EnviosModule),
       },
     ],
   },

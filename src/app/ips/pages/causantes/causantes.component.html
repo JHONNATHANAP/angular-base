@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center p-4">
+  <div class="w-80">
+    <div>
+      <app-expansion-panel [properties]="panelAgregar">
+        <app-form-generic
+          #formTemplate
+          [properties]="formFiltros"
+        ></app-form-generic>
+      </app-expansion-panel>
+      <app-expansion-panel
+        *ngIf="filtrosSeleccionados.filtros.length > 0"
+        [properties]="panelAgregados"
+      >
+        <app-filtros-seleccionados
+          [properties]="filtrosSeleccionados"
+        ></app-filtros-seleccionados>
+      </app-expansion-panel>
+    </div>
+    <hr />
+    <div class="py-4">
+      <div class="w-100 fl-justify-between">
+        <div></div>
+        <div class="d-flex justify-content-center pb-3 row">
+          <div class="d-flex align-items-center justify-content-center col p-1">
+            <app-button
+              [properties]="view.buttons.exportar"
+              (clickEvent)="exportar()"
+            >
+              <div class="d-flex align-items-center">
+                <app-icon [properties]="view.icons.download"></app-icon>
+                Exportar
+              </div>
+            </app-button>
+          </div>
+          <div class="d-flex align-items-center justify-content-center col p-1">
+            <button
+              (click)="abrirFormularioCausante()"
+              class="primary-fill"
+              mat-icon-button
+              [title]="'Editar'"
+              [color]="'primary'"
+            >
+              <app-icon
+                mat-raised-button
+                [properties]="view.icons.add"
+              ></app-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <app-table class="py-4" [properties]="list"></app-table>
+    </div>
+  </div>
+</div>

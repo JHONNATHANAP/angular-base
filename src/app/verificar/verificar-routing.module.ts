@@ -12,10 +12,10 @@ const routes: Routes = [
           import('./pages/empresa/empresa.module').then((m) => m.EmpresaModule),
       },
       {
-        path: routesPath.beneficiario,
+        path: routesPath.trabajador,
         loadChildren: () =>
-          import('./pages/beneficiario/beneficiario.module').then(
-            (m) => m.BeneficiarioModule
+          import('./pages/trabajador/trabajador.module').then(
+            (m) => m.TrabajadorModule
           ),
       },
     ],
