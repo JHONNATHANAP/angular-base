@@ -100,7 +100,7 @@ export class TrabajadorComponent implements OnInit {
       headers: [
         { name: 'Nombre', id: 'name' },
         { name: 'Identificación', id: 'identificacion' },
-        { name: 'Marcar', id: 'marcar' },
+        { name: 'Tiene retención judicial', id: 'marcar' },
       ],
       data: fakeList,
       class: 'table align-middle table-striped table-hover',

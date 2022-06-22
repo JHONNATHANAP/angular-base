@@ -44,8 +44,13 @@ export class EmpresasComponent implements OnInit {
     public modalService: ModalService,
     public snackService: SnackBarService
   ) {
+    //this.modalService.openLoading();
+    setTimeout(() => {
+      //this.modalService.close();
+    }, 2000);
     this.modalService.closeEvent().subscribe((modalData: any) => {
       console.log(modalData.data);
+      if (!modalData?.data) return;
       this.snackService
         .new(
           new AppSnackBar({

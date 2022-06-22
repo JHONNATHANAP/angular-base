@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppModal } from '@src/shared/models/modal-model';
 import { Observable, Subject } from 'rxjs';
+import { ModalLoadingComponent } from './modal-loading/modal-loading.component';
 export type ModalType = AppModal;
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,10 @@ export class ModalService {
   private closeSubject = new Subject<any>();
   private changeSubject = new Subject<any>();
   private modal: ModalType;
+  private loading: ModalType;
   constructor(private dialog: MatDialog) {
     this.modal = new AppModal();
+    this.loading = new AppModal({ component: ModalLoadingComponent });
   }
   new(newModal: ModalType): ModalService {
     this.modal = newModal;
@@ -35,11 +38,15 @@ export class ModalService {
     });
     return this;
   }
-  close(data?:any) {
+  close(data?: any) {
     this.dialog.closeAll();
     this.closeSubject.next(this.modal);
   }
   closeEvent(): Observable<any> {
     return this.closeSubject.asObservable();
+  }
+  openLoading(): ModalService {
+    this.dialog.open(this.loading.component,{disableClose:true,panelClass:'modal-transparent'});
+    return this;
   }
 }

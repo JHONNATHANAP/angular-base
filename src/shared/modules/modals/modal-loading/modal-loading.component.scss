@@ -1,0 +1,10 @@
+.mat-dialog-container {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+:host-context(.mat-dialog-container) {
+  .mat-dialog-container {
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}

@@ -7,6 +7,13 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: routesPath.registro,
+        loadChildren: () =>
+          import('./pages/registro/registro.module').then(
+            (m) => m.RegistroModule
+          ),
+      },
+      {
         path: routesPath.empresas,
         loadChildren: () =>
           import('./pages/empresas/empresas.module').then(

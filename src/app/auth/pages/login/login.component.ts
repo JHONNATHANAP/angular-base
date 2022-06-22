@@ -63,7 +63,7 @@ export class LoginComponent {
       } else if (data.user === 'Empresa') {
         this.router.navigate(['/verificar/empresa']);
       } else if (data.user === 'Trabajador') {
-        this.router.navigate(['/verificar/beneficiario']);
+        this.router.navigate(['/verificar/trabajador']);
       } else {
         this.snackBarService
           .new(

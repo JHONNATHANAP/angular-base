@@ -9,4 +9,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [CommonModule, MatProgressSpinnerModule],
   exports: [LoadingComponent],
 })
-export class ButtonModule {}
+export class LoadingModule {}

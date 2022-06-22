@@ -11,5 +11,12 @@ export class LoadingComponent {
   @Input() properties: AppLoading;
   constructor() {
     this.properties = new AppLoading();
-  } 
+    setInterval(() => {
+      this.changeColor();
+    }, 400);
+  }
+  changeColor() {
+    this.properties.color =
+      this.properties.color === 'primary' ? 'accent' : 'primary';
+  }
 }
