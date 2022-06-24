@@ -9,6 +9,7 @@ import { IconModule } from '@src/shared/modules/icons';
 import { ModalAgregarBeneficiarioModule } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.module';
 import { ListModule } from '@src/shared/modules/lists';
 import { MatIconModule } from '@angular/material/icon';
+import { FormasDePagoModule } from '@app/verificar/components/formas-de-pago/formas-de-pago.module';
 
 @NgModule({
   declarations: [TrabajadorComponent],
@@ -22,7 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
     ModalAgregarBeneficiarioModule,
     ListModule,
     MatIconModule,
-    CheckboxModule
+    CheckboxModule,
+    FormasDePagoModule,
   ],
 })
 export class TrabajadorModule {}

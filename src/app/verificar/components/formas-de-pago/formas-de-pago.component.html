@@ -1,0 +1,23 @@
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="properties.value"
+>
+  <mat-radio-button
+    color="primary"
+    class="example-radio-button"
+    *ngFor="let cuenta of properties.cuentas"
+    [value]="cuenta.tipo.value"
+  >
+    {{ properties.label(cuenta) }}
+  </mat-radio-button>
+</mat-radio-group>
+<button
+  (click)="agregarCuenta()"
+  class="primary-fill"
+  mat-icon-button
+  [title]="'Agregar'"
+  [color]="'primary'"
+>
+  <app-icon mat-raised-button [properties]="view.icons.add"></app-icon>
+</button>

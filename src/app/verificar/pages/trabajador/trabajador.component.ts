@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
+import { AppFormasDePago } from '@app/models/formas-de-pago-model';
 import { faker } from '@faker-js/faker';
 import {
   AppButton,
@@ -27,6 +28,7 @@ export class TrabajadorComponent implements OnInit {
   defaultIcon: AppIcon = new AppIcon();
   defaultButton: AppButton = new AppButton();
   defaultCheckbox: AppInput = new AppInput({ type: 'checkbox' });
+  formasDePago: AppFormasDePago = new AppFormasDePago();
   beneficiario = {
     dv: {
       label: 'DV',
@@ -82,7 +84,44 @@ export class TrabajadorComponent implements OnInit {
   constructor(public modalService: ModalService) {}
   ngOnInit(): void {
     this.inicializarCargasFamiliares();
+    this.inicializarFormasDePago();
   }
+  inicializarFormasDePago() {
+    const fakeList = Array.from(Array(5).keys()).map((e, index) => {
+      const bancos = [
+        {
+          label: 'BANCO DE CHILE',
+          value: faker.datatype.number({ min: 10000 }),
+        },
+        {
+          label: 'BANCO INTERNACIONAL',
+          value: faker.datatype.number({ min: 10000 }),
+        },
+        { label: 'SCOTIABANK', value: faker.datatype.number({ min: 10000 }) },
+      ];
+      const tipos = [
+        {
+          label: 'Cuenta Corriente',
+          value: faker.datatype.number({ min: 10000 }),
+        },
+        { label: 'Ahorro Plazo', value: faker.datatype.number({ min: 10000 }) },
+        {
+          label: 'Cuenta de Ahorro',
+          value: faker.datatype.number({ min: 10000 }),
+        },
+      ];
+      return {
+        tipo: tipos[index % tipos.length],
+        banco: bancos[index % bancos.length],
+        numeroCuenta: faker.datatype.number({ min: 10000 }),
+      };
+    });
+    this.formasDePago.cuentas = [
+      { tipo: { label: 'Pago presencial', value: -1 } },
+      ...fakeList,
+    ];
+  }
+
   inicializarCargasFamiliares() {
     const actions: IAppListAction[] = [];
     const fakeList = Array.from(Array(3).keys()).map((e, index) => {
