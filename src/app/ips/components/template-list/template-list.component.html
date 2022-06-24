@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center p-4">
+  <div class="w-80">
+    <div>
+      <app-expansion-panel [properties]="panelAgregar">
+        <app-form-generic
+          #formTemplate
+          [properties]="properties.filtros.form"
+        ></app-form-generic>
+      </app-expansion-panel>
+      <app-expansion-panel
+        *ngIf="properties.filtros.seleccionados.filtros.length > 0"
+        [properties]="panelAgregados"
+      >
+        <app-filtros-seleccionados
+          [properties]="properties.filtros.seleccionados"
+        ></app-filtros-seleccionados>
+      </app-expansion-panel>
+    </div>
+    <hr />
+    <div class="py-4">
+      <div class="w-100 fl-justify-between">
+        <div></div>
+        <div class="d-flex justify-content-center pb-3 row">
+          <ng-container
+            *ngFor="let action of properties.actions"
+            [ngSwitch]="action"
+          >
+            <div
+              class="d-flex align-items-center justify-content-center col p-1"
+            >
+              <ng-template ngSwitchCase="campaña">
+                <app-button
+                  [properties]="view.buttons.exportar"
+                  (clickEvent)="enviarCorreo()"
+                >
+                  <div class="d-flex align-items-center">
+                    <app-icon [properties]="view.icons.email"></app-icon>
+                    Crear campaña
+                  </div>
+                </app-button>
+              </ng-template>
+              <ng-template ngSwitchCase="registrar">
+                <app-button
+                  appFilesUpload
+                  [title]="'Cargar empresas'"
+                  class="p-1"
+                  [properties]="view.buttons.exportar"
+                  (clickEvent)="exportar()"
+                >
+                  <div class="d-flex align-items-center">
+                    <app-icon [properties]="view.icons.upload"></app-icon>
+                    Registrar
+                  </div>
+                </app-button>
+              </ng-template>
+              <ng-template ngSwitchCase="exportar">
+                <app-button
+                  [properties]="view.buttons.exportar"
+                  (clickEvent)="exportar()"
+                >
+                  <div class="d-flex align-items-center">
+                    <app-icon [properties]="view.icons.download"></app-icon>
+                    Exportar
+                  </div>
+                </app-button>
+              </ng-template>
+              <ng-template ngSwitchCase="agregar">
+                <button
+                  (click)="abrirFormularioItem()"
+                  class="primary-fill"
+                  mat-icon-button
+                  [title]="'Agregar'"
+                  [color]="'primary'"
+                >
+                  <app-icon
+                    mat-raised-button
+                    [properties]="view.icons.add"
+                  ></app-icon>
+                </button>
+              </ng-template>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <app-table class="py-4" [properties]="properties.list"></app-table>
+    </div>
+  </div>
+</div>

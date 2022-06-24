@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AppTemplateList } from '@app/models/tamplate-list-model';
 import { faker } from '@faker-js/faker';
+import { viewConst } from '@src/const';
 import {
   AllControls,
   AppButton,
@@ -11,7 +13,9 @@ import {
   IAppListAction,
   sharedConts,
 } from '@src/shared';
+import { AppSnackBar } from '@src/shared/models/snack-bar-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
+import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
 import moment from 'moment';
 
 @Component({
@@ -20,29 +24,75 @@ import moment from 'moment';
   styleUrls: ['./empresas-registro.component.scss'],
 })
 export class EmpresasRegistroComponent  {
-  list: AppList;
-  form: AppFormGeneric;
-  controls: AllControls[];
-  view = {
-    buttons: {
-      cargar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-      exportar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-    },
-    icons: {
-      upload: new AppIcon({ class: 'upload' }),
-      download: new AppIcon({ class: 'download' }),
-      check: new AppIcon({ class: 'check' }),
-    },
-  };
-  constructor(modalService: ModalService) {
+  templateList: AppTemplateList = new AppTemplateList();
+  view = viewConst;
+
+  constructor(
+    public modalService: ModalService,
+    public snackService: SnackBarService
+  ) {
+    this.templateList.actions = ['registrar', 'exportar'];
+  }
+
+  ngOnInit(): void {
+    this.initView();
+  }
+  initView() {
+    this.inicializarFiltros();
+    this.inicializarTabla();
+    this.initListeners();
+  }
+  initListeners() {
+    this.templateList.filtros.form.submitEvent().subscribe((data) => {
+      console.log(data);
+      const count = faker.datatype.number({ min: 100 });
+      setTimeout(() => {
+        if (this.templateList.filtros.seleccionados.filtros.length === 0)
+          return;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].count = count;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].total = this.view.text.totalFiltroFormat
+          .replace('@count', String(count))
+          .replace('@itemLabel', String('empresas'));
+        this.templateList.filtros.seleccionados.total = `<p><h5 class="primary">${this.templateList.filtros.seleccionados.filtros
+          .map((e) => e.count)
+          .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
+      }, 500);
+    });
+    this.templateList.list.actionEvent().subscribe((data) => {
+      console.log(data);
+    });
+    this.templateList.actionsEvent().subscribe((data) => {
+      console.log(data);
+      switch (data.event) {
+        case 'newItem':
+          console.log(data.event);
+          break;
+        case 'selectPlantilla':
+          console.log(data);
+          break;
+        case 'exportar':
+          console.log(data);
+          break;
+        case 'saveItem':
+          console.log(data);
+          this.snackService
+            .new(
+              new AppSnackBar({
+                messaje: 'Se ha guardado con exito',
+                class: 'success',
+                duration: 2000,
+              })
+            )
+            .open();
+          break;
+      }
+    });
+  }
+  inicializarTabla() {
     const actions: IAppListAction[] = [
       {
         label: 'Editar',
@@ -71,7 +121,7 @@ export class EmpresasRegistroComponent  {
         actions: actions,
       };
     });
-    this.list = new AppList({
+    this.templateList.list = new AppList({
       headers: [
         { name: 'Nombre archivo', id: 'name' },
         { name: 'Fecha de cargue', id: 'date' },
@@ -81,10 +131,9 @@ export class EmpresasRegistroComponent  {
       class: 'table align-middle table-striped table-hover',
       actions: false,
     });
-    this.list.actionEvent().subscribe((data) => {
-      console.log(data);
-    });
-    this.controls = [
+  }
+  inicializarFiltros() {
+    const controls: AllControls[] = [
       {
         type: 'text',
         validators: [],
@@ -99,7 +148,6 @@ export class EmpresasRegistroComponent  {
         formControlName: 'dateInit',
         class: 'col-12 col-md-4',
         label: 'Fecha de cargue (Desde)',
-        value: faker.name.lastName(),
       },
       {
         type: 'date',
@@ -107,7 +155,6 @@ export class EmpresasRegistroComponent  {
         formControlName: 'dateEnd',
         class: 'col-12 col-md-4',
         label: 'Fecha de cargue (Hasta)',
-        value: faker.name.lastName(),
       },
       {
         type: 'select',
@@ -122,8 +169,8 @@ export class EmpresasRegistroComponent  {
         ],
       },
     ];
-    this.form = new AppFormGeneric({
-      controls: this.controls,
+    this.templateList.filtros.form = new AppFormGeneric({
+      controls: controls,
       updateOn: 'change',
       clean: new AppFormButton({
         label: 'Limpiar',
@@ -134,19 +181,13 @@ export class EmpresasRegistroComponent  {
         framework: 'material',
       }),
       submit: new AppFormButton({
-        label: 'Filtrar',
+        label: 'Agregar',
         show: true,
-        type: 'button',
+        type: 'submit',
         class: 'btn ',
         color: 'primary',
         framework: 'material',
       }),
     });
   }
-  onFilesChanged(event) {
-    console.log(event);
-  }
-  exportar() {}
-  aprobarTodos() {}
-  aprobarRegistro() {}
 }

@@ -25,6 +25,9 @@ import { ModalLoadingModule } from './modal-loading/modal-loading.module';
     },
     ModalService,
   ],
-  exports: [ModalModule],
+  exports: [ModalModule, ModalFormModule,
+    ModalLoadingModule,
+    FileUploadModule,
+    MatDialogModule,],
 })
 export class ModalsModule {}

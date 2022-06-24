@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { ModalAgregarBeneficiarioComponent } from '@app/ips/components/modal-agregar-beneficiario/modal-agregar-beneficiario.component';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
-import { AppFiltrosSeleccionados } from '@app/models';
+import { AppTemplateList } from '@app/models/tamplate-list-model';
 import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
   AllControls,
   AppAutocompleteItems,
-  AppAutoCompleteOption,
   AppFormButton,
   AppFormGeneric,
-  AppInput,
   AppList,
   AppListActionType,
   AppModal,
   IAppListAction,
 } from '@src/shared';
-import { AppExpansionPanel } from '@src/shared/models/expansion-panel-model';
 import { AppSnackBar } from '@src/shared/models/snack-bar-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
@@ -27,37 +24,12 @@ import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
   styleUrls: ['./trabajadores.component.scss'],
 })
 export class TrabajadoresComponent {
-  list: AppList = new AppList();
-  panelAgregar: AppExpansionPanel = new AppExpansionPanel({
-    title: viewConst.text.agregarFiltros,
-    class: 'my-2',
-  });
-  panelAgregados: AppExpansionPanel = new AppExpansionPanel({
-    title: viewConst.text.filtrosAgregados,
-    class: 'my-2',
-  });
-  formFiltros: AppFormGeneric = new AppFormGeneric();
-  formEmpresa: AppFormGeneric = new AppFormGeneric();
+  templateList: AppTemplateList = new AppTemplateList();
   view = viewConst;
-  itemsAutoComplete: AppAutoCompleteOption[] = [];
-  filtrosSeleccionados: AppFiltrosSeleccionados = new AppFiltrosSeleccionados();
   constructor(
     public modalService: ModalService,
     public snackService: SnackBarService
-  ) {
-    this.modalService.closeEvent().subscribe((modalData: any) => {
-      console.log(modalData.data);
-      this.snackService
-        .new(
-          new AppSnackBar({
-            messaje: 'Se ha guardado con exito',
-            class: 'success',
-            duration: 2000,
-          })
-        )
-        .open();
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initView();
@@ -65,6 +37,64 @@ export class TrabajadoresComponent {
   initView() {
     this.inicializarFiltros();
     this.inicializarTabla();
+    this.initListeners();
+  }
+  initListeners() {
+    this.templateList.filtros.form.submitEvent().subscribe((data) => {
+      console.log(data);
+      const count = faker.datatype.number({ min: 100 });
+      setTimeout(() => {
+        if (this.templateList.filtros.seleccionados.filtros.length === 0)
+          return;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].count = count;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].total = this.view.text.totalFiltroFormat
+          .replace('@count', String(count))
+          .replace('@itemLabel', String('empresas'));
+        this.templateList.filtros.seleccionados.total = `<p><h5 class="primary">${this.templateList.filtros.seleccionados.filtros
+          .map((e) => e.count)
+          .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
+      }, 500);
+    });
+    this.templateList.list.actionEvent().subscribe((data) => {
+      console.log(data);
+      switch (data.event.name) {
+        case 'edit':
+          console.log(data.event);
+          this.abrirFormularioItem({});
+          break;
+      }
+    });
+    this.templateList.actionsEvent().subscribe((data) => {
+      console.log(data);
+      switch (data.event) {
+        case 'newItem':
+          console.log(data.event);
+          this.abrirFormularioItem();
+          break;
+        case 'selectPlantilla':
+          console.log(data);
+          break;
+        case 'exportar':
+          console.log(data);
+          break;
+        case 'saveItem':
+          console.log(data);
+          this.snackService
+            .new(
+              new AppSnackBar({
+                messaje: 'Se ha guardado con exito',
+                class: 'success',
+                duration: 2000,
+              })
+            )
+            .open();
+          break;
+      }
+    });
   }
   fakeNomina() {
     return Array.from(Array(5).keys()).map((e, index) => {
@@ -111,38 +141,6 @@ export class TrabajadoresComponent {
     ];
   }
 
-  mapearFIltros() {
-    return this.formFiltros.controls
-      .map((control) => {
-        const title = control.label;
-        let value = control.value;
-        let label: string = '';
-        switch (typeof control.value) {
-          case 'object':
-            if (Array.isArray(control.value)) {
-              label = control.value
-                .map((e) => {
-                  return e.label;
-                })
-                .toString();
-            } else {
-              label = control.value?.label;
-            }
-            break;
-          default:
-            label = String(control.value);
-        }
-        return {
-          title: title,
-          value: value,
-          label: label,
-          typeof: typeof control.value,
-        };
-      })
-      .filter((data) => {
-        return data.label && data.label !== '';
-      });
-  }
   inicializarTabla(): void {
     const actions: IAppListAction[] = [
       {
@@ -182,7 +180,7 @@ export class TrabajadoresComponent {
         actions: actions,
       };
     });
-    this.list = new AppList({
+    this.templateList.list = new AppList({
       headers: [
         { name: 'Nombre', id: 'nombre' },
         { name: 'RUT', id: 'rut' },
@@ -194,102 +192,20 @@ export class TrabajadoresComponent {
       class: 'table align-middle table-striped table-hover',
       actions: true,
     });
-    this.list.actionEvent().subscribe((data) => {
-      console.log(data);
-
-      this.abrirFormularioEmpresa({});
-    });
   }
-  abrirFormularioEmpresa(data?: any) {
+  abrirFormularioItem(data?: any) {
     this.modalService
       .new(
         new AppModal({
-          title: data ? 'Editar beneficiario' : 'Nuevo beneficiario',
-          data: this.formEmpresa,
+          title: data ? 'Editar trabajador' : 'Nuevo trabajador',
+          data: this.templateList.item.form,
+          id: 'newItem',
           component: ModalAgregarBeneficiarioComponent,
         })
       )
       .open();
   }
-  onFilesChanged(event) {
-    console.log(event);
-  }
-  exportar() {}
-  aprobarTodos() {}
-  aprobarRegistro() {}
-  enviarCorreo() {
-    const searchForm = new AppFormGeneric({
-      controls: [
-        {
-          type: 'text',
-          formControlName: 'search',
-          label: 'Buscar plantilla',
-          class: 'col-12',
-          validators: [],
-          value: faker.lorem.word(),
-        },
-      ],
-      updateOn: 'change',
-      class: 'p-1 w-100',
-      clean: new AppFormButton({
-        show: false,
-      }),
-      submit: new AppFormButton({
-        show: false,
-      }),
-    });
-    searchForm.changeEvent().subscribe((data) => {
-      console.log(searchForm.controls[0].value);
-    });
-    const actions: IAppListAction[] = [
-      {
-        label: 'Seleccionar',
-        name: 'select',
-        type: 'icon',
-        icon: { class: 'check', type: 'button' },
-        button: {
-          data: '',
-          framework: 'material',
-          color: '',
-        },
-      },
-    ];
-    const fakeList = Array.from(Array(10).keys()).map((e, index) => {
-      const types: AppListActionType[] = ['icon', 'button', 'text'];
-      const typ = types[index % types.length];
 
-      return {
-        plantilla: faker.lorem.word(),
-        descripcion: faker.lorem.sentence(),
-        actions: actions,
-      };
-    });
-    const list = new AppList({
-      headers: [
-        { name: 'Nombre plantilla', id: 'plantilla' },
-        { name: 'Descripción', id: 'descripcion' },
-      ],
-      data: fakeList,
-      class: 'table align-middle table-striped table-hover',
-      actions: true,
-    });
-    list.actionEvent().subscribe((data) => {
-      console.log(data);
-    });
-    const modald = this.modalService
-      .new(
-        new AppModal({
-          title: 'Seleccionar plantilla',
-          data: { form: searchForm, list: list },
-          component: ModalSelectComponent,
-        })
-      )
-      .open()
-      .closeEvent()
-      .subscribe((data) => {
-        console.log(data);
-      });
-  }
   inicializarFiltros(): void {
     const autoNomina = new AppAutocompleteItems(this.fakeNomina());
     autoNomina.onSearch().subscribe((data) => {
@@ -398,7 +314,7 @@ export class TrabajadoresComponent {
         label: 'Datos confirmados',
       },
     ];
-    this.formFiltros = new AppFormGeneric({
+    this.templateList.filtros.form = new AppFormGeneric({
       controls: controls,
       updateOn: 'change',
       clean: new AppFormButton({
@@ -417,35 +333,6 @@ export class TrabajadoresComponent {
         color: 'primary',
         framework: 'material',
       }),
-    });
-    this.formFiltros.submitEvent().subscribe((data) => {
-      console.log(data, this.formFiltros);
-      const filtros = this.mapearFIltros();
-      if (filtros.length === 0) {
-        this.snackService
-          .new(
-            new AppSnackBar({
-              messaje: 'Debe ingresar al menos un filtro',
-              class: 'secondary',
-              duration: 3000,
-            })
-          )
-          .open();
-        return;
-      }
-      const count = faker.datatype.number({ min: 100 });
-      this.filtrosSeleccionados.filtros.push({
-        filtros: filtros,
-        check: new AppInput({ value: true, type: 'checkbox' }),
-        total: this.view.text.totalFiltroFormat
-          .replace('@count', String(count))
-          .replace('@itemLabel', String('beneficiarios')),
-        count: count,
-      });
-      this.filtrosSeleccionados.total = `<p><h5 class="primary">${this.filtrosSeleccionados.filtros
-        .map((e) => e.count)
-        .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
-      this.formFiltros.cleanForm();
     });
   }
 }

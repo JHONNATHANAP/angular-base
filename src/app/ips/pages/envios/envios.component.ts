@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ModalSelectComponent } from '@app/ips/components/modal-select/modal-select.component';
+import { AppTemplateList } from '@app/models/tamplate-list-model';
 import { faker } from '@faker-js/faker';
+import { viewConst } from '@src/const';
 import {
   AllControls,
   AppButton,
@@ -13,7 +15,9 @@ import {
   IAppListAction,
   sharedConts,
 } from '@src/shared';
+import { AppSnackBar } from '@src/shared/models/snack-bar-model';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
+import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
 import moment from 'moment';
 
 @Component({
@@ -22,30 +26,80 @@ import moment from 'moment';
   styleUrls: ['./envios.component.scss'],
 })
 export class EnviosComponent {
-  list: AppList;
-  form: AppFormGeneric;
-  controls: AllControls[];
-  view = {
-    buttons: {
-      cargar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-      exportar: new AppButton({
-        color: 'primary',
-        framework: 'material',
-        class: 'btn',
-      }),
-    },
-    icons: {
-      upload: new AppIcon({ class: 'upload' }),
-      download: new AppIcon({ class: 'download' }),
-      check: new AppIcon({ class: 'check' }),
-      email: new AppIcon({ class: 'email' }),
-    },
-  };
-  constructor(public modalService: ModalService) {
+  templateList: AppTemplateList = new AppTemplateList();
+  view = viewConst;
+  constructor(
+    public modalService: ModalService,
+    public snackService: SnackBarService
+  ) {
+    this.templateList.actions = ['campaña', 'exportar'];
+  }
+
+  ngOnInit(): void {
+    this.initView();
+  }
+  initView() {
+    this.inicializarFiltros();
+    this.inicializarTabla();
+    this.initListeners();
+  }
+  initListeners() {
+    this.templateList.filtros.form.submitEvent().subscribe((data) => {
+      console.log(data);
+      const count = faker.datatype.number({ min: 100 });
+      setTimeout(() => {
+        if (this.templateList.filtros.seleccionados.filtros.length === 0)
+          return;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].count = count;
+        this.templateList.filtros.seleccionados.filtros[
+          this.templateList.filtros.seleccionados.filtros.length - 1
+        ].total = this.view.text.totalFiltroFormat
+          .replace('@count', String(count))
+          .replace('@itemLabel', String('empresas'));
+        this.templateList.filtros.seleccionados.total = `<p><h5 class="primary">${this.templateList.filtros.seleccionados.filtros
+          .map((e) => e.count)
+          .reduce((accumulator, curr) => accumulator + curr)}</h5></p>`;
+      }, 500);
+    });
+    this.templateList.list.actionEvent().subscribe((data) => {
+      console.log(data);
+      switch (data.event.name) {
+        case 'edit':
+          console.log(data.event);
+          break;
+      }
+    });
+    this.templateList.actionsEvent().subscribe((data) => {
+      console.log(data);
+      switch (data.event) {
+        case 'newItem':
+          console.log(data.event);
+          break;
+        case 'selectPlantilla':
+          console.log(data);
+          break;
+        case 'exportar':
+          console.log(data);
+          break;
+        case 'saveItem':
+          console.log(data);
+          this.snackService
+            .new(
+              new AppSnackBar({
+                messaje: 'Se ha guardado con exito',
+                class: 'success',
+                duration: 2000,
+              })
+            )
+            .open();
+          break;
+      }
+    });
+  }
+
+  inicializarTabla() {
     const actions: IAppListAction[] = [
       {
         label: 'Editar',
@@ -80,7 +134,7 @@ export class EnviosComponent {
         actions: actions,
       };
     });
-    this.list = new AppList({
+    this.templateList.list = new AppList({
       headers: [
         { name: 'Plantilla', id: 'plantilla' },
         { name: 'Nombre del contacto', id: 'nombre' },
@@ -94,17 +148,15 @@ export class EnviosComponent {
       class: 'table align-middle table-striped table-hover',
       actions: false,
     });
-    this.list.actionEvent().subscribe((data) => {
-      console.log(data);
-    });
-    this.controls = [
+  }
+  inicializarFiltros() {
+    const controls: AllControls[] = [
       {
         type: 'text',
         validators: [],
         formControlName: 'name',
         class: 'col-12 col-md-4',
         label: 'Nombre plantilla',
-        value: faker.lorem.word(),
       },
       {
         type: 'text',
@@ -112,7 +164,6 @@ export class EnviosComponent {
         formControlName: 'name',
         class: 'col-12 col-md-4',
         label: 'Nombre contacto',
-        value: faker.name.findName(),
       },
       {
         type: 'text',
@@ -120,7 +171,6 @@ export class EnviosComponent {
         formControlName: 'name',
         class: 'col-12 col-md-4',
         label: 'Nombre empresa',
-        value: faker.company.companyName(),
       },
       {
         type: 'date',
@@ -128,7 +178,6 @@ export class EnviosComponent {
         formControlName: 'dateInit',
         class: 'col-12 col-md-4',
         label: 'Fecha de envío (Desde)',
-        value: faker.name.lastName(),
       },
       {
         type: 'date',
@@ -136,7 +185,6 @@ export class EnviosComponent {
         formControlName: 'dateEnd',
         class: 'col-12 col-md-4',
         label: 'Fecha de envío (Hasta)',
-        value: faker.name.lastName(),
       },
       {
         type: 'select',
@@ -144,15 +192,14 @@ export class EnviosComponent {
         formControlName: 'status',
         class: 'col-12 col-md-4',
         label: 'Estado',
-        value: { id: 1 },
         options: [
           { value: { id: 1 }, label: 'Leido' },
           { value: { id: 2 }, label: 'Fallido' },
         ],
       },
     ];
-    this.form = new AppFormGeneric({
-      controls: this.controls,
+    this.templateList.filtros.form = new AppFormGeneric({
+      controls: controls,
       updateOn: 'change',
       clean: new AppFormButton({
         label: 'Limpiar',
@@ -163,92 +210,13 @@ export class EnviosComponent {
         framework: 'material',
       }),
       submit: new AppFormButton({
-        label: 'Filtrar',
+        label: 'Agregar',
         show: true,
-        type: 'button',
+        type: 'submit',
         class: 'btn ',
         color: 'primary',
         framework: 'material',
       }),
     });
-  }
-  onFilesChanged(event) {
-    console.log(event);
-  }
-  exportar() {}
-  aprobarTodos() {}
-  aprobarRegistro() {}
-  enviarCorreo() {
-    const searchForm = new AppFormGeneric({
-      controls: [
-        {
-          type: 'text',
-          formControlName: 'search',
-          label: 'Buscar plantilla',
-          class: 'col-12',
-          validators: [],
-          value: faker.lorem.word(),
-        },
-      ],
-      updateOn: 'change',
-      class: 'p-1 w-100',
-      clean: new AppFormButton({
-        show: false,
-      }),
-      submit: new AppFormButton({
-        show: false,
-      }),
-    });
-    searchForm.changeEvent().subscribe((data) => {
-      console.log(searchForm.controls[0].value);
-    });
-    const actions: IAppListAction[] = [
-      {
-        label: 'Seleccionar',
-        name: 'select',
-        type: 'icon',
-        icon: { class: 'check', type: 'button' },
-        button: {
-          data: '',
-          framework: 'material',
-          color: '',
-        },
-      },
-    ];
-    const fakeList = Array.from(Array(10).keys()).map((e, index) => {
-      const types: AppListActionType[] = ['icon', 'button', 'text'];
-      const typ = types[index % types.length];
-
-      return {
-        plantilla: faker.lorem.word(),
-        descripcion: faker.lorem.sentence(),
-        actions: actions,
-      };
-    });
-    const list = new AppList({
-      headers: [
-        { name: 'Nombre plantilla', id: 'plantilla' },
-        { name: 'Descripción', id: 'descripcion' },
-      ],
-      data: fakeList,
-      class: 'table align-middle table-striped table-hover',
-      actions: true,
-    });
-    list.actionEvent().subscribe((data) => {
-      console.log(data);
-    });
-    const modald = this.modalService
-      .new(
-        new AppModal({
-          title: 'Seleccionar plantilla',
-          data: { form: searchForm, list: list },
-          component: ModalSelectComponent,
-        })
-      )
-      .open()
-      .closeEvent()
-      .subscribe((data) => {
-        console.log(data);
-      });
   }
 }

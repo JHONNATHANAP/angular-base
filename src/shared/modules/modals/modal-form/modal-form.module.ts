@@ -9,7 +9,7 @@ import { ModalFormComponent } from './modal-form.component';
 @NgModule({
   declarations: [ModalFormComponent],
   imports: [CommonModule, ModalModule, FormGenericModule],
-  exports: [ModalFormComponent],
+  exports: [ModalFormComponent,FormGenericModule],
   providers: [
     ModalService,
     {

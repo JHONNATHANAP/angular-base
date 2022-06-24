@@ -12,6 +12,7 @@ export interface IAppModal {
   data?: any;
   html?: string;
   templateBody?: TemplateRef<any>;
+  id?: string;
 }
 export class AppModal implements IAppModal {
   title?: string;
@@ -22,6 +23,7 @@ export class AppModal implements IAppModal {
   data?: any;
   templateBody!: TemplateRef<any>;
   full?: boolean = false;
+  id?: string;
   private closeSubject = new Subject<any>();
   private changeSubject = new Subject<any>();
   constructor(entity?: IAppModal) {

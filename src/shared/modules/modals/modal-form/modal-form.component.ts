@@ -26,15 +26,16 @@ export class ModalFormComponent {
   ) {
     this.properties = data;
     this.properties.data.cancelEvent().subscribe((e) => {
-      this.closeModal(e);
+      this.properties.close(this.properties.data);
     });
-    this.properties.data.submitEvent().subscribe((e) => {
-      this.closeModal(e);
+    this.properties.data.submitEvent().subscribe((e) => {   
+      if (!this.properties.data.isValid()) return;
+      this.properties.close(this.properties.data);
     });
   }
 
   closeModal(data) {
-    this.dialogRef.close(data);
+    this.properties.close(this.properties.data);
   }
 
   click(event: any): void {

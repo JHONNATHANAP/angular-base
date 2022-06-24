@@ -5,14 +5,7 @@ import { routesPath } from '@src/const';
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: routesPath.registro,
-        loadChildren: () =>
-          import('./pages/registro/registro.module').then(
-            (m) => m.RegistroModule
-          ),
-      },
+    children: [     
       {
         path: routesPath.empresas,
         loadChildren: () =>

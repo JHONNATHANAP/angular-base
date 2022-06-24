@@ -32,7 +32,6 @@ export class ModalAgregarEmpresaComponent implements OnInit {
   templateBody!: TemplateRef<any>;
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppModal) {
     this.properties = data;
-    console.log(this.properties, data);
     if (data?.data.formEmpresa) {
       this.formEmpresa.form = data.data.formEmpresa;
     }
@@ -235,13 +234,11 @@ export class ModalAgregarEmpresaComponent implements OnInit {
     this.closeEvent.emit();
   }
   submitEvent() {
-    console.log(this.formEmpresa, this.formRepresentante);
     if (this.formEmpresa.valid && this.formRepresentante) {
       const value = {
         empresa: this.formEmpresa.form.value,
         representante: this.formRepresentante.form.value,
       };
-      console.log(value);
       this.properties.close(value);
     }
   }

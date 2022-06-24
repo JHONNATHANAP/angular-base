@@ -24,45 +24,6 @@ export const routesPath = {
 };
 export const views = [
   {
-    title: 'Registro',
-    path: `/${routesPath.ips}/${routesPath.registro}`,
-    view: routesPath.registro,
-  },
-  {
-    title: 'Empresas',
-    path: `/${routesPath.ips}/${routesPath.empresas}`,
-    view: routesPath.empresas,
-  },
-  {
-    title: 'Trabajadores',
-    path: `/${routesPath.ips}/${routesPath.trabajadores}`,
-    view: routesPath.trabajadores,
-  },
-  {
-    title: 'Causantes',
-    path: `/${routesPath.ips}/${routesPath.causantes}`,
-    view: routesPath.causantes,
-  },
-  {
-    title: 'Mailing',
-    path: `/${routesPath.ips}/${routesPath.plantillas}`,
-    view: routesPath.plantillas,
-    children: [
-      {
-        title: 'Plantillas',
-        path: `/${routesPath.ips}/${routesPath.plantillas}`,
-        view: routesPath.plantillas,
-      },
-      {
-        title: 'Envios',
-        path: `/${routesPath.ips}/${routesPath.envios}`,
-        view: routesPath.envios,
-      },
-    ],
-  },
-];
-/* export const views = [
-  {
     title: 'Empresas',
     path: `/${routesPath.ips}/${routesPath.empresas}`,
     view: routesPath.empresas,
@@ -130,7 +91,7 @@ export const views = [
       },
     ],
   },
-]; */
+];
 
 export const viewConst = {
   buttons: {

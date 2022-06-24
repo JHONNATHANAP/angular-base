@@ -296,7 +296,7 @@ export class AppFormGeneric implements IAppFormGeneric {
   }
 
   submitForm(): void {
-    if (!this.valid) {
+    if (!this.isValid()) {
       markFormGroupTouched(this.form);
     } else {
       this.sub.next(this.form.value);
