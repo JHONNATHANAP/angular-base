@@ -124,7 +124,7 @@ export class TrabajadoresRegistroComponent {
     this.templateList.list = new AppList({
       headers: [
         { name: 'Nombre archivo', id: 'name' },
-        { name: 'Fecha de cargue', id: 'date' },
+        { name: 'Fecha de registro', id: 'date' },
         { name: 'Estado', id: 'status' },
       ],
       data: fakeList,
@@ -147,14 +147,14 @@ export class TrabajadoresRegistroComponent {
         validators: [],
         formControlName: 'dateInit',
         class: 'col-12 col-md-4',
-        label: 'Fecha de cargue (Desde)',
+        label: 'Fecha de registro (Desde)',
       },
       {
         type: 'date',
         validators: [],
         formControlName: 'dateEnd',
         class: 'col-12 col-md-4',
-        label: 'Fecha de cargue (Hasta)',
+        label: 'Fecha de registro (Hasta)',
       },
       {
         type: 'select',
