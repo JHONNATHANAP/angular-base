@@ -47,7 +47,7 @@
       <hr class="primary-dark" style="height: 2px; opacity: 0.7" />
       <div>
         <div class="py-4">
-          <app-formas-de-pago [properties]="formasDePago" ></app-formas-de-pago>
+          <app-formas-de-pago [properties]="formasDePago"></app-formas-de-pago>
         </div>
       </div>
     </div>
@@ -69,6 +69,7 @@
               <td>
                 <span class="d-flex justify-content-center">
                   <app-checkbox
+                    (changeEvent)="checkChange($event, item)"
                     [properties]="itemCheckBox(item['marcar'])"
                   ></app-checkbox>
                 </span>
