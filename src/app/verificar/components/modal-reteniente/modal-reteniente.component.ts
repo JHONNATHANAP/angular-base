@@ -100,31 +100,54 @@ export class ModalRetenienteComponent implements OnInit {
     this.formCuenta = new AppFormGeneric({
       controls: [
         {
-          type: 'text',
+          type: 'select',
           validators: [Validators.required],
-          formControlName: 'nombre',
+          formControlName: 'tipo',
           class: 'col-12 col-md-6',
-          label: 'Nombre',
-          value: faker.name.findName(),
-        },
-        {
-          type: 'number',
-          validators: [Validators.required],
-          formControlName: 'identificacion',
-          class: 'col-12 col-md-6',
-          label: 'Identificación',
-          value: faker.datatype.number({ min: 100000 }),
+          label: 'Tipo de cuenta',
+          options: [
+            {
+              label: 'Cuenta Corriente',
+              value: faker.datatype.number({ min: 10000 }),
+            },
+            {
+              label: 'Ahorro Plazo',
+              value: faker.datatype.number({ min: 10000 }),
+            },
+            {
+              label: 'Cuenta de Ahorro',
+              value: faker.datatype.number({ min: 10000 }),
+            },
+          ],
         },
         {
           type: 'select',
           validators: [Validators.required],
-          formControlName: 'marcado',
+          formControlName: 'banco',
           class: 'col-12 col-md-6',
-          label: 'Marcado',
+          label: 'Banco',
           options: [
-            { label: 'Si', value: 0 },
-            { label: 'No', value: 1 },
+            {
+              label: 'BANCO DE CHILE',
+              value: faker.datatype.number({ min: 10000 }),
+            },
+            {
+              label: 'BANCO INTERNACIONAL',
+              value: faker.datatype.number({ min: 10000 }),
+            },
+            {
+              label: 'SCOTIABANK',
+              value: faker.datatype.number({ min: 10000 }),
+            },
           ],
+        },
+        {
+          type: 'number',
+          validators: [Validators.required],
+          formControlName: 'numero',
+          class: 'col-12 col-md-6',
+          label: 'Numero de cuenta',
+          value: faker.datatype.number({ min: 100000 }),
         },
       ],
       updateOn: 'change',
