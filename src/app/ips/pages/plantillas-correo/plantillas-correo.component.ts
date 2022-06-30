@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ModalAgregarPlantillaComponent } from '@app/ips/components/modal-agregar-plantilla/modal-agregar-plantilla.component';
+import { ModalLogsComponent } from '@app/ips/components/modal-logs/modal-logs.component';
 import { AppTemplateList } from '@app/models/tamplate-list-model';
 import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
   AllControls,
-  AppButton,
   AppFormButton,
   AppFormGeneric,
-  AppIcon,
   AppList,
   AppListActionType,
   AppModal,
@@ -17,7 +16,6 @@ import {
   sharedConts,
 } from '@src/shared';
 import { AppSnackBar } from '@src/shared/models/snack-bar-model';
-import { ModalFormComponent } from '@src/shared/modules/modals/modal-form/modal-form.component';
 import { ModalService } from '@src/shared/modules/modals/modal.service';
 import { SnackBarService } from '@src/shared/modules/snack-bar/snack.service';
 import moment from 'moment';
@@ -71,6 +69,18 @@ export class PlantillasCorreoComponent {
         case 'edit':
           console.log(data.event);
           this.openEditModal('Editar plantilla');
+          break;
+        case 'logs':
+          this.modalService
+            .new(
+              new AppModal({
+                title: 'Logs del registro',
+                id: 'newItem',
+                data: data,
+                component: ModalLogsComponent,
+              })
+            )
+            .open();
           break;
       }
     });
@@ -181,6 +191,17 @@ export class PlantillasCorreoComponent {
         name: 'download',
         type: 'icon',
         icon: { class: 'download', type: 'button' },
+        button: {
+          data: '',
+          framework: 'material',
+          color: '',
+        },
+      },
+      {
+        label: 'Ver Logs',
+        name: 'logs',
+        type: 'icon',
+        icon: { class: 'visibility', type: 'button' },
         button: {
           data: '',
           framework: 'material',

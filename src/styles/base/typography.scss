@@ -9,6 +9,7 @@ strong,
 hr {
   &.primary {
     color: $primary;
+    opacity: 1;
   }
   &.secondary {
     color: $secondary;

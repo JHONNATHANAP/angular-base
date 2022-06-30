@@ -1,0 +1,18 @@
+<app-modal [properties]="properties" class="modal-agregar-plantilla">
+  <div class="row">
+    <div class="col">
+      <h2 class="py-1 primary-dark">Nombre de archivo</h2>
+      <hr />
+      {{ properties?.data?.item?.name }}
+    </div>
+    <div class="col">
+      <h2 class="py-1 primary-dark">Fecha de registro</h2>
+      <hr />
+      {{ properties?.data?.item?.date }}
+    </div>
+  </div>
+  <div class="col-12 py-4">
+    <hr class="primary" />
+    <app-table class="py-4" [properties]="logs"></app-table>
+  </div>
+</app-modal>

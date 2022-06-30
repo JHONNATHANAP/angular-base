@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalLogsComponent } from '@app/ips/components/modal-logs/modal-logs.component';
 import { AppTemplateList } from '@app/models/tamplate-list-model';
 import { faker } from '@faker-js/faker';
 import { viewConst } from '@src/const';
 import {
   AllControls,
-  AppButton,
   AppFormButton,
   AppFormGeneric,
-  AppIcon,
   AppList,
   AppListActionType,
+  AppModal,
   IAppListAction,
   sharedConts,
 } from '@src/shared';
@@ -23,7 +23,7 @@ import moment from 'moment';
   templateUrl: './empresas-registro.component.html',
   styleUrls: ['./empresas-registro.component.scss'],
 })
-export class EmpresasRegistroComponent  {
+export class EmpresasRegistroComponent {
   templateList: AppTemplateList = new AppTemplateList();
   view = viewConst;
 
@@ -64,6 +64,18 @@ export class EmpresasRegistroComponent  {
     });
     this.templateList.list.actionEvent().subscribe((data) => {
       console.log(data);
+      if (data.event.name === 'logs') {
+        this.modalService
+          .new(
+            new AppModal({
+              title: 'Logs del registro',
+              id: 'newItem',
+              data: data,
+              component: ModalLogsComponent,
+            })
+          )
+          .open();
+      }
     });
     this.templateList.actionsEvent().subscribe((data) => {
       console.log(data);
@@ -95,10 +107,10 @@ export class EmpresasRegistroComponent  {
   inicializarTabla() {
     const actions: IAppListAction[] = [
       {
-        label: 'Editar',
-        name: 'edit',
+        label: 'Ver Logs',
+        name: 'logs',
         type: 'icon',
-        icon: { class: 'edit', type: 'button' },
+        icon: { class: 'visibility', type: 'button' },
         button: {
           data: '',
           framework: 'material',
@@ -129,7 +141,7 @@ export class EmpresasRegistroComponent  {
       ],
       data: fakeList,
       class: 'table align-middle table-striped table-hover',
-      actions: false,
+      actions: true,
     });
   }
   inicializarFiltros() {
